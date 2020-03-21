@@ -2,15 +2,7 @@
 
 include ("db/db_config.php");
 
-// GET CURRENT ROUND
 
-$current_round = 0;
-
-$round_qry = "SELECT roundnumber from current_round";
-$round_res = mysqli_query($conn, $round_qry);
-
-$round_res = mysqli_fetch_row($round_res);
-$current_round = $round_res[0];
 
 
 
@@ -26,41 +18,59 @@ $current_round = $round_res[0];
 </head>
 <body>
 <div class="container">
-<form class="form-horizontal">
 
 
 <div class="row">
-  <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
-<h3><em>Now with 100% less human contact</em></h3></div>
-
-
-
+	  <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
+	<h3><em>Now with 100% less human contact</em></h3></div>
 </div> <!-- / header row -->
-
-<?php if ($current_round == 0) { ?>
-
-<div class="row">
-<div class="alert alert-info" role="alert">
-  <a href="#" class="alert-link">The quiz hasn't started yet, click here to register a new team!</a>
-</div>
-
-
-<p class="lead">Teams registered so far: </p>
+<hr>
+<h4>Register a new team!</h4>
+<p>Fill in your details below:</p>
 <ul>
-	<li>test 1</li>
-	<li>test 2</li>
-	<li>test tickles</li>
+	<li>Teams can have up to 4 members</li>
+	<li>It's best if you nominate a captain to fill in the answer sheets</li>
 </ul>
-
-<a href="index.php">Refresh</a>
-
-
-<?php } //end if round 0 ?>
+<hr>
 
 
+<form class="form-horizontal">
+  <div class="form-group">
+    <label for="team_name" class="col-sm-2 control-label">Team Name</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="team_name" placeholder="The General's Knowledge">
+    </div>
+  </div>
+  <div class="form-group">
+    <label for="names" class="col-sm-2 control-label">Team Members</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="member1" placeholder="Team Member #1">
+      <input type="text" class="form-control" id="member2" placeholder="Team Member #2">
+      <input type="text" class="form-control" id="member3" placeholder="Team Member #3">
+      <input type="text" class="form-control" id="member4" placeholder="Team Member #4">
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label for="team_name" class="col-sm-2 control-label">Team Secret</label>
+    <div class="col-sm-10">
+      <input type="text" class="form-control" id="team_name" placeholder="I have the high ground">
+          <span id="helpBlock" class="help-block">This is a secret that you'll need to submit with your answers for each round. Nice try fraudsters.</span>
+
+    </div>
+  </div>
 
 
-</form> <!-- this whole thing was a form?!  -->
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sign up!</button>
+    </div>
+  </div>
+</form>
+
+
+
 </div> <!-- /container -->
 </body>
 </html>
