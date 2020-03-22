@@ -92,14 +92,11 @@ include ("db/db_config.php");
   		<td><input type="text" class="form-control" id="ans10" name="ans10" placeholder="Answer 10"></td>
   	</tr>
 
-
-
-
+  	</table>
+  <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$current_round.'"'; ?>> 
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign up!</button>
+      <button type="submit" class="btn btn-default">Submit</button>
     </div>
   </div>
 </form>
-
-  	</table>
