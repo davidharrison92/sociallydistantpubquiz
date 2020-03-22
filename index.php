@@ -31,6 +31,7 @@ include("db/get_teams.php");
   <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
 <h3><em>Now with 100% less human contact</em></h3></div>
 
+<div class="col-xs-12 col-md-4 pull-right"><a href="about.html" target="_blank">Help / Privacy / About</a></div>
 
 
 </div> <!-- / header row -->
@@ -39,7 +40,7 @@ include("db/get_teams.php");
 
 <div class="row">
 <div class="alert alert-info" role="alert">
-  <a href="#" class="alert-link">The quiz hasn't started yet, click here to register a new team!</a>
+  <a href="newteam.php" class="alert-link">The quiz hasn't started yet, click here to register a new team!</a>
 </div>
 
 

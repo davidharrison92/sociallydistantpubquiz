@@ -145,7 +145,10 @@ if ($error == 0){
   <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
 <h3><em>Now with 100% less human contact</em></h3></div>
 
+<div class="col-xs-12 col-md-4 pull-right"><a href="about.html" target="_blank">Help / Privacy / About</a></div>
 
+
+</div> <!-- / header row -->
 
 </div> <!-- / header row -->
 <?php if ($error == 0) {
