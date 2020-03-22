@@ -32,23 +32,23 @@ include ("db/db_config.php");
   <div class="form-group">
     <label for="team_name" class="col-sm-2 control-label">Team Name</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="team_name" placeholder="The General's Knowledge">
+      <input type="text" class="form-control" id="team_name" name="team_name" placeholder="The General's Knowledge">
     </div>
   </div>
   <div class="form-group">
     <label for="names" class="col-sm-2 control-label">Team Members</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="member1" placeholder="Team Member #1">
-      <input type="text" class="form-control" id="member2" placeholder="Team Member #2">
-      <input type="text" class="form-control" id="member3" placeholder="Team Member #3">
-      <input type="text" class="form-control" id="member4" placeholder="Team Member #4">
+      <input type="text" class="form-control" id="member1" name="member1" placeholder="Team Member #1">
+      <input type="text" class="form-control" id="member2" name="member2" placeholder="Team Member #2">
+      <input type="text" class="form-control" id="member3" name="member3" placeholder="Team Member #3">
+      <input type="text" class="form-control" id="member4" name="member4" placeholder="Team Member #4">
     </div>
   </div>
 
   <div class="form-group">
     <label for="team_secret" class="col-sm-2 control-label">Team Secret</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="team_secret" placeholder="I have the high ground">
+      <input type="text" class="form-control" name="team_secret" id="team_secret" placeholder="I have the high ground">
           <span id="helpBlock" class="help-block">This is a secret that you'll need to submit with your answers for each round. Nice try fraudsters.</span>
           
     </div>
