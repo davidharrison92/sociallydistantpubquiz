@@ -6,14 +6,31 @@ include ("db/db_config.php");
 
 $current_round = 0;
 
-$round_qry = "SELECT roundnumber from current_round";
+$round_qry = "SELECT roundnumber, round_label from current_round";
 $round_res = mysqli_query($conn, $round_qry);
 
 $round_res = mysqli_fetch_row($round_res);
 $current_round = $round_res[0];
+$round_name = $round_res[1];
 
 
 
+
+// GET List of teams
+$teams_list = array();
+
+
+$teams_qry = "SELECT team_name, team_id from teams";
+
+
+    $result = mysqli_query($conn,$teams_qry);
+
+    $rows = array();
+
+    while($row = $result->fetch_assoc()){
+        $teams_list[] = $row;
+
+    };
 
 
 ?>
@@ -26,7 +43,6 @@ $current_round = $round_res[0];
 </head>
 <body>
 <div class="container">
-<form class="form-horizontal">
 
 
 <div class="row">
@@ -46,21 +62,22 @@ $current_round = $round_res[0];
 
 
 <p class="lead">Teams registered so far: </p>
-<ul>
-	<li>test 1</li>
-	<li>test 2</li>
-	<li>test tickles</li>
+<?php foreach($teams_list as $team){
+	echo "<li>".$team["team_name"]."</li>";
+}
+	?>
 </ul>
 
 <a href="index.php">Refresh</a>
 
 
-<?php } //end if round 0 ?>
+<?php } else {
+	include("answersheet.php");
+	}//end if round 0 ?>
 
 
 
 
-</form> <!-- this whole thing was a form?!  -->
 </div> <!-- /container -->
 </body>
 </html>

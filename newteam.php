@@ -56,7 +56,7 @@ include ("db/db_config.php");
     <div class="col-sm-10">
       <input type="text" class="form-control" id="team_name" placeholder="I have the high ground">
           <span id="helpBlock" class="help-block">This is a secret that you'll need to submit with your answers for each round. Nice try fraudsters.</span>
-
+          
     </div>
   </div>
 
