@@ -4,7 +4,7 @@ include("db/db_config.php");
 
 // clean the results
 
-
+var_dump($_POST);
 if ( empty($_POST) ) {
 
   $error = true;
@@ -38,7 +38,26 @@ if ( empty($_POST) ) {
 
 // TODO: CHECK SECRET AND TEAM ID
 
-var_dump($answers);
+ //CHECK THE TEAM FOR VALIDITY
+$name_query = "SELECT COUNT(*) as 'Count' from teams where team_id = '$teamID' and secret = '$teamsecret'";
+$check = $conn->query($name_query);
+$check = $check->fetch_assoc();
+        
+
+if (($check["Count"] * 1) >= 1) {
+$team_secret_pass = 1;
+
+} else {
+  //new (allowable) teamname
+	$team_secret_pass = 0;
+}
+
+print $team_secret_pass;
+
+//var_dump($answers);
+
+$field_template = 	'<td><input type="text" class="form-control" id="ansQQQ" name="ansQQQ" placeholder="Answer QQQ" value="ZZZ"></td>'
+
 
 ?>
 
@@ -60,7 +79,39 @@ var_dump($answers);
 </div>
 <hr>
 
-<p class="lead"> Thanks for submitting your answers...</p>
+<?php if ($team_secret_pass == 1) {
+echo '<div class="alert alert-success"> Thanks for submitting your answers...</div>';
+} else {
+include("db/get_teams.php"); // this will fetch the team names, as it does on the homepage.
+
+	?>
+<div class="alert alert-danger">Your team secret was incorrect, please try again!</div>
+<form class="form-inline" method="POST" action="submitanswers.php">
+	
+	<div class="form-inline">
+		
+	<div class="form-group">
+		<label for="teamname">Pick Team</label>
+		<select class="form-control" id="teamname" name="teamID">
+	<?php foreach($teams_list as $team){
+		echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
+	} ?>
+
+		</select>
+	</div>
+
+	<div class="form-group">
+		<label for="teamsecret">Team Secret</label>
+    <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh">
+	</div>
+
+	 <!-- end team name/secret row -->
+
+
+<?php
+
+} //header - team_secret_pass check
+?>
 
 
 <table class="table table-striped">
@@ -72,9 +123,10 @@ var_dump($answers);
 $question_number = 1;
 foreach ($answers as $ans){
 
-echo "<td>". $question_number."</td> <td>";
-	// Does it exist?
+echo "<td>". $question_number."</td>";
 
+if ($team_secret_pass == 1) {
+echo "<td> Submitted: ";
 	$check_exists_qry = "SELECT COUNT(*) as 'Count' from submitted_answers where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID'";
             $exists = $conn->query($check_exists_qry);
            $exists = $exists->fetch_assoc();
@@ -98,6 +150,21 @@ echo "<td>". $question_number."</td> <td>";
     }
 	// spew it back out into a table
 
+$ans_query = "";
+
+} else {
+	// this code runs if the team secret is NOT matched. Allow retry.
+
+$retry_field = str_replace("QQQ", $question_number, $field_template);
+$retry_field = str_replace("ZZZ", $ans, $retry_field);
+echo $retry_field;
+
+
+
+
+}
+
+
 $question_number++;
 echo "</tr>";
 }
@@ -105,6 +172,24 @@ echo "</tr>";
 ?>
 
 </table>
+
+<?php if ($team_secret_pass == 0) {
+// close off the form elements
+	?>
+
+	  <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$round.'"'; ?>> 
+  
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Submit</button>
+    </div>
+  </div>
+
+
+<?php
+}
+
+?>
 
 
 
