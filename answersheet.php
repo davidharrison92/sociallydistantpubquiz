@@ -10,7 +10,7 @@ include ("db/db_config.php");
 		
 	<div class="form-group">
 		<label for="teamname">Pick Team</label>
-		<select class="form-control" id="teamname">
+		<select class="form-control" id="teamname" name="teamID">
 	<?php foreach($teams_list as $team){
 		echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
 	} ?>
@@ -20,7 +20,7 @@ include ("db/db_config.php");
 
 	<div class="form-group">
 		<label for="teamsecret">Team Secret</label>
-    <input type="text" class="form-control" id="teamsecret" placeholder="Ssssh">
+    <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh">
 	</div>
 
 	</div> <!-- end team name/secret row -->
@@ -94,5 +94,12 @@ include ("db/db_config.php");
 
 
 
+
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+      <button type="submit" class="btn btn-default">Sign up!</button>
+    </div>
+  </div>
+</form>
 
   	</table>
