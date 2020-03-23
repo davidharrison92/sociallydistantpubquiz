@@ -52,13 +52,25 @@ include("db/get_teams.php");
 </ul>
 
 <a href="index.php">Refresh</a>
+</div> <!-- end row for game start -->
+<?php } ?>
 
 
-<?php }
-//always show answers
-	include("answersheet.php");
+<div class="col-xs-12 col-md-9">
+	<?php
+		include("answersheet.php");
 	?>
+</div>
 
+<div class="col-xs-12 col-md-3">
+	<h5>Leaderboard</h5>
+	<table class="table table-condensed table-hover">
+	<tr>
+		<td><strong>Team</strong></td>
+		<td><strong>Score</strong></td>
+	</tr>
+	<?php include("db/build_leaderboard.php"); ?>
+</table>
 
 
 

@@ -9,7 +9,7 @@ include ("db/db_config.php");
 	<div class="form-inline">
 		
 	<div class="form-group">
-		<label for="teamname">Pick Team</label>
+		<label for="teamname">Team Name</label>
 		<select class="form-control" id="teamname" name="teamID">
 	<?php foreach($teams_list as $team){
 		echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
@@ -94,6 +94,7 @@ include ("db/db_config.php");
 
   	</table>
   <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$current_round.'"'; ?>> 
+
   <div class="form-group">
     <div class="col-sm-offset-2 col-sm-10">
       <button type="submit" class="btn btn-default">Submit</button>
