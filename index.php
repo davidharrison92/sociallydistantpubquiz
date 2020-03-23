@@ -30,7 +30,7 @@ include("db/get_teams.php");
 </script>
 
 
-	
+
     <title>Socially Distant Pub Quiz</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -75,7 +75,7 @@ include("db/get_teams.php");
 </div>
 
 <div class="col-xs-12 col-md-3">
-	<h5>Leaderboard</h5>
+	<h4>Leaderboard</h4>
 	<table class="table table-condensed table-hover">
 	<tr>
 		<td><strong>Team</strong></td>

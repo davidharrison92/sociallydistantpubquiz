@@ -4,7 +4,7 @@ include("db/db_config.php");
 // this just spits out a table.
 
 $lbq = "select 
-	t.team_name, sum(s.Score) as 'Score'
+	t.team_name, sum(s.Score) as 'Score', t.person1, t.person2, t.person3, t.person4
 	FROM teams t
 	JOIN team_round_scores s on s.teamID = t.team_id
 	GROUP by team_name, t.team_id
@@ -17,13 +17,31 @@ while($row = $result->fetch_assoc()){
 	$leaderboard[] = $row;
 };
 
+//var_dump($leaderboard);
 
 
 foreach($leaderboard as $lb){
+
+	$teammembers = $lb["person1"];
+	if (strlen($lb["person2"])>1){
+		$teammembers = $teammembers . ", ". $lb["person2"];
+	}
+
+	if (strlen($lb["person3"])>1){
+		$teammembers = $teammembers . ", ". $lb["person3"];
+	}
+
+	if (strlen($lb["person4"])>1){
+		$teammembers = $teammembers . ", ". $lb["person4"];
+	}
+
 	?>
 
 <tr>
-	<td><?php echo $lb["team_name"];?></td>
+	<td><p><?php echo $lb["team_name"];?><p>
+		<p class="small"><?php echo $teammembers; ?> </p>
+
+	</td>
 	<td><?php echo $lb["Score"];?> </td>
 </tr>
 
