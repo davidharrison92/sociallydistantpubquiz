@@ -4,6 +4,7 @@ include ("db/db_config.php");
 
 // save marked answers first. 
 $error = -1;
+$errormsg = "";
 if ( !empty($_POST) ) {
 
 //var_dump($_POST);
@@ -90,10 +91,13 @@ $teams_qry = "select distinct s.team_id, t.team_name, s.round_number from submit
 	
 		echo '<div class="alert alert-success">Successfully saved score</div>';
 	
-	} elseif ($error = 1) {
+	} elseif ($error == 1) {
 		echo '<div class="alert alert-danger">'.$errormsg.'</div>';
 	}
 
+if (count($to_mark_teams_list) == 0){
+	echo "Nothing to mark!";
+}
 
 // for each of the teamIDs:
 
@@ -103,8 +107,6 @@ foreach ($to_mark_teams_list as $teamdata){
 
 
 $answers_query = "SELECT question_number, answer FROM submitted_answers where team_id = '" .$teamdata["team_id"] . "' and round_number = '" . $teamdata["round_number"] . "' ";
-
-
 
     $result = mysqli_query($conn,$answers_query);
 
@@ -164,12 +166,6 @@ $answers_query = "SELECT question_number, answer FROM submitted_answers where te
 
 ?>
 
-
-// new tab
-
-	// print out answers in a table (as before)
-
-	//form elements: Score for round X: [ /10] + Submit Button + password.
 
 
 
