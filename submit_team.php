@@ -13,7 +13,7 @@ if ( empty($_POST) ) {
   $error = true;
   $error_reason[] = "Please enter the details on the form below";
 
-  echo "nothing set";
+ // echo "nothing set";
 
 } else {
   //POST is set.
