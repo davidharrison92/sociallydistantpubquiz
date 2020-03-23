@@ -24,11 +24,24 @@ include ("db/db_config.php");
 <div class="container">
 
 
-<div class="row">
-  <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
-<h3><em>Now with 100% less human contact</em></h3></div>
 
-<div class="col-xs-12 col-md-4 pull-right"><a href="about.html" target="_blank">Help / Privacy / About</a></div>
+<div class="row">
+
+  <div class="col-xs-12 col-md-7">
+<a href="index.php"><img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 250px; max-width: 250px;"></a>
+
+  	<h1>Socially Distant Pub Quiz</h1>
+<h4>Now with 100% less human contact</h4>
+<a href="about.html" target="_blank">Help / Privacy / About</a>
+
+</div>
+
+<div class="col-xs-12 col-md-5 pull-right">
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VaTc67UOFH4?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+</div>
 
 
 </div> <!-- / header row -->

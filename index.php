@@ -42,10 +42,10 @@ include("db/get_teams.php");
 <div class="row">
 
   <div class="col-xs-12 col-md-7">
-<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 310px; max-width: 310px;">
+<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 250px; max-width: 250px;">
 
   	<h1>Socially Distant Pub Quiz</h1>
-<h3><em>Now with 100% less human contact</em></h3>
+<h4>Now with 100% less human contact</h4>
 <a href="about.html" target="_blank">Help / Privacy / About</a>
 
 </div>
