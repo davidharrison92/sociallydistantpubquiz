@@ -133,6 +133,17 @@ if ($error == 0){
 
 <html>
 <head>
+
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-161589071-1');
+</script>
+
     <title>Socially Distant Pub Quiz</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -145,10 +156,7 @@ if ($error == 0){
   <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
 <h3><em>Now with 100% less human contact</em></h3></div>
 
-<div class="col-xs-12 col-md-4 pull-right"><a href="about.html" target="_blank">Help / Privacy / About</a></div>
 
-
-</div> <!-- / header row -->
 
 </div> <!-- / header row -->
 <?php if ($error == 0) {
