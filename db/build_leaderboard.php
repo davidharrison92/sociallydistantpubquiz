@@ -4,9 +4,9 @@ include("db/db_config.php");
 // this just spits out a table.
 
 $lbq = "select 
-	t.team_name, sum(s.Score) as 'Score', t.person1, t.person2, t.person3, t.person4
+	t.team_name, sum(ifnull(s.Score,0)) as 'Score', t.person1, t.person2, t.person3, t.person4
 	FROM teams t
-	JOIN team_round_scores s on s.teamID = t.team_id
+	LEFT JOIN team_round_scores s on s.teamID = t.team_id
 	GROUP by team_name, t.team_id
 	ORDER BY sum(s.Score) desc" ;
 
@@ -38,8 +38,8 @@ foreach($leaderboard as $lb){
 	?>
 
 <tr>
-	<td><p><?php echo $lb["team_name"];?><p>
-		<p class="small"><?php echo $teammembers; ?> </p>
+	<td><p><strong><?php echo $lb["team_name"];?></strong>
+		<span class="small"><?php echo $teammembers; ?></span> </p>
 
 	</td>
 	<td><?php echo $lb["Score"];?> </td>

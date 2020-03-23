@@ -40,14 +40,26 @@ include("db/get_teams.php");
 
 
 <div class="row">
-  <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
-<h3><em>Now with 100% less human contact</em></h3></div>
 
-<div class="col-xs-12 col-md-4 pull-right"><a href="about.html" target="_blank">Help / Privacy / About</a></div>
+  <div class="col-xs-12 col-md-7">
+<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 310px; max-width: 310px;">
+
+  	<h1>Socially Distant Pub Quiz</h1>
+<h3><em>Now with 100% less human contact</em></h3>
+<a href="about.html" target="_blank">Help / Privacy / About</a>
+
+</div>
+
+<div class="col-xs-12 col-md-5 pull-right">
+
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VaTc67UOFH4?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+</div>
 
 
 </div> <!-- / header row -->
-
+<hr>
 <?php if ($current_round < 2) { ?>
 
 <div class="row">
@@ -99,4 +111,8 @@ include("db/get_teams.php");
 </div> <!-- /container -->
 </body>
 </html>
+
+<?php 
+	mysqli_close($conn);
+?>
 
