@@ -68,12 +68,20 @@ include("db/get_teams.php");
 <?php } ?>
 
 
+<?php if ($current_round > 0) {
+	?>
 <div class="col-xs-12 col-md-9">
 	<?php
 		include("answersheet.php");
 	?>
 </div>
 
+<?php 
+} // suppress answer sheet before game starts
+
+
+ if ($current_round > 1) {
+	?>
 <div class="col-xs-12 col-md-3">
 	<h4>Leaderboard</h4>
 	<table class="table table-condensed table-hover">
@@ -83,7 +91,9 @@ include("db/get_teams.php");
 	</tr>
 	<?php include("db/build_leaderboard.php"); ?>
 </table>
-
+<?php 
+} // suppress leaderboard when not in play
+?>
 
 
 </div> <!-- /container -->
