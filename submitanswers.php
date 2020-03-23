@@ -83,8 +83,11 @@ $field_template = 	'<td><input type="text" class="form-control" id="ansQQQ" name
   <div class="col-xs-12 col-md-8"><h1>Socially Distant Pub Quiz</h1>
 <h3><em>Now with 100% less human contact</em></h3></div>
 
+<div class="col-xs-12 col-md-4 pull-right"><a href="index.php">Back to Answer Sheet</a></div>
 
-</div>
+
+</div> <!-- / header row -->
+
 <hr>
 
 <?php if ($team_secret_pass == 1) {

@@ -38,7 +38,7 @@ if ( empty($_POST) ) {
            
            if (($team_result["Count"] * 1) >= 1) {
               $error = 1;
-              $error_reason[] = "There's already a team called" .$team_name;
+              $error_reason[] = "There's already a team called " .$team_name;
               $valid_teamname = 0;
 
            } else {
@@ -85,12 +85,12 @@ if ($error == 0){
   //generate an ID
   $team_ID = uniqid();
 
-  echo $team_ID;
+ // echo $team_ID;
 
   $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1) "; 
   $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1');" ;
 
-  echo $initial_insert;
+  //echo $initial_insert;
 
   if (mysqli_query($conn,$initial_insert)) {
     // successful first insert.
@@ -105,10 +105,16 @@ if ($error == 0){
         if (strlen($tm_4 > 0)) {
           $additional_members_query = $additional_members_query. " , person4 = $tm_4";
         }
+
       }
+        
+
+    $additional_members_query = $additional_members_query. " where team_id = '$team_ID';";
 
 
 
+
+    //echo $additional_members_query;
 
 
       // here's where we run it
