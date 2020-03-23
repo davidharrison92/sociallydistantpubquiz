@@ -36,7 +36,7 @@ include("db/get_teams.php");
 
 </div> <!-- / header row -->
 
-<?php if ($current_round == 0) { ?>
+<?php if ($current_round < 2) { ?>
 
 <div class="row">
 <div class="alert alert-info" role="alert">
@@ -54,9 +54,10 @@ include("db/get_teams.php");
 <a href="index.php">Refresh</a>
 
 
-<?php } else {
+<?php }
+//always show answers
 	include("answersheet.php");
-	}//end if round 0 ?>
+	?>
 
 
 
