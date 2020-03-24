@@ -21,8 +21,11 @@ if ( empty($_POST) ) {
   //clean_values
     $team_name = mysqli_real_escape_string($conn,$_POST["team_name"]);
     $tm_1 = mysqli_real_escape_string($conn,$_POST["member1"]);
+
     $tm_2 = mysqli_real_escape_string($conn,$_POST["member2"]);
+    
     $tm_3 = mysqli_real_escape_string($conn,$_POST["member3"]);
+    
     $tm_4 = mysqli_real_escape_string($conn,$_POST["member4"]);
 
     $team_secret = mysqli_real_escape_string($conn,$_POST["team_secret"]);
@@ -96,14 +99,15 @@ if ($error == 0){
     // successful first insert.
 
     if(strlen($tm_2) >0 ){
-      $additional_members_query = "UPDATE teams set person2 = '$tm_2'";
+      $additional_members_query = "UPDATE teams set person2 = '$tm_2' ";
 
-      if (strlen($tm_3 >0) ){
-        $additional_members_query = $additional_members_query . " , person3 = '$tm_3'";
+      if (strlen($tm_3) > 0) {
+        $additional_members_query = $additional_members_query . " , person3 = '$tm_3' ";
+        print '3';
 
 
-        if (strlen($tm_4 > 0)) {
-          $additional_members_query = $additional_members_query. " , person4 = $tm_4";
+        if (strlen($tm_4 )> 0) {
+          $additional_members_query = $additional_members_query. " , person4 = '$tm_4' ";
         }
 
       }
@@ -172,7 +176,7 @@ if ($error == 0){
 
 <div class="col-xs-12 col-md-5 pull-right">
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VaTc67UOFH4?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wsHIzzmJEkY?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 </div>

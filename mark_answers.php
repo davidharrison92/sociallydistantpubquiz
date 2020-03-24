@@ -53,7 +53,7 @@ $to_mark_teams_list = array();
 
 $teams_qry = "select distinct s.team_id, t.team_name, s.round_number from submitted_answers s
 	JOIN teams t on s.team_id = t.team_id
-	LEFT JOIN team_round_scores r on r.teamID = s.team_id
+	LEFT JOIN team_round_scores r on r.teamID = s.team_id  and r.Round = s.round_number
 	WHERE r.score IS NULL;";
 
 

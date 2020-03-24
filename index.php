@@ -52,7 +52,7 @@ include("db/get_teams.php");
 
 <div class="col-xs-12 col-md-5 pull-right">
 
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/VaTc67UOFH4?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wsHIzzmJEkY?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 </div>
