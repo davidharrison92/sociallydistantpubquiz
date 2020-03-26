@@ -2,6 +2,16 @@
 
 include ("db/db_config.php");
 
+
+
+$round_qry = "SELECT show_video, allow_signup, youtubeID from current_round";
+$round_res = mysqli_query($conn, $round_qry);
+
+$round_res = mysqli_fetch_row($round_res);
+$show_video = $round_res[0];
+$allow_signup = $round_res[1];
+$ytID = $round_res[2];
+
 ?>
 
 <html>
@@ -37,20 +47,38 @@ include ("db/db_config.php");
 </div>
 
 <div class="col-xs-12 col-md-5 pull-right">
-
-<iframe width="560" height="315" src="https://www.youtube-nocookie.com/embed/wsHIzzmJEkY?controls=0&autoplay=1" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-
+<?php if ($show_video == 1) {
+  ?>
+<iframe width="560" height="315" <?php echo 'src="https://www.youtube-nocookie.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<?php
+} // end show vid
+?>
 </div>
 
-
 </div> <!-- / header row -->
+
 <hr>
+
 <h4>Register a new team!</h4>
+
+<?php if($allow_signup == 0) { 
+    //signup forbidden
+  ?>
+
+<div class="alert alert-danger"><p class="lead">Too slow!</p>
+  <p>We're already underway, and aren't accepting any new entries into the quiz at this time. We hope we see you for the next one!</p>
+  <a class="btn btn-warning btn-sm" href="index.php" role="button">Back to main page</a>
+
+
+<?php 
+} else {
+  //signups allowed
+?>
+
 <p>Fill in your details below:</p>
 <ul>
-	<li>Teams can have up to 4 members</li>
-	<li>It's best if you nominate a captain to fill in the answer sheets</li>
+  <li>Teams can have up to 4 members</li>
+  <li>It's best if you nominate a captain to fill in the answer sheets</li>
 </ul>
 <hr>
 
@@ -67,6 +95,8 @@ include ("db/db_config.php");
         <div class="col-sm-10">
       <input type="email" class="form-control" id="email" placeholder="Email">
           <p class="help-block">We'll let you know before the quiz starts. We will not spam you or share this. <a href="about.html" target="_blank">More info</a></p>
+          <input type="checkbox"><strong> I'm happy for you to include me in the live video</strong> (you'll need to provide us with a GMail address)
+
       </div>
   </div>
   <div class="form-group">
@@ -96,6 +126,10 @@ include ("db/db_config.php");
     </div>
   </div>
 </form>
+
+<?php }
+?>
+
 
 
 
