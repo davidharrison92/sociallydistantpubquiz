@@ -44,13 +44,16 @@ include("db/get_teams.php");
 
 <div class="row">
 
-  <div class="col-xs-12 col-md-7">
-<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 250px; max-width: 250px;">
+  <div class="col-xs-12 col-md-5">
+<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 200px; max-width: 200px;">
 
-  	<h1>Staging - Socially Distant Pub Quiz</h1>
+<h1>Socially Distant Pub Quiz</h1>
+
 <h4>Now with 100% less human contact</h4>
-<a href="about.html" target="_blank">Help / Privacy / About</a>
-
+<span class="pull-left"><a href="about.html" target="_blank">How to Play</a></span>
+<span class="pull-right">
+	Tweet us: <a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a>, <a href="https://twitter.com/ElectricBloo" target="_blank">@Lighty</a>, <a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a>    
+</span>
 </div>
 
 <div class="col-xs-12 col-md-5 pull-right">

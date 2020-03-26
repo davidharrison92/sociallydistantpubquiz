@@ -2,7 +2,6 @@
 
 include ("db/db_config.php");
 
-//var_dump($_POST);
 
 $error = false;
 $error_reason = array();
@@ -39,7 +38,9 @@ if ( empty($_POST) ) {
     }
 
 
-    if ($livestream !== 1) {
+    if ($livestream == "1") {
+      $livestream = 1;
+    } else {
       $livestream = 0;
     }
 
@@ -114,6 +115,7 @@ if ($error == 0){
 
   $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant) "; 
   $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream);" ;
+
 
 
   if (mysqli_query($conn,$initial_insert)) {
