@@ -30,6 +30,19 @@ if ( empty($_POST) ) {
 
     $team_secret = mysqli_real_escape_string($conn,$_POST["team_secret"]);
 
+    $team_email = mysqli_real_escape_string($conn,$_POST["team_email"]);
+
+    if (isset($_POST["livestream"])) {
+     $livestream = mysqli_real_escape_string($conn,$_POST["livestream"]);
+    } else {
+      $livestream = 0;
+    }
+
+
+    if ($livestream !== 1) {
+      $livestream = 0;
+    }
+
 // VALIDATE TEAM NAME
 
        if (strlen($team_name) > 0) {
@@ -55,6 +68,15 @@ if ( empty($_POST) ) {
           $error_reason[] = "You must choose a team name";
        } // end check team
 
+
+// VALIDATE Email
+
+       if (strlen($team_email) < 5){
+        $error = 1;
+        $error_reason[] = "You must provide an email address";
+       } else {
+        $valid_email = 1;
+       }
 
 // VALIDATE THAT THERE'S A SECRET
 
@@ -90,10 +112,9 @@ if ($error == 0){
 
  // echo $team_ID;
 
-  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1) "; 
-  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1');" ;
+  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant) "; 
+  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream);" ;
 
-  //echo $initial_insert;
 
   if (mysqli_query($conn,$initial_insert)) {
     // successful first insert.
@@ -189,9 +210,10 @@ if ($error == 0){
 <div class="row">
 
 <div class="alert alert-success">
-  <p class="lead">Thanks, team <?php echo $team_name; ?></p>
-  <p>Your team has been entered into the next quiz. <a href="index.php">Click here to go back to the main page</a></p>
+  <p class="lead"><strong>Thanks, team <?php echo $team_name; ?></strong></p>
+  <p>Your team has been entered into the next quiz.</p>
   <p>Good luck!</p>
+  <p><a class="btn btn-success btn-lg" href="index.php" role="button">Main Page</a></p>
 </div>
 
 </div>
