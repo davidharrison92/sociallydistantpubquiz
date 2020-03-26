@@ -63,6 +63,13 @@ include ("db/db_config.php");
     </div>
   </div>
   <div class="form-group">
+    <label for="email"class="col-sm-2 control-label">Email address</label>
+        <div class="col-sm-10">
+      <input type="email" class="form-control" id="email" placeholder="Email">
+          <p class="help-block">We'll let you know before the quiz starts. We will not spam you or share this. <a href="about.html" target="_blank">More info</a></p>
+      </div>
+  </div>
+  <div class="form-group">
     <label for="names" class="col-sm-2 control-label">Team Members</label>
     <div class="col-sm-10">
       <input type="text" class="form-control" id="member1" name="member1" placeholder="Team Member #1">
