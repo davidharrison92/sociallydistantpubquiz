@@ -66,7 +66,7 @@ include("db/get_teams.php");
 
 </div> <!-- / header row -->
 <hr>
-<?php if ($allow_signup == 1) { 
+<?php if ($allow_signup == 1 and $current_round > 0) { 
 ?>
 <div class="row">
 <div class="alert alert-info" role="alert">
