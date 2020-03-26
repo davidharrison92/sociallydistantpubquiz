@@ -30,12 +30,35 @@
 </ul>
 
 <h3>Does this cost money? / Can I donate?</h3>  
-<p>Yes it does. Servers cost money to run!</p>
-<p>Donations are welcome here: <a href="paypal.me/daveharrison92">paypal.me/daveharrison92</a>, and we'll be eternally grateful</p>. One day we might even be able to give out prizes.</p>
+<p>Yes it does. Servers cost money to run! Currently it costs us around £20 per quiz in domain, database and hosting fees. Our time is given freely.</p>
+<p>You're completely welcome to donate! One day we might even be able to give out prizes.</p>
+<form action="https://www.paypal.com/cgi-bin/webscr" method="post">
+
+    <!-- Identify your business so that you can collect the payments. -->
+    <input type="hidden" name="business"
+        value="david.harrison1992@googlemail.com">
+
+    <!-- Specify a Donate button. -->
+    <input type="hidden" name="cmd" value="_donations">
+
+    <!-- Specify details about the contribution -->
+    <input type="hidden" name="item_name" value="Pub Quiz donation">
+    <input type="hidden" name="item_number" value="We are eternally grateful.">
+    <input type="hidden" name="amount" value="5.00">
+    <input type="hidden" name="currency_code" value="GBP">
+
+    <!-- Display the payment button. -->
+    <input type="image" name="submit"
+    src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png"
+    alt="Buy me beer">
+    <img alt="" width="1" height="1"
+    src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+
+</form>
 
 <h3>It's broken!!!!</h3>
 <p>This was built in a hurry! It's all a bit of an experiment. Sorry!</p>
-<p>For technical questions - speak to <a href="https://twitter.com/davidharrison92">Dave (on Twitter)</a>.</p>
+<p>For technical questions - speak to <a href="https://twitter.com/davidharrison92">Dave (@davidharrison92 on Twitter)</a>.</p>
 
 <hr>
 
@@ -44,15 +67,17 @@
 <p>We collect the data you provide to us:</p>
 <ul>
 	<li>Any names entered</li>
+	<li>An email address per team</li>
 	<li>Your answers</li>
 </ul>
-<p>We also use Google Analytics. We do not allow Google to use this information for remarketing, or cross site tracking. This data is retained for a maximum of 14 months.</p>
+<p>We use Google Analytics to measure website use and performance. We do not allow Google to use this information for remarketing, or cross site tracking. This data is retained for a maximum of 14 months.</p>
 <p>The data we collect is in compliance with EU GDPR laws. <strong>We will never sell or share your data with third parties</strong></p>
 
 <h4>Who owns this?</h4>
+<p>Credit goes to the following:</p>
 <p><ul>
-		<li>Website Designed, built and copywrite David Harrison, 2020</li>
-		<li>The <a href="thepanickedshopper_full_res.jpg">Pub Sign image</a> was created by Mark Christian (<a href="https://twitter.com/volgriff">@volgriff</a>)</li>
+		<li><strong><a href="https://twitter.com/davidharrison92">David Harrison</a></strong> designed, built and maintained this website.</li>
+		<li><strong><a href="https://twitter.com/volgriff">Mark Christian</a></strong> created the magnificent <a href="thepanickedshopper_full_res.jpg">Pub Sign image</a>.</li>
 		<li>Website style and layout by <a href="https://getbootstrap.com/docs/3.3">Bootstrap</a>, used under license <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></li>
 
 </div>

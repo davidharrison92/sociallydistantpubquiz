@@ -30,6 +30,19 @@ if ( empty($_POST) ) {
 
     $team_secret = mysqli_real_escape_string($conn,$_POST["team_secret"]);
 
+    $team_email = mysqli_real_escape_string($conn,$_POST["team_email"]);
+
+    if (isset($_POST["livestream"])) {
+     $livestream = mysqli_real_escape_string($conn,$_POST["livestream"]);
+    } else {
+      $livestream = 0;
+    }
+
+
+    if ($livestream !== 1) {
+      $livestream = 0;
+    }
+
 // VALIDATE TEAM NAME
 
        if (strlen($team_name) > 0) {
@@ -55,6 +68,15 @@ if ( empty($_POST) ) {
           $error_reason[] = "You must choose a team name";
        } // end check team
 
+
+// VALIDATE Email
+
+       if (strlen($team_email) < 5){
+        $error = 1;
+        $error_reason[] = "You must provide an email address";
+       } else {
+        $valid_email = 1;
+       }
 
 // VALIDATE THAT THERE'S A SECRET
 
@@ -90,10 +112,9 @@ if ($error == 0){
 
  // echo $team_ID;
 
-  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1) "; 
-  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1');" ;
+  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant) "; 
+  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream);" ;
 
-  //echo $initial_insert;
 
   if (mysqli_query($conn,$initial_insert)) {
     // successful first insert.
@@ -189,9 +210,10 @@ if ($error == 0){
 <div class="row">
 
 <div class="alert alert-success">
-  <p class="lead">Thanks, team <?php echo $team_name; ?></p>
-  <p>Your team has been entered into the next quiz. <a href="index.php">Click here to go back to the main page</a></p>
+  <p class="lead"><strong>Thanks, team <?php echo $team_name; ?></strong></p>
+  <p>Your team has been entered into the next quiz.</p>
   <p>Good luck!</p>
+  <p><a class="btn btn-success btn-lg" href="index.php" role="button">Main Page</a></p>
 </div>
 
 </div>
@@ -220,17 +242,27 @@ if ($error == 1){
 
 <h5>Try again...</h5>
 
+
 <form class="form-horizontal" method="post" action="./submit_team.php">
   <div class="form-group">
     <label for="team_name" class="col-sm-2 control-label">Team Name</label>
     <div class="col-sm-10">
-        <input type="text" class="form-control" id="team_name" name="team_name" placeholder="The General's Knowledge">
+      <input type="text" class="form-control" id="team_name" name="team_name" placeholder="The General's Knowledge" required="required">
     </div>
+  </div>
+  <div class="form-group">
+    <label for="email"class="col-sm-2 control-label">Email address</label>
+        <div class="col-sm-10">
+      <input type="email" class="form-control" id="email" name="team_email" placeholder="Email" required="required">
+          <p class="help-block">We'll let you know before the quiz starts. We will not spam you or share this. <a href="about.html" target="_blank">More info</a></p>
+          <input type="checkbox" value="1" name="livestream"><strong> I'm happy for you to include me in the live video</strong> (you'll need to provide a <em>GMail</em> address)
+
+      </div>
   </div>
   <div class="form-group">
     <label for="names" class="col-sm-2 control-label">Team Members</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" id="member1" name="member1" placeholder="Team Member #1">
+      <input type="text" class="form-control" id="member1" name="member1" placeholder="Team Member #1" required="required">
       <input type="text" class="form-control" id="member2" name="member2" placeholder="Team Member #2">
       <input type="text" class="form-control" id="member3" name="member3" placeholder="Team Member #3">
       <input type="text" class="form-control" id="member4" name="member4" placeholder="Team Member #4">
@@ -240,7 +272,7 @@ if ($error == 1){
   <div class="form-group">
     <label for="team_secret" class="col-sm-2 control-label">Team Secret</label>
     <div class="col-sm-10">
-      <input type="text" class="form-control" name="team_secret" id="team_secret" placeholder="I have the high ground">
+      <input type="text" class="form-control" name="team_secret" id="team_secret" placeholder="I have the high ground" required="required">
           <span id="helpBlock" class="help-block">This is a secret that you'll need to submit with your answers for each round. Nice try fraudsters.</span>
           
     </div>
