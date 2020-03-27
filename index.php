@@ -93,14 +93,23 @@ if ($current_round == 0 and $allow_signup == 1) {
 
  } 
 ?>
-
+<div class="row">
 <p class="lead">Teams registered so far: </p>
-<?php foreach($teams_list as $team){
+<div class="col-md-4">
+<?php
+$teamprinter = 0;
+ foreach($teams_list as $team){
+	$teamprinter = $teamprinter + 1;
+	if (count($teams_list) > 14 and $teamprinter % 15 == 0 and $teamprinter > 0){
+		// every 10th row, start a new column
+		echo '</div><div class="col-md-4">';
+	}
 	echo "<li>".$team["team_name"]."</li>";
 }
 	?>
 </ul>
-
+</div>
+</div> 
 <a href="index.php">Refresh</a>
 </div> <!-- end row for game start -->
 
