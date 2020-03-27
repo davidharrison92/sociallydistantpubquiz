@@ -141,3 +141,8 @@ $ytID = $round_res[2];
 </body>
 </html>
 
+
+<?php 
+  mysqli_close($conn);
+?>
+

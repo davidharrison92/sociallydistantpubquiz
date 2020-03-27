@@ -171,6 +171,11 @@ $answers_query = "SELECT question_number, answer FROM submitted_answers where te
 
 } // end of foreach - team data
 
+
+  mysqli_close($conn);
+
+
+
 ?>
 
 

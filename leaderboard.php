@@ -5,15 +5,6 @@ include("db/db_config.php");
     <title>Socially Distant Pub Quiz</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
-<!-- Global site tag (gtag.js) - Google Analytics -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'UA-161589071-1');
-</script>
 
 
 <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
@@ -42,3 +33,9 @@ include("db/db_config.php");
 </div> <!-- end container -->
 </body>
 </html>
+
+
+<?php 
+	mysqli_close($conn);
+?>
+
