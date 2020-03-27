@@ -32,6 +32,11 @@ include("db/get_teams.php");
   gtag('config', 'UA-161589071-1');
 </script>
 
+ <script
+			  src="https://code.jquery.com/jquery-3.4.1.min.js"
+			  integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+			  crossorigin="anonymous"></script>
+
 <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
@@ -39,6 +44,9 @@ include("db/get_teams.php");
 
     <title>Socially Distant Pub Quiz</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<link rel="stylesheet" href="vidcontrols.css" >
+
 
 </head>
 <body>
@@ -59,10 +67,10 @@ include("db/get_teams.php");
 </span>
 </div>
 
-<div class="col-xs-12 col-md-5 pull-right">
+<div id="vidcontainer" class="col-xs-12 col-md-5 pull-right">
 <?php if ($show_video == 1) {
 	?>
-<iframe width="560" height="315" <?php echo 'src="https://www.youtube-nocookie.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe id="ytembed" class="miniplayer" <?php echo 'src="https://www.youtube-nocookie.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 <?php
 } // end show vid
 ?>
@@ -91,7 +99,9 @@ if ($current_round == 0 and $allow_signup == 1) {
 </div>
 <?php
 
- } 
+ }
+
+ if ($allow_signup == 1) {
 ?>
 <div class="row">
 <p class="lead">Teams registered so far: </p>
@@ -114,13 +124,28 @@ $teamprinter = 0;
 </div> <!-- end row for game start -->
 
 
-<?php if ($current_round > 0) {
+<?php 
+}
+
+if ($current_round > 0) {
 	?>
-<div class="col-xs-12 col-md-9">
+
+<div class="row">
+
+	<button type="button" class="btn btn-default" id="bigplayer">Video Only</button>
+	<button type="button" class="btn btn-default hidden" id="showanswers">Show Answer Sheet</button>
+
+</div>
+
+<div id="answersheet" class="col-xs-12 col-md-9">
+
 	<?php
 		include("answersheet.php");
 	?>
 </div>
+
+
+
 
 <?php 
 } // suppress answer sheet before game starts
@@ -140,6 +165,28 @@ $teamprinter = 0;
 <?php 
 } // suppress leaderboard when not in play
 ?>
+
+<script>
+
+	$('#bigplayer').click(function(){
+console.log('bigplayer clicked');
+	 	$('#answersheet').toggleClass('hidden visible');
+	 	$('#bigplayer').toggleClass('hidden visible');
+		$('#vidcontainer').removeClass('col-md-5 pull-right').addClass('col-md-12');
+		$('#showanswers').toggleClass('hidden visible');
+		$('#ytembed').removeClass('miniplayer').addClass('fullplayer');
+});
+	$('#showanswers').click(function(){
+console.log('showanswers clicked');
+	 	$('#answersheet').toggleClass('visible hidden');
+	 	$('#bigplayer').toggleClass('visible hidden');
+		$('#vidcontainer').removeClass('col-md-12').addClass('col-md-5 pull-right');
+		$('#showanswers').toggleClass('visible hidden');
+		$('#ytembed').removeClass('fullplayer').addClass('miniplayer');
+});
+
+</script>
+
 
 
 </div> <!-- /container -->
