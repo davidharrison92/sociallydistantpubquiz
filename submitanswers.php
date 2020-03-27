@@ -108,7 +108,10 @@ $field_template = 	'<td><input type="text" class="form-control" id="ansQQQ" name
 <hr>
 
 <?php if ($team_secret_pass == 1) {
-echo '<div class="alert alert-success"> Thanks for submitting your answers...</div>';
+?>
+<div class="alert alert-success"> Thanks for submitting your answers...   <p><a class="btn btn-success" href="index.php" role="button">Go back to the main page</a></p>
+</div>
+<?php
 } else {
 include("db/get_teams.php"); // this will fetch the team names, as it does on the homepage.
 
