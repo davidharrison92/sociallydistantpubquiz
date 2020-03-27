@@ -32,7 +32,10 @@ include("db/get_teams.php");
   gtag('config', 'UA-161589071-1');
 </script>
 
-
+<link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="favicon/site.webmanifest">
 
     <title>Socially Distant Pub Quiz</title>
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
@@ -44,13 +47,16 @@ include("db/get_teams.php");
 
 <div class="row">
 
-  <div class="col-xs-12 col-md-7">
-<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 250px; max-width: 250px;">
+  <div class="col-xs-12 col-md-5">
+<img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 200px; max-width: 200px;">
 
-  	<h1>Staging - Socially Distant Pub Quiz</h1>
+<h1>Socially Distant Pub Quiz</h1>
+
 <h4>Now with 100% less human contact</h4>
-<a href="about.html" target="_blank">Help / Privacy / About</a>
-
+<span class="pull-left"><a href="about.html" target="_blank">How to Play</a></span>
+<span class="pull-right">
+	Tweet us: <a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a>, <a href="https://twitter.com/ElectricBloo" target="_blank">@Lighty</a>, <a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a>    
+</span>
 </div>
 
 <div class="col-xs-12 col-md-5 pull-right">
@@ -87,14 +93,23 @@ if ($current_round == 0 and $allow_signup == 1) {
 
  } 
 ?>
-
+<div class="row">
 <p class="lead">Teams registered so far: </p>
-<?php foreach($teams_list as $team){
+<div class="col-md-4">
+<?php
+$teamprinter = 0;
+ foreach($teams_list as $team){
+	$teamprinter = $teamprinter + 1;
+	if (count($teams_list) > 14 and $teamprinter % 15 == 0 and $teamprinter > 0){
+		// every 10th row, start a new column
+		echo '</div><div class="col-md-4">';
+	}
 	echo "<li>".$team["team_name"]."</li>";
 }
 	?>
 </ul>
-
+</div>
+</div> 
 <a href="index.php">Refresh</a>
 </div> <!-- end row for game start -->
 
