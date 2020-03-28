@@ -1,10 +1,9 @@
 <?php 
 
 include ("db/db_config.php");
+session_start();
 
 // GET CURRENT ROUND
-
-
 $round_qry = "SELECT roundnumber, round_label, show_video, allow_signup, youtubeID from current_round";
 $round_res = mysqli_query($conn, $round_qry);
 
@@ -65,6 +64,9 @@ include("db/get_teams.php");
 <span class="pull-right">
 	Tweet us: <a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a>, <a href="https://twitter.com/ElectricBloo" target="_blank">@Lighty</a>, <a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a>    
 </span>
+<br/>
+<br/>
+<p>Logged in as <?php echo $_SESSION["name"]?></p>
 </div>
 
 <div id="vidcontainer" class="col-xs-12 col-md-5 pull-right">
