@@ -30,7 +30,7 @@ if ( empty($_POST) ) {
 
 
 	if ($teamKnownBool){
-		$teamID = $current_team["team_id"];
+		$teamID = $_SESSION["teamID"];
 	} else {
 		$teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
 		$teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
@@ -121,8 +121,6 @@ $field_template = 	'<td><input type="text" class="form-control" id="ansQQQ" name
 ?>
 <div class="alert alert-success"> Thanks for submitting your answers...   <p><a class="btn btn-success" href="index.php" role="button">Go back to the main page</a></p>
 </div>
-<?php echo $current_team;?>
-<?php echo $_SESSION;?>
 <?php
 } else {
 include("db/get_teams.php"); // this will fetch the team names, as it does on the homepage.
