@@ -20,7 +20,7 @@ if ( empty($_POST) ) {
     }
     
 	if ($teamKnownBool){
-		$teamID = $current_team["team_id"];
+		$teamID = $_SESSION["teamID"];
 	} else {
 		$teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
 		$teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
