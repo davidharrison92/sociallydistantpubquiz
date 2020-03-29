@@ -1,6 +1,7 @@
 <?php 
 
 include ("db/db_config.php");
+session_start();
 
 // GET CURRENT ROUND
 
@@ -16,7 +17,26 @@ $allow_signup = $round_res[3];
 $ytID = $round_res[4];
 
 include("db/get_teams.php");
+$current_team;
 
+if (array_key_exists("teamID", $_SESSION)){
+	$teamExists = FALSE;
+	foreach($teams_list as $team){
+		if ($_SESSION['teamID'] == $team["team_id"]){
+
+			$current_team = $team;
+			$_SESSION['teamName'] = $current_team["team_name"];
+			$teamExists = TRUE;
+		}
+	}
+	if (!$teamExists){
+		unset($_SESSION['teamID']);
+		unset($_SESSION['teamName']);
+		$current_team = [];
+	}
+} else {
+	$current_team = [];
+}
 
 ?>
 
@@ -65,6 +85,13 @@ include("db/get_teams.php");
 <span class="pull-right">
 	Tweet us: <a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a>, <a href="https://twitter.com/ElectricBloo" target="_blank">@Lighty</a>, <a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a>    
 </span>
+<br/>
+<br/>
+<?php if (array_key_exists("teamID", $_SESSION)){ ?>
+	<p>Your team is <?php echo $current_team["team_name"]?></p>
+	<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a>
+<?php } ?>
+
 </div>
 
 <div id="vidcontainer" class="col-xs-12 col-md-5 pull-right">

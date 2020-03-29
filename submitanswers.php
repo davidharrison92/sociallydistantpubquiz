@@ -1,6 +1,9 @@
 <?php
 
 include("db/db_config.php");
+session_start();
+
+$teamKnownBool = (array_key_exists("teamID", $_SESSION));
 
 // clean the results
 
@@ -26,31 +29,38 @@ if ( empty($_POST) ) {
 	$answers[9] = mysqli_real_escape_string($conn,$_POST["ans10"]);
 
 
-	$teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
-	$teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
+	if ($teamKnownBool){
+		$teamID = $current_team["team_id"];
+	} else {
+		$teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
+		$teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
+	}
 	$round = mysqli_real_escape_string($conn,$_POST["round_number"]);
 
 
-	} // end of if POST empty.
+} // end of if POST empty.
 
 
 
 // TODO: CHECK SECRET AND TEAM ID
 
- //CHECK THE TEAM FOR VALIDITY
-$name_query = "SELECT COUNT(*) as 'Count' from teams where team_id = '$teamID' and secret = '$teamsecret'";
-$check = $conn->query($name_query);
-$check = $check->fetch_assoc();
-        
+if (!$teamKnownBool){
+	//CHECK THE TEAM FOR VALIDITY
+	$name_query = "SELECT COUNT(*) as 'Count' from teams where team_id = '$teamID' and secret = '$teamsecret'";
+	$check = $conn->query($name_query);
+	$check = $check->fetch_assoc();
+			
 
-if (($check["Count"] * 1) >= 1) {
-$team_secret_pass = 1;
-
+	if (($check["Count"] * 1) >= 1) {
+		$team_secret_pass = 1;
+		$_SESSION["teamID"] = $teamID;
+	} else {
+	//new (allowable) teamname
+		$team_secret_pass = 0;
+	}
 } else {
-  //new (allowable) teamname
-	$team_secret_pass = 0;
+	$team_secret_pass = 1;
 }
-
 
 //var_dump($answers);
 
@@ -111,6 +121,8 @@ $field_template = 	'<td><input type="text" class="form-control" id="ansQQQ" name
 ?>
 <div class="alert alert-success"> Thanks for submitting your answers...   <p><a class="btn btn-success" href="index.php" role="button">Go back to the main page</a></p>
 </div>
+<?php echo $current_team;?>
+<?php echo $_SESSION;?>
 <?php
 } else {
 include("db/get_teams.php"); // this will fetch the team names, as it does on the homepage.
