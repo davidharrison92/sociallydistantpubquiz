@@ -1,6 +1,9 @@
 <?php
 
 include("db/db_config.php");
+session_start();
+
+$teamKnownBool = (array_key_exists("teamID", $_SESSION));
 
 // clean the results
 

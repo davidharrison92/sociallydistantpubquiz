@@ -1,28 +1,38 @@
 <?php 
 
 include ("db/db_config.php");
+session_start();
 
 ?>
 
 <form class="form-inline" method="POST" action="submitanswers.php">
-    <hr>
-	<div class="form-inline">	
-        <div class="form-group">
-            <label for="teamname">Team Name</label>
-            <select class="form-control" id="teamname" name="teamID">
-                <?php foreach($teams_list as $team){
-                    echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
-                } ?>
+<hr>
+	<div class="form-inline">
+<?php 
+if (array_key_exists("teamID", $_SESSION)){ ?>
+	<div class="form-group">
+		<label for="teamname">Team Name: <?php echo $_SESSION["teamName"]?></label>
+		<a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a>
+	</div>
+<?php } else { ?>	
+	<div class="form-group">
+		<label for="teamname">Team Name</label>
+		<select class="form-control" id="teamname" name="teamID">
+	<?php foreach($teams_list as $team){
+		echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
+	} ?>
 
-		    </select>
-	    </div>
-        <div class="form-group">
-            <label for="teamsecret">Team Secret</label>
-        <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh">
-        </div>
+		</select>
+	</div>
 
-    </div> <!-- end team name/secret row -->
-    <hr>
+	<div class="form-group">
+		<label for="teamsecret">Team Secret</label>
+    <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh">
+	</div>
+
+	</div> <!-- end team name/secret row -->
+<?php } ?>	
+<hr>
 	<div class="row">
 		<p class="lead"><?php echo "Round #" .$current_round . " - " . $round_name; ?></p>
 	</div>

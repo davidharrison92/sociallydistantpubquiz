@@ -1,5 +1,6 @@
 <?php
 include ("db/db_config.php");
+session_start();
 
 // GET CURRENT ROUND
 
@@ -14,6 +15,26 @@ $allow_signup = $round_res[3];
 $ytID = $round_res[4];
 
 include("db/get_teams.php");
+$current_team;
+
+if (array_key_exists("teamID", $_SESSION)){
+	$teamExists = FALSE;
+	foreach($teams_list as $team){
+		if ($_SESSION['teamID'] == $team["team_id"]){
+
+			$current_team = $team;
+			$_SESSION['teamName'] = $current_team["team_name"];
+			$teamExists = TRUE;
+		}
+	}
+	if (!$teamExists){
+		unset($_SESSION['teamID']);
+		unset($_SESSION['teamName']);
+		$current_team = [];
+	}
+} else {
+	$current_team = [];
+}
 ?>
 
 <html>
