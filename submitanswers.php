@@ -1,6 +1,9 @@
 <?php
 
 include("db/db_config.php");
+session_start();
+
+$teamKnownBool = (array_key_exists("teamID", $_SESSION));
 
 // clean the results
 
@@ -14,27 +17,35 @@ if ( empty($_POST) ) {
     for ($i=0; $i<9; $i++) {
 		$field = "ans".strval($i+1);
 		$answers[$i] = mysqli_real_escape_string($conn,$_POST[$field]);
+    }
+    
+	if ($teamKnownBool){
+		$teamID = $current_team["team_id"];
+	} else {
+		$teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
+		$teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
 	}
-    $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
-    $teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
     $round = mysqli_real_escape_string($conn,$_POST["round_number"]);
 } // end of if POST empty.
 
 
- //CHECK THE TEAM FOR VALIDITY
-$name_query = "SELECT COUNT(*) as 'Count' from teams where team_id = '$teamID' and secret = '$teamsecret'";
-$check = $conn->query($name_query);
-$check = $check->fetch_assoc();
+if (!$teamKnownBool){
+	//CHECK THE TEAM FOR VALIDITY
+	$name_query = "SELECT COUNT(*) as 'Count' from teams where team_id = '$teamID' and secret = '$teamsecret'";
+	$check = $conn->query($name_query);
+	$check = $check->fetch_assoc();
+			
 
-
-if (($check["Count"] * 1) >= 1) {
-    $team_secret_pass = 1;
+	if (($check["Count"] * 1) >= 1) {
+		$team_secret_pass = 1;
+		$_SESSION["teamID"] = $teamID;
+	} else {
+	//new (allowable) teamname
+		$team_secret_pass = 0;
+	}
 } else {
-  //new (allowable) teamname
-    $team_secret_pass = 0;
+	$team_secret_pass = 1;
 }
-
-$field_template =     '<td><input type="text" class="form-control" id="ansQQQ" name="ansQQQ" placeholder="Answer QQQ" value="ZZZ"></td>'
 ?>
 
 <html>
