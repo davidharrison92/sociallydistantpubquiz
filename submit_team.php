@@ -59,7 +59,7 @@ if ( empty($_POST) ) {
         
         if (($team_result["Count"] * 1) >= 1) {
             $error = 1;
-            $error_reason[] = "There's already a team called " .$team_name;
+            $_SESSION["messages"]["danger"][] = "There's already a team called " .$team_name;
             $valid_teamname = 0;
 
         } else {
@@ -70,7 +70,7 @@ if ( empty($_POST) ) {
     } else {
     //team name not given.
         $error = 1;
-        $error_reason[] = "You must choose a team name";
+        $_SESSION["messages"]["danger"][] = "You must choose a team name";
     } // end check team
 
 
@@ -78,7 +78,7 @@ if ( empty($_POST) ) {
 
     if (strlen($team_email) < 5){
         $error = 1;
-        $error_reason[] = "You must provide an email address";
+        $_SESSION["messages"]["danger"][] = "You must provide an email address";
     } else {
         $valid_email = 1;
     }
@@ -86,7 +86,7 @@ if ( empty($_POST) ) {
 
     if (strlen($team_secret) < 1) {
         $error = 1;
-        $error_reason[] = "You must provide a team secret";
+        $_SESSION["messages"]["danger"][] = "You must provide a team secret";
         $valid_teamsecret = 0;
     } else {
         $valid_teamsecret = 1;
@@ -97,7 +97,7 @@ if ( empty($_POST) ) {
 
     if (strlen($tm_1) < 1) {
         $error = 1;
-        $error_reason[] = "You must provide at least one team member";
+        $_SESSION["messages"]["danger"][] = "You must provide at least one team member";
         $valid_teamcaptain = 0;
     } else {
         $valid_teamcaptain = 1;
@@ -149,25 +149,21 @@ if ($error == 0){
 
       // here's where we run it
 
-      if (mysqli_query($conn,$additional_members_query)){
+    if (mysqli_query($conn,$additional_members_query)){
         $error= 0;
-      } else {
-    $error = 1;
-    $error_reason[] = "There was an issue saving team members. If this reoccurs, please <a href=\"mailto:david.harrison1992@gmail.com\">let me know</a>";      }
+    } else {
+        $error = 1;
+        $_SESSION["messages"]["danger"][] = "There was an issue saving team members. If this reoccurs, please <a href=\"mailto:david.harrison1992@gmail.com\">let me know</a>";      }
     }
 
     } else {
         // failed to insert
         $error = 1;
-        $error_reason[] = "There was an issue saving your team. If this reoccurs, please <a href=\"mailto:david.harrison1992@gmail.com\">let me know</a>";
+        $_SESSION["messages"]["danger"][] = "There was an issue saving your team. If this reoccurs, please <a href=\"mailto:david.harrison1992@gmail.com\">let me know</a>";
     }
     if ($error == 0){
-        $_SESSION["messages"]["info"].push("Your team has been entered into the next quiz. Good luck!");
-    } else {
-        $_SESSION["messages"]["danger"] = $error_reason;
+        $_SESSION["messages"]["info"][] = "Your team has been entered into the next quiz. Good luck!";
     }
-} else {
-    $_SESSION["messages"]["danger"] = $error_reason;
 }
 header("Location: newteam.php");
 mysqli_close($conn);
