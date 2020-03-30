@@ -1,56 +1,110 @@
 <?php 
 
 include ("db/db_config.php");
+session_start();
+
+
 
 // save marked answers first. 
 $error = -1;
 $errormsg = "";
 if ( !empty($_POST) ) {
-	$score = mysqli_real_escape_string($conn,$_POST["score"]);
-	$teamID = mysqli_real_escape_string($conn, $_POST["teamUUID"]);
-	$round = mysqli_real_escape_string($conn,$_POST["roundnumber"]);
-	$secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
 
-    $pwdqry = "SELECT COUNT(*) as 'Count' from admin_password where password = '$secret'";
-    $checkpwd = $conn->query($pwdqry);
-    $pwd_res = $checkpwd->fetch_assoc();
-                    
-           
-    if (($pwd_res["Count"] * 1) >= 1) {
-        //mark it.	
-        $ins_score = "INSERT INTO team_round_scores(teamID, Round, Score) VALUES ('$teamID', $round, $score)";
-        echo $ins_score;
-        if (mysqli_query($conn,$ins_score)){
+    if (!isset($_SESSION["admin_user"])){
+
+        echo "bar";
+
+    	$secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
+
+        $pwdqry = "SELECT COUNT(*) as 'Count' from admin_password where password = '$secret'";
+        $checkpwd = $conn->query($pwdqry);
+        $pwd_res = $checkpwd->fetch_assoc();
+               
+        if (($pwd_res["Count"] * 1) >= 1) {
+            // admin user is logged in. Set session.
+            $_SESSION["admin_user"] = "Administrator";
+        } else {
+            // kill the session
+            unset($_SESSION["admin_user"]);
+            $failedlogin = 1;
+
+            $error = 1;
+            $errormsg = "Invalid admin password. Idiot.";
+        }
+
+    } 
+
+    if( (!isset($_POST["loginonly"])) AND (isset($_SESSION["admin_user"]))) { // only do this if it's sucessfully logged in (but not JUST a login)
+    echo "foo";
+    //mark it.	
+
+    $mark_round = mysqli_real_escape_string($conn,$_POST["round_number"]);
+    $mark_question = mysqli_real_escape_string($conn, $_POST["question_number"]);
+
+        //marked answers
+            foreach($_POST["markedanswers"] as $markans){
+                $markedanswers[] = "'" . mysqli_real_escape_string($conn,$markans) ."'";
+            }
+            $mark_list = '(' . implode("," , $markedanswers) . ')'; // creates ('a', 'sql', 'friendly', 'list')
+
+
+        //correct answers
+            foreach($_POST["correctanswers"] as $corrans){
+                $correctanswers[] = "'" . mysqli_real_escape_string($conn,$corrans) ."'";
+            }
+            $corr_list = '(' . implode("," , $correctanswers) . ')'; // creates ('a', 'sql', 'friendly', 'list')
+
+        // Save changes to database      
+
+
+        $mark_sql = "UPDATE submitted_answers set marked = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
+        $mark_sql .= " and answer in " .$mark_list ;
+
+        
+        if (mysqli_query($conn,$mark_sql)){
             $error= 2;
         } else {
             $error = 1;
-            $errormsg = "Failed database insert. Tell dave about this: " . $ins_score;
+            $errormsg = "Failed database to set answers to marked. Tell dave about this: " . $ins_score;
         }
+
+
+        $corr_sql = "UPDATE submitted_answers set correct = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
+        $corr_sql .= " and answer in " .$corr_list ;
+
+        
+        if (mysqli_query($conn,$corr_sql)){
+            $error= 2;
+        } else {
+            $error = 1;
+            $errormsg = "Failed database to set answers to marked. Tell dave about this: " . $ins_score;
+        }
+
+
     } else {
-        //reject password
-        $error = 1;
-        $errormsg = "Invalid admin password. Idiot.";
+        //no answers being marked.
+
     }
 
 } // end of _POST processing
 
-// GET List of teams
-$to_mark_teams_list = array();
+
+// check if this user is administrator.
+if (array_key_exists("admin_user", $_SESSION)){
+
+    // fetch answers that need marking.
+    $questions_to_mark = array();
+    $questions_query = "SELECT distinct round_number, question_number, question, true_answer FROM unmarked_answers";
+
+    $result = mysqli_query($conn,$questions_query);
+    $rows = array();
+
+    while($row = $result->fetch_assoc()){
+        $questions_to_mark[] = $row;
+    };
+}
 
 
-$teams_qry = "select distinct s.team_id, t.team_name, s.round_number from submitted_answers s
-	JOIN teams t on s.team_id = t.team_id
-	LEFT JOIN team_round_scores r on r.teamID = s.team_id  and r.Round = s.round_number
-	WHERE r.score IS NULL;";
-
-
-$result = mysqli_query($conn,$teams_qry);
-
-$rows = array();
-
-while($row = $result->fetch_assoc()){
-    $to_mark_teams_list[] = $row;
-};
 
 //var_dump($to_mark_teams_list);
 
@@ -73,77 +127,108 @@ while($row = $result->fetch_assoc()){
     </head>
 
     <body>
+
         <div class="container">
             <h3>Mark answers:</h3>
+
             <?php
-            if ($error == 2){
-            
-                echo '<div class="alert alert-success">Successfully saved score</div>';
-            
-            } elseif ($error == 1) {
+            if ($error == 1) { // this is most likey going to be a failed login.
                 echo '<div class="alert alert-danger">'.$errormsg.'</div>';
+
             }
 
-            if (count($to_mark_teams_list) == 0){
-                echo "Nothing to mark!";
-            }
+            if (array_key_exists("admin_user", $_SESSION)){
 
-            // for each of the teamIDs:
 
-            foreach ($to_mark_teams_list as $teamdata){
-                // fetch their answers into an array.
-                $answers_query = "SELECT question_number, answer FROM submitted_answers where team_id = '" .$teamdata["team_id"] . "' and round_number = '" . $teamdata["round_number"] . "' ";
+                if ($error == 2){
+                
+                    echo '<div class="alert alert-success">Successfully saved score</div>';
+                
+                } elseif ($error == 1) {
+                    echo '<div class="alert alert-danger">'.$errormsg.'</div>';
+                }
 
-                $result = mysqli_query($conn,$answers_query);
+                if (count($questions_to_mark) == 0){
+                    echo "Nothing to mark!";
+                }
 
-                $rows = array();
-                unset($answers_data);
+                // for each of the teamIDs:
 
-                while($row = $result->fetch_assoc()){
-                    $answers_data[] = $row;
+                foreach ($questions_to_mark as $qdata){
+                    $answers_query = "select given_answer, freq  FROM unmarked_answers WHERE round_number = " . $qdata["round_number"] . " and question_number = ". $qdata["question_number"] ;
 
-                };
+                    $result = mysqli_query($conn,$answers_query);
 
-            ?>
+                    $rows = array();
+                    unset($answers_data);
 
-            <p class="lead"><?php echo $teamdata["team_name"]; ?></p>
-            <table class="table table-condensed">
-                <tr>
-                    <td><strong>#</strong></td>
-                    <td><strong>Answer</strong></td>
-                </tr>
+                    while($row = $result->fetch_assoc()){
+                        $answers_data[] = $row;
+
+                    };
+
+                ?>
+              
+                <form class="form-inline" action="mark_answers.php" method="post">
+                <p class="lead"><?php echo "<strong>R" . $qdata["round_number"] . " Q". $qdata["question_number"] . ":</strong> " . $qdata["question"]; ?>
+                <br><?php echo $qdata["true_answer"]; ?></p>
+                <table class="table table-condensed">
+                    <tr>
+                        <td><strong>#</strong></td>
+                        <td><strong>Answer</strong></td>
+                    <td>Correct?</td>
+                    </tr>
 
                 <?php foreach($answers_data as $ans){
                     ?>
-                <tr>
-                    <td><?php echo $ans["question_number"];?></td>
-                    <td><?php echo $ans["answer"];?></td>
-                </tr>
+                    <tr>
+                        <td><?php echo $ans["freq"];?></td>
+                        <td><?php echo $ans["given_answer"];?></td>
+                        <!-- Tickbox for answers which are deemed correct by the marker -->
+                        <td>
+                            <input type="checkbox" name="correctanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
+                            <span class="small"><?php echo "(" . $ans["freq"] . " teams)" ; ?>
+                        </td>
+                        <!-- Hidden value submits regardless, these will be used to indicate values that are marked, but not correct. It's possible answers have been submitted between pageload and form submit -->
+                        <input type="hidden" name="markedanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
+                    </tr>
                 <?php
                 }
-                ?>	
-            </table>
+                ?>  
+                </table>
 
-            <form class="form-inline" action="mark_answers.php" method="post">
-                <div class="form-group">
-                    <label for="exampleInputName2">Score</label>
-                    <input type="text" class="form-control" id="score" name="score" placeholder="/10">
-                </div>
 
-                <div class="form-group">
-                    <label for="adminpass">Admin Password</label>
-                    <input type="text" class="form-control" id="adminpass" name="adminpass" placeholder="sssh">
-                </div>
-                <input type="hidden" id="teamUUID" name="teamUUID" value=<?php echo '"'. $teamdata["team_id"] . '"'; ?>> 
-                <input type="hidden" id="roundnumber" name="roundnumber" value=<?php echo '"'. $teamdata["round_number"] . '"';?> >
+                <input type="hidden" id="round_number" name="round_number" value=<?php echo '"'. $qdata["round_number"] . '"';?> >
+                <input type="hidden" id="question_number" name="question_number" value=<?php echo '"'. $qdata["question_number"] . '"';?> >
 
-                <button type="submit" class="btn btn-default">Save score</button>
-            </form>
+                    <button type="submit" class="btn btn-default">Mark Answers</button>
+                </form>
 
-            <?php 
-            } // end of foreach - team data
-            mysqli_close($conn);
+                <?php 
+               } // end of foreach - team data
+
+            } else { // NOT "admin_user", $_SESSION
+                // Admin User is NOT logged in.
             ?>
+                <form class="form-inline" action="mark_answers.php" method="post">
+                    <div class="form-group">
+                        <label for="adminpass">Admin Password</label>
+                        <input type="text" class="form-control" id="adminpass" name="adminpass" placeholder="sssh" required="required">
+                    </div>
+                    <input type="hidden" name="loginonly" value="yes">
+                    <button type="submit" class="btn btn-default">Log In</button>
+                </form>
+
+
+            <?php
+            } // end of Session IF.
+
+
+
+
+
+                mysqli_close($conn);
+                ?>
 
         </div><!-- /container -->
     </body>
