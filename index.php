@@ -1,10 +1,8 @@
-<?php 
-
+<?php
 include ("db/db_config.php");
 session_start();
 
 // GET CURRENT ROUND
-
 
 $round_qry = "SELECT roundnumber, round_label, show_video, allow_signup, youtubeID from current_round";
 $round_res = mysqli_query($conn, $round_qry);
@@ -213,9 +211,10 @@ console.log('showanswers clicked');
 
 </div> <!-- /container -->
 </body>
+
 </html>
 
 <?php 
-	mysqli_close($conn);
+    mysqli_close($conn);
 ?>
 
