@@ -6,10 +6,13 @@ include ("db/db_config.php");
 $error = -1;
 $errormsg = "";
 if ( !empty($_POST) ) {
-	$score = mysqli_real_escape_string($conn,$_POST["score"]);
-	$teamID = mysqli_real_escape_string($conn, $_POST["teamUUID"]);
-	$round = mysqli_real_escape_string($conn,$_POST["roundnumber"]);
+
+
+	$mark_round = mysqli_real_escape_string($conn,$_POST["round_number"]);
+    $mark_question = mysqli_real_escape_string($conn, $_POST["question_number"]);
 	$secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
+
+    
 
     $pwdqry = "SELECT COUNT(*) as 'Count' from admin_password where password = '$secret'";
     $checkpwd = $conn->query($pwdqry);
@@ -17,15 +20,48 @@ if ( !empty($_POST) ) {
                     
            
     if (($pwd_res["Count"] * 1) >= 1) {
-        //mark it.	
-        $ins_score = "INSERT INTO team_round_scores(teamID, Round, Score) VALUES ('$teamID', $round, $score)";
-        echo $ins_score;
-        if (mysqli_query($conn,$ins_score)){
+    //mark it.	
+
+        //marked answers
+            foreach($_POST["markedanswers"] as $markans){
+                $markedanswers[] = "'" . mysqli_real_escape_string($conn,$markans) ."'";
+            }
+            $mark_list = '(' . implode("," , $markedanswers) . ')'; // creates ('a', 'sql', 'friendly', 'list')
+
+
+        //correct answers
+            foreach($_POST["correctanswers"] as $corrans){
+                $correctanswers[] = "'" . mysqli_real_escape_string($conn,$corrans) ."'";
+            }
+            $corr_list = '(' . implode("," , $correctanswers) . ')'; // creates ('a', 'sql', 'friendly', 'list')
+
+        // Save changes to database      
+
+
+        $mark_sql = "UPDATE submitted_answers set marked = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
+        $mark_sql .= " and answer in " .$mark_list ;
+
+        
+        if (mysqli_query($conn,$mark_sql)){
             $error= 2;
         } else {
             $error = 1;
-            $errormsg = "Failed database insert. Tell dave about this: " . $ins_score;
+            $errormsg = "Failed database to set answers to marked. Tell dave about this: " . $ins_score;
         }
+
+
+        $corr_sql = "UPDATE submitted_answers set correct = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
+        $corr_sql .= " and answer in " .$corr_list ;
+
+        
+        if (mysqli_query($conn,$corr_sql)){
+            $error= 2;
+        } else {
+            $error = 1;
+            $errormsg = "Failed database to set answers to marked. Tell dave about this: " . $ins_score;
+        }
+
+
     } else {
         //reject password
         $error = 1;
@@ -119,10 +155,10 @@ while($row = $result->fetch_assoc()){
                     <td><?php echo $ans["given_answer"];?></td>
                     <!-- Tickbox for answers which are deemed correct by the marker -->
                     <td>
-                        <input type="checkbox" name="validanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
+                        <input type="checkbox" name="correctanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
                         <span class="small"><?php echo "(" . $ans["freq"] . " teams)" ; ?>
                     </td>
-                    <!-- Hidden value submits regardless, these will be used to indicate values that are marked, but not correct -->
+                    <!-- Hidden value submits regardless, these will be used to indicate values that are marked, but not correct. It's possible answers have been submitted between pageload and form submit -->
                     <input type="hidden" name="markedanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
                 </tr>
             <?php
@@ -135,7 +171,7 @@ while($row = $result->fetch_assoc()){
                 <label for="adminpass">Admin Password</label>
                 <input type="text" class="form-control" id="adminpass" name="adminpass" placeholder="sssh" required="required">
             </div>
-            <input type="hidden" id="roundnumber" name="roundnumber" value=<?php echo '"'. $qdata["round_number"] . '"';?> >
+            <input type="hidden" id="round_number" name="round_number" value=<?php echo '"'. $qdata["round_number"] . '"';?> >
             <input type="hidden" id="question_number" name="question_number" value=<?php echo '"'. $qdata["question_number"] . '"';?> >
 
                 <button type="submit" class="btn btn-default">Mark Answers</button>
