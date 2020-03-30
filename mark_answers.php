@@ -35,21 +35,18 @@ if ( !empty($_POST) ) {
 } // end of _POST processing
 
 // GET List of teams
-$to_mark_teams_list = array();
+$questions_to_mark = array();
 
 
-$teams_qry = "select distinct s.team_id, t.team_name, s.round_number from submitted_answers s
-	JOIN teams t on s.team_id = t.team_id
-	LEFT JOIN team_round_scores r on r.teamID = s.team_id  and r.Round = s.round_number
-	WHERE r.score IS NULL;";
+$questions_query = "SELECT distinct round_number, question_number, question, true_answer FROM unmarked_answers";
 
 
-$result = mysqli_query($conn,$teams_qry);
+$result = mysqli_query($conn,$questions_query);
 
 $rows = array();
 
 while($row = $result->fetch_assoc()){
-    $to_mark_teams_list[] = $row;
+    $questions_to_mark[] = $row;
 };
 
 //var_dump($to_mark_teams_list);
@@ -84,15 +81,14 @@ while($row = $result->fetch_assoc()){
                 echo '<div class="alert alert-danger">'.$errormsg.'</div>';
             }
 
-            if (count($to_mark_teams_list) == 0){
+            if (count($questions_to_mark) == 0){
                 echo "Nothing to mark!";
             }
 
             // for each of the teamIDs:
 
-            foreach ($to_mark_teams_list as $teamdata){
-                // fetch their answers into an array.
-                $answers_query = "SELECT question_number, answer FROM submitted_answers where team_id = '" .$teamdata["team_id"] . "' and round_number = '" . $teamdata["round_number"] . "' ";
+            foreach ($questions_to_mark as $qdata){
+                $answers_query = "select given_answer, freq  FROM unmarked_answers WHERE round_number = " . $qdata["round_number"] . " and question_number = ". $qdata["question_number"] ;
 
                 $result = mysqli_query($conn,$answers_query);
 
@@ -105,39 +101,44 @@ while($row = $result->fetch_assoc()){
                 };
 
             ?>
-
-            <p class="lead"><?php echo $teamdata["team_name"]; ?></p>
+          
+            <form class="form-inline" action="mark_answers.php" method="post">
+            <p class="lead"><?php echo "<strong>R" . $qdata["round_number"] . " Q". $qdata["question_number"] . ":</strong> " . $qdata["question"]; ?>
+            <br><?php echo $qdata["true_answer"]; ?></p>
             <table class="table table-condensed">
                 <tr>
                     <td><strong>#</strong></td>
                     <td><strong>Answer</strong></td>
+                <td>Correct?</td>
                 </tr>
 
-                <?php foreach($answers_data as $ans){
-                    ?>
+            <?php foreach($answers_data as $ans){
+                ?>
                 <tr>
-                    <td><?php echo $ans["question_number"];?></td>
-                    <td><?php echo $ans["answer"];?></td>
+                    <td><?php echo $ans["freq"];?></td>
+                    <td><?php echo $ans["given_answer"];?></td>
+                    <!-- Tickbox for answers which are deemed correct by the marker -->
+                    <td>
+                        <input type="checkbox" name="validanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
+                        <span class="small"><?php echo "(" . $ans["freq"] . " teams)" ; ?>
+                    </td>
+                    <!-- Hidden value submits regardless, these will be used to indicate values that are marked, but not correct -->
+                    <input type="hidden" name="markedanswers[]" value=<?php echo '"'. $ans["given_answer"] . '"';?> >
                 </tr>
-                <?php
-                }
-                ?>	
+            <?php
+            }
+            ?>  
             </table>
 
-            <form class="form-inline" action="mark_answers.php" method="post">
-                <div class="form-group">
-                    <label for="exampleInputName2">Score</label>
-                    <input type="text" class="form-control" id="score" name="score" placeholder="/10">
-                </div>
 
-                <div class="form-group">
-                    <label for="adminpass">Admin Password</label>
-                    <input type="text" class="form-control" id="adminpass" name="adminpass" placeholder="sssh">
-                </div>
-                <input type="hidden" id="teamUUID" name="teamUUID" value=<?php echo '"'. $teamdata["team_id"] . '"'; ?>> 
-                <input type="hidden" id="roundnumber" name="roundnumber" value=<?php echo '"'. $teamdata["round_number"] . '"';?> >
+            <div class="form-group">
+                <label for="adminpass">Admin Password</label>
+                <input type="text" class="form-control" id="adminpass" name="adminpass" placeholder="sssh" required="required">
+            </div>
+            <input type="hidden" id="roundnumber" name="roundnumber" value=<?php echo '"'. $qdata["round_number"] . '"';?> >
+            <input type="hidden" id="question_number" name="question_number" value=<?php echo '"'. $qdata["question_number"] . '"';?> >
 
-                <button type="submit" class="btn btn-default">Save score</button>
+                <button type="submit" class="btn btn-default">Mark Answers</button>
             </form>
 
             <?php 
