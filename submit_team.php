@@ -161,8 +161,11 @@ if ($error == 0){
         $error = 1;
         $error_reason[] = "There was an issue saving your team. If this reoccurs, please <a href=\"mailto:david.harrison1992@gmail.com\">let me know</a>";
     }
-
-    $_SESSION["messages"]["info"].push("Your team has been entered into the next quiz. Good luck!");
+    if ($error == 0){
+        $_SESSION["messages"]["info"].push("Your team has been entered into the next quiz. Good luck!");
+    } else {
+        $_SESSION["messages"]["danger"] = $error_reason;
+    }
 } else {
     $_SESSION["messages"]["danger"] = $error_reason;
 }
