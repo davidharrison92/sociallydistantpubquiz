@@ -4,7 +4,6 @@ include ("db/db_config.php");
 session_start();
 
 $error = false;
-$error_reason = array();
 $messages = array(
     "info" => array(),
     "danger" => array(),
@@ -14,7 +13,7 @@ $messages = array(
 if ( empty($_POST) ) {
 
   $error = true;
-  $error_reason[] = "Please enter the details on the form below";
+  $_SESSION["messages"]["danger"][] = "Please enter the details on the form below";
 
  // echo "nothing set";
 
