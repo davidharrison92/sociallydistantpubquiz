@@ -1,7 +1,7 @@
 <?php 
 
 include ("db/db_config.php");
-session_start();
+
 
 ?>
 
@@ -23,11 +23,7 @@ session_start();
             } ?>
 		    </select>
 	    </div>
-        <div class="form-group">
-            <label for="teamsecret">Team Secret</label>
-            <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh">
-        </div>
-	</div> <!-- end team name/secret row -->
+	</div> <!-- end form header row -->
     <?php } ?>	
     <hr>
 	<div class="row">
@@ -42,16 +38,22 @@ session_start();
         ?>
             <tr>
                 <td><?php echo strval($i+1);?></td>
-                <td><input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" placeholder="<?php echo "Answer ".strval($i+1); ?>"></td>
+                <td><input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" required="required" placeholder="<?php echo "Answer ".strval($i+1); ?>"></td>
             </tr>
         <?php } ?>
 
   	</table>
     <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$current_round.'"'; ?>> 
-
-    <div class="form-group">
-        <div class="col-sm-offset-2 col-sm-10">
-            <button type="submit" class="btn btn-default">Submit</button>
+    <div class="form-inline">
+        <div class="form-group">
+            <label for="teamsecret">Team Secret</label>
+            <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh" required="required">
         </div>
-    </div>
+
+        <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+                <button type="submit" class="btn btn-default">Submit</button>
+            </div>
+        </div>
+    </div> <!-- end footer row -->
 </form>

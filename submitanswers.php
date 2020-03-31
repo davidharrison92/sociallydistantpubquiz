@@ -154,7 +154,7 @@ if (!$teamKnownBool){
                     // close off the form elements
                     ?>
 
-                    <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$round.'"'; ?>>
+                    <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$round.'"'; ?> required="required">
     
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
