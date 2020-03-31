@@ -32,7 +32,6 @@ $ytID = $round_res[2];
 
     </head>
     <body>
-        <?php include("messages.php");?>
         <div class="container">
             <div class="row">
                 <?php include("header.php");?>
@@ -40,6 +39,7 @@ $ytID = $round_res[2];
             <hr>
 
             <h4>Register a new team!</h4>
+            <?php include("messages.php");?>
 
             <?php if($allow_signup == 0) { 
                 //signup forbidden
