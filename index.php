@@ -98,14 +98,14 @@ if (array_key_exists("teamID", $_SESSION)){
             </div> <!-- end row for game start -->
             <?php 
             }
-            if ($current_round > 0) {
+            if (($current_round > 0) and ($quiz_complete == 0)) {
             ?>
 
             <div class="row">
                 <button type="button" class="btn btn-default" id="bigplayer">Video Only</button>
                 <button type="button" class="btn btn-default hidden" id="showanswers">Show Answer Sheet</button>
             </div>
-            <div id="answersheet" class="col-xs-12 col-md-9">
+            <div class="col-xs-12 col-md-12">
                 <?php
                     include("answersheet.php");
                 ?>
@@ -114,21 +114,16 @@ if (array_key_exists("teamID", $_SESSION)){
 
             <?php 
             } // suppress answer sheet before game starts
-            if ($current_round > 1) {
+            if ($quiz_complete == 1) {
             ?>
-            <div class="col-xs-12 col-md-3">
+            <div class="col-xs-12 col-md-12">
                 <h4>Leaderboard</h4>
-                <table class="table table-condensed table-hover">
-                    <tr>
-                        <td><strong>Team</strong></td>
-                        <td><strong>Score</strong></td>
-                    </tr>
+    
                     <?php include("db/build_leaderboard.php"); ?>
-                </table>
                 <?php 
                 } // suppress leaderboard when not in play
                 ?>
-
+            </div>
                 <script>
                     $('#bigplayer').click(function(){
                         console.log('bigplayer clicked');
