@@ -91,7 +91,8 @@ $ytID = $round_res[2];
                         <label for="team_secret" class="col-sm-2 control-label">Team Secret</label>
                         <div class="col-sm-10">
                         <input type="text" class="form-control" name="team_secret" id="team_secret" placeholder="I have the high ground" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')" >
-                            <span id="helpBlock" class="help-block">This is a secret that you'll need to submit with your answers for each round. Nice try fraudsters.</span>
+                            <span id="helpBlock" class="help-block">Letters, Numbers and Spaces only<br>
+                            <strong>Remember this, you'll need it to prove who you are.</strong></span>
                             
                         </div>
                     </div>

@@ -91,6 +91,13 @@ if ( empty($_POST) ) {
         $valid_teamsecret = 1;
     }
 
+    if (!preg_match('/^[a-z0-9 .\-]+$/i', $team_secret)){
+        $_SESSION["messages"]["danger"][] = "Team Secrets should only contain letters, numbers and spaces.";
+        $valid_teamsecret = 0;
+        $error = 1;
+    }
+
+
 // Validate that at least one team member exists
 
 
