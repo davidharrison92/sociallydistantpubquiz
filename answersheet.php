@@ -38,7 +38,7 @@ include ("db/db_config.php");
         ?>
             <tr>
                 <td><?php echo strval($i+1);?></td>
-                <td><input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" required="required" placeholder="<?php echo "Answer ".strval($i+1); ?>" onkeyup="this.value = this.value.replace(/[^a-z 0-9]/, '')"></td>
+                <td><input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" required="required" placeholder="<?php echo "Answer ".strval($i+1); ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
                     <!-- ^ Script should remove any -->
             </tr>
         <?php } ?>
@@ -48,7 +48,7 @@ include ("db/db_config.php");
     <div class="form-inline">
         <div class="form-group">
             <label for="teamsecret">Team Secret</label>
-            <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh" required="required" onkeyup="this.value = this.value.replace(/[^a-z 0-9]/, '')">
+            <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
         </div>
 
         <div class="form-group">
