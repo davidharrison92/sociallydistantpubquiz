@@ -22,12 +22,12 @@ if(!isset($show_video)){
         ?>
     </div>
     <div class="row">
-        <nav class="navbar navbar-default">
+        <div class="navbar-default">
             <ul class="nav navbar-nav">
                 <li><a href="about.html" target="_blank">How To Play</a></li>
                 <li><a href="your_answers.php" target="_blank">Your Score</a></li>
                 <li><a href="leaderboard.php" target="_blank">Full Leaderboard</a></li>
             </ul>
-        </nav>
+        </div>
     </div> <!-- end row -->
 </div> <!-- end container -->
