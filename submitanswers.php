@@ -3,6 +3,9 @@
 include("db/db_config.php");
 session_start();
 
+include("db/get_game_state.php");
+
+
 $teamKnownBool = (array_key_exists("teamID", $_SESSION));
 
 // clean the results
