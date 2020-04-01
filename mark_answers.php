@@ -172,7 +172,7 @@ if (array_key_exists("admin_user", $_SESSION)){
                 <form class="form-inline" action="mark_answers.php" method="post">
                 <p class="lead"><?php echo "<strong>R" . $qdata["round_number"] . " Q". $qdata["question_number"] . ":</strong> " . $qdata["question"]; ?>
                 <br><?php echo $qdata["true_answer"]; ?></p>
-                <table class="table table-condensed">
+                <table class="table table-condensed table-hover">
                     <tr>
                         <td><strong>#</strong></td>
                         <td><strong>Answer</strong></td>
