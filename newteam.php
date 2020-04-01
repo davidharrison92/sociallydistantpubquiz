@@ -2,13 +2,7 @@
 
 include ("db/db_config.php");
 session_start();
-$round_qry = "SELECT show_video, allow_signup, youtubeID from current_round";
-$round_res = mysqli_query($conn, $round_qry);
-$round_res = mysqli_fetch_row($round_res);
-
-$show_video = $round_res[0];
-$allow_signup = $round_res[1];
-$ytID = $round_res[2];
+include ("db/get_game_state.php");
 ?>
 
 <html>
