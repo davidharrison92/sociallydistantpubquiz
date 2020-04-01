@@ -33,7 +33,7 @@ include ("db/db_config.php");
 	<table class="table table-striped">
         <tr><td><strong>#</strong></td><td><strong>Header</strong></td></tr>
         <?php 
-        for ($i=0; $i<9; $i++){ 
+        for ($i=0; $i<=9; $i++){ 
             $name = "ans".strval($i+1);
         ?>
             <tr>
