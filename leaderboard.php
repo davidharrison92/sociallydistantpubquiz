@@ -14,14 +14,9 @@ include("db/db_config.php");
     <div class="container">
         <h1>Leaderboard:</h1>
         <h4>Socially Distanced Pub Quiz</h4>
-        <table class="table table-condensed table-hover">
-            <tr>
-                <td><strong>Team Name</strong></td>
-                <td><strong>Score</strong></td>
-                <?php include("db/build_leaderboard.php"); ?>
-            </tr>
-        </table>
 
+                <?php include("db/build_leaderboard.php"); ?>
+            
 
     </div> <!-- end container -->
 </body>
