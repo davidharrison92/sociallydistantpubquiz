@@ -61,7 +61,7 @@ foreach($leaderboard as $lb){
 	<?php 
 		for ($i = 1; $i <= $current_round; $i++){
 			?>
-			<td><?php echo $lb[FindIndex($i, 'Correct')]; ?> /<small><?php echo $lb[FindIndex($i, 'Correct')]; ?></small></td> 
+			<td><?php echo $lb[FindIndex($i, 'Correct')]; ?> /<small><?php echo $lb[FindIndex($i, 'Marked')]; ?></small></td> 
 		<?php 
 		} // end for loop (header)
 		?>	
