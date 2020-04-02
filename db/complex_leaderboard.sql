@@ -1,5 +1,5 @@
 
-ALTER VIEW complex_leaderboard AS	
+CREATE VIEW complex_leaderboard AS	
 select t.team_id, t.team_name, t.person1, t.person2, t.person3, t.person4,
 		COALESCE(overall.total_score,0) as 'total_score', COALESCE(overall.total_marked,0) as 'total_marked',
 		COALESCE(r1.round_score,0) as 'R1Correct', COALESCE(r1.round_marked,0) as 'R1Marked',
