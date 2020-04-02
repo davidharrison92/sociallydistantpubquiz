@@ -27,6 +27,10 @@ if(!isset($show_video)){
                 <li><a href="about.html" target="_blank">How To Play</a></li>
                 <li><a href="your_answers.php" target="_blank">Your Score</a></li>
                 <li><a href="leaderboard.php" target="_blank">Full Leaderboard</a></li>
+                <li class="navbar-right"><a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a></li>
+                <li class="navbar-right"><a href="https://twitter.com/ElectricBloo" target="_blank">@Alex</a></li>
+                <li class="navbar-right"><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li>
+
             </ul>
         </div>
     </div> <!-- end row -->
