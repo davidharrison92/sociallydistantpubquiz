@@ -74,7 +74,7 @@ if (!array_key_exists("admin_user",$_SESSION) and (array_key_exists("adminpass",
                 
 
                 <div class="jumbotron">
-                  <h1 id="winnername">Dodgy Dave's Quizzy Rascal!</h1>
+                  <h1 id="winnername">Dodgy Dave's Quizzy Raffle!</h1>
                   <p class="hidden" id="windetails">Order Number: #<span id="orderno"></span> (<span id="orderemail"></span>)</p>
                   <p><a class="btn btn-primary btn-lg" id="PickWinner" role="button">Pick a winner!</a></p>
                 </div>
