@@ -1,2 +1,6 @@
 db/db_config.php
+<<<<<<< Updated upstream
 db/db_wordpress.php
+=======
+store/
+>>>>>>> Stashed changes

@@ -3,8 +3,26 @@
 include ("db/db_config.php");
 session_start();
 
+if (!array_key_exists("admin_user",$_SESSION) and (array_key_exists("adminpass", $_POST))){
 
+        $secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
 
+        $pwdqry = "SELECT COUNT(*) as 'Count' from admin_password where password = '$secret'";
+        $checkpwd = $conn->query($pwdqry);
+        $pwd_res = $checkpwd->fetch_assoc();
+               
+        if (($pwd_res["Count"] * 1) >= 1) {
+            // admin user is logged in. Set session.
+            $_SESSION["admin_user"] = "Administrator";
+        } else {
+            // kill the session
+            unset($_SESSION["admin_user"]);
+            $failedlogin = 1;
+
+            $error = 1;
+            $errormsg = "Invalid admin password. Idiot.";
+        }
+}
 
 //var_dump($to_mark_teams_list);
 
@@ -23,13 +41,16 @@ session_start();
         <link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
         <link rel="manifest" href="favicon/site.webmanifest">
+        <script
+            src="https://code.jquery.com/jquery-3.4.1.min.js"
+            integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="
+            crossorigin="anonymous"></script>
 
     </head>
 
     <body>
 
         <div class="container">
-            <h3>GRAND RAFFLE DRAW EXTRAVAGANZA:</h3>
 
             <?php
 
@@ -43,18 +64,53 @@ session_start();
                     $raffle_tickets_data[] = $row;
                 }
 
-                var_dump($raffle_tickets_data);
-
 
                 foreach($raffle_tickets_data as $rtd){
                     for ($i =1; $i <= $rtd["entries"]; $i++){
                         // ticket per entry
-                        $tickets[] = $rtd;    
-                    }
-                }
+                         $tickets[] = $rtd;   
+                        }
+                    } ?>
+                
+
+                <div class="jumbotron">
+                  <h1 id="winnername">Dodgy Dave's Quizzy Rascal!</h1>
+                  <p class="hidden" id="windetails">Order Number: #<span id="orderno"></span> (<span id="orderemail"></span>)</p>
+                  <p><a class="btn btn-primary btn-lg" id="PickWinner" role="button">Pick a winner!</a></p>
+                </div>
+
+                <script>
+                    $('#PickWinner').click(function(){
+                        console.log('Clicked Button');
+                        var tickets = <?php echo json_encode($tickets); ?> ;
+                        var winTicket = tickets[Math.floor(Math.random() * tickets.length)];
+
+                        var winName = winTicket["first_name"].concat(' ', winTicket["last_name"]);
+                        var winEmail = winTicket["hide_email"];
+                        var winOrder = winTicket["order_id"];
+
+                        $('#winnername').text(winName);
+                        $('#orderno').text(winOrder);
+                        $('#orderemail').text(winEmail);
+
+                        $('#windetails').removeClass('hidden');
 
 
 
+
+
+
+                    });
+
+                </script>
+
+
+
+
+                
+
+
+        <?php 
             } else { // NOT "admin_user", $_SESSION
                 // Admin User is NOT logged in.
             ?>
