@@ -115,7 +115,7 @@ if (!isset($question_data)){
             
                 ?>
                 <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
-                <td><?php echo $q_detail["question"]; ?> </td>
+                <td><?php echo utf8_encode($q_detail["question"]); ?> </td>
                 <td><?php echo $q_detail["asub"]; ?> </td>
                 <td> <?php       
                     if ($q_detail["correct"] == "1"){
@@ -123,7 +123,7 @@ if (!isset($question_data)){
                         echo '<span class="glyphicon glyphicon-ok"></span>';
                     } else {
                         //wrong - show correct answer.
-                        echo '<span class="glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
+                        echo '<span class="glyphicon glyphicon-remove"></span> '. utf8_encode($q_detail["answer"]);
                     } ?>
                 </td>
             <?php
