@@ -67,66 +67,75 @@ if (array_key_exists("teamID",$_SESSION)){
 if (!array_key_exists("teamID", $_SESSION)){
     //Need to login. 
     $teamExists = FALSE;
+    echo "<h3>Log in to view your report card...</h3>";
+} else {
+    ?>
+    <h3>Report Card - <?php echo $team_name;?> <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span></h3>
+    <?php
 }
 
 ?>
 
-<h3>Report Card - <?php echo $team_name;?> <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span></h3>
+
+
+
 
 <?php
 
-if (count($question_data) == 0){
+if (!isset($question_data)){
     ?>
-    <div class="alert alert-warning">Come back after each round is marked, and see how you did!</div>
+    <div class="alert alert-warning"><strong>No answers to give out yet!</strong><br>Come back after each round is marked, and see how you did!</div>
 <?php
-}
+    } else {
+
+    if (array_key_exists("teamID", $_SESSION)){
+
+        $i = 1;
+        while(isset($question_data[$i])){
+
+                $qloop = $question_data[$i] ;
+            ?>
+            <p class="lead">Round Number <?php echo $qloop[$i]["round_number"] . ' - ' . $qloop[$i]["round_title"]; ?> </p>
+            <table class="table table-striped">
+                <tr>
+                    <td width="5%"><strong>#</strong></td>
+                    <td width="33%"><strong>Question</strong></td>
+                    <td width="28%"><strong>You said...</strong></td>
+                    <td width="34%"><strong>Correct?</strong></td>
+                </tr>
 
 
-$i = 1;
-while(isset($question_data[$i])){
+            <?php
+            foreach($qloop as $q_detail){
+                if ($q_detail["correct"] == "1"){
+                    echo '<tr class="success">';
+                    } else {
+                    echo '<tr class="danger">';
+                }
+            
+                ?>
+                <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
+                <td><?php echo $q_detail["question"]; ?> </td>
+                <td><?php echo $q_detail["asub"]; ?> </td>
+                <td> <?php       
+                    if ($q_detail["correct"] == "1"){
+                        //tick
+                        echo '<span class="glyphicon glyphicon-ok"></span>';
+                    } else {
+                        //wrong - show correct answer.
+                        echo '<span class="glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
+                    } ?>
+                </td>
+            <?php
+            }
+            ?>
 
-        $qloop = $question_data[$i] ;
-    ?>
-    <p class="lead">Round Number <?php echo $qloop[$i]["round_number"] . ' - ' . $qloop[$i]["round_title"]; ?> </p>
-    <table class="table table-striped">
-        <tr>
-            <td width="5%"><strong>#</strong></td>
-            <td width="33%"><strong>Question</strong></td>
-            <td width="28%"><strong>You said...</strong></td>
-            <td width="34%"><strong>Correct?</strong></td>
-        </tr>
-
-
-    <?php
-    foreach($qloop as $q_detail){
-        if ($q_detail["correct"] == "1"){
-            echo '<tr class="success">';
-            } else {
-            echo '<tr class="danger">';
-        }
-    
-        ?>
-        <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
-        <td><?php echo $q_detail["question"]; ?> </td>
-        <td><?php echo $q_detail["asub"]; ?> </td>
-        <td> <?php       
-            if ($q_detail["correct"] == "1"){
-                //tick
-                echo '<span class="glyphicon glyphicon-ok"></span>';
-            } else {
-                //wrong - show correct answer.
-                echo '<span class="glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
-            } ?>
-        </td>
-    <?php
-    }
-    ?>
-
-    </table>
-<?php
-$i++;
-} //end while
-
+            </table>
+        <?php
+        $i++;
+        } //end while
+    } // end check for sessionkey
+} // end check questions exist
 
 if(!array_key_exists("teamID",$_SESSION)){
     //login form
