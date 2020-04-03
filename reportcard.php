@@ -123,7 +123,7 @@ if (!isset($question_data)){
                         echo '<span class="glyphicon glyphicon-ok"></span>';
                     } else {
                         //wrong - show correct answer.
-                        echo '<span class="glyphicon glyphicon-remove"></span> '. utf8_encode($q_detail["answer"]);
+                        echo '<span class="glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
                     } ?>
                 </td>
             <?php
