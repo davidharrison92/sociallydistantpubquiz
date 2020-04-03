@@ -1,5 +1,6 @@
 <?php
 include("db/db_config.php");
+include("db/get_game_state.php");
 ?>
 <head>
     <title>Socially Distant Pub Quiz</title>
@@ -15,7 +16,17 @@ include("db/db_config.php");
         <h1>Leaderboard:</h1>
         <h4>Socially Distanced Pub Quiz</h4>
 
-                <?php include("db/build_leaderboard.php"); ?>
+        <?php
+        if ($current_round > 1){
+         include("db/build_leaderboard.php"); 
+        } else {
+        ?>
+        <div class="alert alert-warning"><p><strong>The results aren't in yet</strong></p>
+            <p>The leaderboard will become available after the first round has been marked</p>
+        </div>
+        <?php
+        }
+        ?>
             
 
     </div> <!-- end container -->
