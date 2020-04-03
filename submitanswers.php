@@ -17,7 +17,7 @@ if ( empty($_POST) ) {
 
 	// build answers array and fill it. We know that they have value ans1-ans10
 	$answers = array();
-    for ($i=0; $i<9; $i++) {
+    for ($i=0; $i<=9; $i++) {
 		$field = "ans".strval($i+1);
 		$answers[$i] = mysqli_real_escape_string($conn,$_POST[$field]);
     }

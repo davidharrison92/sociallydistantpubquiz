@@ -44,6 +44,8 @@ if (array_key_exists("teamID",$_SESSION)){
         JOIN rounds r on r.round_number = s.round_number
         where s.marked = 1 and s.team_id = '" . $team_ID . "';";
 
+//    echo $qdata_query;
+
     $qdata_res = mysqli_query($conn, $qdata_query);
 
 
