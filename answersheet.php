@@ -2,6 +2,28 @@
 
 include ("db/db_config.php");
 
+if ($current_round > 0) {
+
+    include("funcs/pictureround.php");
+
+    $get_questions = "SELECT picture_question,
+                      CASE WHEN picture_question = 1 THEN question ELSE 'hidden' END AS 'img_address',
+                      question_number
+                    FROM
+                        quiz_questions
+                    WHERE
+                        round_number = ".$current_round." ORDER BY question_number ASC ;" ;
+
+    $result = mysqli_query($conn, $get_questions);
+
+    while ($row = $result->fetch_assoc()){
+        $questions[] = $row;
+    }
+
+}
+
+var_dump($questions);
+
 
 ?>
 
@@ -33,12 +55,15 @@ include ("db/db_config.php");
 	<table class="table table-striped">
         <tr><td><strong>#</strong></td><td><strong>Header</strong></td></tr>
         <?php 
-        for ($i=0; $i<=9; $i++){ 
-            $name = "ans".strval($i+1);
+        foreach ($questions as $qline){ 
+            $name = "ans".strval($qline["question_number"]);
         ?>
             <tr>
-                <td><?php echo strval($i+1);?></td>
-                <td><input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" required="required" placeholder="<?php echo "Answer ".strval($i+1); ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
+                <td><?php echo $qline["question_number"];?></td>
+                <td><?php if($qline["picture_question"] == "1") { 
+                        echo pictureround($qline["img_address"]); 
+                    } ?> 
+                    <input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" required="required" placeholder="<?php echo "Answer ". $qline["question_number"]; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
                     <!-- ^ Script should remove any -->
             </tr>
         <?php } ?>
