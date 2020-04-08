@@ -85,14 +85,15 @@ include ("db/get_game_state.php");
                         <label for="team_secret" class="col-sm-2 control-label">Team Secret</label>
                         <div class="col-sm-10">
                         <input type="text" class="form-control" name="team_secret" id="team_secret" placeholder="I have the high ground" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')" >
-                            <span id="helpBlock" class="help-block">Letters, Numbers and Spaces only<br>
                             <strong>Remember this, you'll need it to prove who you are.</strong></span>
-                            
+                            <span id="helpBlock" class="help-block">Letters, Numbers and Spaces only<br>
                         </div>
                     </div>
+
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Sign up!</button>
+                        <button type="submit" class="btn btn-default">Sign up!</button>   <span class="small">  By signing up, you agree to our <a href="about.html" target="_blank">terms and privacy policy</a>.</span>
+
                         </div>
                     </div>
                 </form>
