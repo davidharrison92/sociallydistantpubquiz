@@ -14,6 +14,8 @@ if ($current_round > 0) {
                     WHERE
                         round_number = ".$current_round." ORDER BY question_number ASC ;" ;
 
+                  echo $get_questions;
+
     $result = mysqli_query($conn, $get_questions);
 
     while ($row = $result->fetch_assoc()){
@@ -56,14 +58,13 @@ var_dump($questions);
         <tr><td><strong>#</strong></td><td><strong>Header</strong></td></tr>
         <?php 
         foreach ($questions as $qline){ 
-            $name = "ans".strval($qline["question_number"]);
         ?>
             <tr>
                 <td><?php echo $qline["question_number"];?></td>
                 <td><?php if($qline["picture_question"] == "1") { 
                         echo pictureround($qline["img_address"]); 
                     } ?> 
-                    <input type="text" class="form-control" id="<?php echo $name; ?>" name="<?php echo $name; ?>" required="required" placeholder="<?php echo "Answer ". $qline["question_number"]; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
+                    <input type="text" class="form-control" id="<?php echo $qline["question_number"]; ?>" name="answered_questions[<?php echo $qline["question_number"]; ?>]" required="required" placeholder="<?php echo "Answer ". $qline["question_number"]; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
                     <!-- ^ Script should remove any -->
             </tr>
         <?php } ?>

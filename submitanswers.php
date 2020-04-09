@@ -1,4 +1,5 @@
 <?php
+var_dump($_POST);
 
 include("db/db_config.php");
 session_start();
@@ -15,13 +16,15 @@ if ( empty($_POST) ) {
   $error_reason[] = "Please enter the details on the form below";
 } else {
 
+var_dump($_POST);
+
 	// build answers array and fill it. We know that they have value ans1-ans10
 	$answers = array();
-    for ($i=0; $i<=9; $i++) {
-		$field = "ans".strval($i+1);
-		$answers[$i] = mysqli_real_escape_string($conn,$_POST[$field]);
+    foreach($_POST["answered_questions"] as $qno => $ans) {
+		$answers[$qno] = mysqli_real_escape_string($conn,$ans);
     }
     
+    var_dump($answers);
 	if ($teamKnownBool){
 		$teamID = $_SESSION["teamID"];
 	} else {
