@@ -24,8 +24,6 @@ if ($current_round > 0) {
 
 }
 
-var_dump($questions);
-
 
 ?>
 

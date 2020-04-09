@@ -13,7 +13,7 @@ function pictureround($imagesrc){
 
 
 	if (in_array(strtoupper(get_extension($imagesrc)), $allow_types))	{
-		$outputstring = '<img src="picture_round/' . $imagesrc . '" alt="Picture Question" class="img-thumbnail">';
+		$outputstring = '<img src="picture_round/' . $imagesrc . '" alt="Picture Question" class="img-thumbnail img-responsive">';
 		return $outputstring;
 	} else {
 		return 'Error - supplied image is not an allowable file format';
