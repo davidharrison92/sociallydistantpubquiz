@@ -14,7 +14,6 @@ if ($current_round > 0) {
                     WHERE
                         round_number = ".$current_round." ORDER BY question_number ASC ;" ;
 
-                  echo $get_questions;
 
     $result = mysqli_query($conn, $get_questions);
 
@@ -70,11 +69,14 @@ if ($current_round > 0) {
   	</table>
     <input type="hidden" id="roundnumber" name="round_number" value=<?php echo '"'.$current_round.'"'; ?>> 
     <div class="form-inline">
-        <div class="form-group">
-            <label for="teamsecret">Team Secret</label>
-            <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
-        </div>
-
+    <?php if (!array_key_exists("teamID", $_SESSION)){ 
+            ?>
+            <div class="form-group">
+                <label for="teamsecret">Team Secret</label>
+                <input type="text" class="form-control" id="teamsecret" name="secret" placeholder="Ssssh" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
+            </div>
+        <?php
+        } ?>
         <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
                 <button type="submit" class="btn btn-default">Submit</button>
