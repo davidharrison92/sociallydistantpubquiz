@@ -5,7 +5,7 @@ session_start();
 
 include("db/get_game_state.php");
 
-
+$field_template =   '<td><input type="text" class="form-control" id="ansQQQ" name="answered_questions[QQQ]" placeholder="Answer QQQ" value="ZZZ"></td>';
 $teamKnownBool = (array_key_exists("teamID", $_SESSION));
 
 // clean the results
@@ -24,6 +24,7 @@ if ( empty($_POST) ) {
     
 	if ($teamKnownBool){
 		$teamID = $_SESSION["teamID"];
+        $team_secret_pass = 1;
 	} else {
 		$teamID = mysqli_real_escape_string($conn, $_POST["teamID"]);
 		$teamsecret = mysqli_real_escape_string($conn, $_POST["secret"]);
@@ -107,7 +108,7 @@ if (!$teamKnownBool){
                         <?php 
 
                         $question_number = 1;
-                        foreach ($answers as $ans){
+                        foreach ($answers as $qno => $ans){
                             echo "<td>". $question_number."</td>";
 
                             if ($team_secret_pass == 1) {
@@ -124,8 +125,15 @@ if (!$teamKnownBool){
                                     $ans_query = "INSERT INTO submitted_answers (team_id, round_number, question_number, answer) VALUES ('$teamID', '$round', '$question_number', '$ans');";
                                 }
 
+
                                 if (mysqli_query($conn,$ans_query)){
                                     echo $ans . "</td>";
+                                } else {
+                                    //error condition
+                                    $retry_field = str_replace("QQQ", $question_number, $field_template);
+                                    $retry_field = str_replace("ZZZ", $ans, $retry_field);
+                                    echo $retry_field;
+
                                 }
                                 // spew it back out into a table
                                 $ans_query = "";
