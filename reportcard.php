@@ -1,5 +1,6 @@
 <?php
 include("db/db_config.php");
+include("funcs/pictureround.php");
 session_start();
 
 
@@ -38,7 +39,7 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question
+    $qdata_query = "SELECT s.round_number, r.round_title, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question
         from submitted_answers s 
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
         JOIN rounds r on r.round_number = s.round_number
@@ -76,13 +77,7 @@ if (!array_key_exists("teamID", $_SESSION)){
     <?php
 }
 
-?>
 
-
-
-
-
-<?php
 
 if (!isset($question_data)){
     ?>
@@ -91,11 +86,10 @@ if (!isset($question_data)){
     } else {
 
     if (array_key_exists("teamID", $_SESSION)){
+        foreach($question_data as $i => $qloop){
 
-        $i = 1;
-        while(isset($question_data[$i])){
+            // $qloop = $question_data[$i] ;
 
-                $qloop = $question_data[$i] ;
             ?>
             <p class="lead">Round Number <?php echo $qloop[$i]["round_number"] . ' - ' . $qloop[$i]["round_title"]; ?> </p>
             <table class="table table-striped">
@@ -117,12 +111,16 @@ if (!isset($question_data)){
             
                 ?>
                 <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
-                <td><?php echo utf8_encode($q_detail["question"]); ?> </td>
+                <td><?php if ($q_detail["picture_question"] == 1){
+                                echo pictureround($q_detail["question"]);
+                            } else {
+                                echo utf8_encode($q_detail["question"]);
+                            } ?> </td>
                 <td><?php echo $q_detail["asub"]; ?> </td>
                 <td> <?php       
                     if ($q_detail["correct"] == "1"){
                         //tick
-                        echo '<span class="glyphicon glyphicon-ok"></span>';
+                        echo '<span class="glyphicon glyphicon-ok"></span>'. $q_detail["answer"];
                     } else {
                         //wrong - show correct answer.
                         echo '<span class="glyphicon glyphicon-remove"></span> '. $q_detail["answer"];

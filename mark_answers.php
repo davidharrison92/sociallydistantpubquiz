@@ -1,6 +1,7 @@
 <?php 
 
 include ("db/db_config.php");
+include ("funcs/pictureround.php");
 session_start();
 
 
@@ -12,7 +13,6 @@ if ( !empty($_POST) ) {
 
     if (!isset($_SESSION["admin_user"])){
 
-        echo "bar";
 
     	$secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
 
@@ -35,7 +35,6 @@ if ( !empty($_POST) ) {
     } 
 
     if( (!isset($_POST["loginonly"])) AND (isset($_SESSION["admin_user"]))) { // only do this if it's sucessfully logged in (but not JUST a login)
-    echo "foo";
     //mark it.	
 
     $mark_round = mysqli_real_escape_string($conn,$_POST["round_number"]);
@@ -94,7 +93,7 @@ if (array_key_exists("admin_user", $_SESSION)){
 
     // fetch answers that need marking.
     $questions_to_mark = array();
-    $questions_query = "SELECT distinct round_number, question_number, question, true_answer FROM unmarked_answers";
+    $questions_query = "SELECT distinct round_number, question_number, question, true_answer, picture_question FROM unmarked_answers";
 
     $result = mysqli_query($conn,$questions_query);
     $rows = array();
@@ -170,8 +169,18 @@ if (array_key_exists("admin_user", $_SESSION)){
                 ?>
               
                 <form class="form-inline" action="mark_answers.php" method="post">
-                <p class="lead"><?php echo "<strong>R" . $qdata["round_number"] . " Q". $qdata["question_number"] . ":</strong> " . $qdata["question"]; ?>
-                <br><?php echo $qdata["true_answer"]; ?></p>
+                <p class="lead"><?php 
+                    echo "<strong>R" . $qdata["round_number"] . " Q". $qdata["question_number"] . ":</strong> ";
+
+                    if ($qdata["picture_question"] == 1){
+                        echo pictureicon($qdata["question"]);
+                    } else{
+                        echo $qdata["question"];
+                    } ?>
+                    </p>
+                <p>
+                    <strong>Correct Answer: </strong><?php echo $qdata["true_answer"]; ?>
+                </p>
                 <table class="table table-condensed table-hover">
                     <tr>
                         <td><strong>#</strong></td>
