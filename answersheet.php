@@ -59,7 +59,7 @@ if ($current_round > 0) {
             <tr>
                 <td><?php echo $qline["question_number"];?></td>
                 <td><?php if($qline["picture_question"] == "1") { 
-                        echo pictureround($qline["img_address"]); 
+                        echo pictureround($qline["img_address"]) ."<br>"; 
                     } ?> 
                     <input type="text" class="form-control" id="<?php echo $qline["question_number"]; ?>" name="answered_questions[<?php echo $qline["question_number"]; ?>]" required="required" placeholder="<?php echo "Answer ". $qline["question_number"]; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
                     <!-- ^ Script should remove any -->
