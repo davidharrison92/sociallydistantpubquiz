@@ -60,7 +60,7 @@ if (array_key_exists("teamID", $_SESSION)){
             ?>
             <div class="row">
                 <div class="alert alert-info" role="alert">
-                    <a href="newteam.php" class="alert-link"><strong>Be quick!</strong> We're about to start the quiz. Click here quick and enter your team.</a>
+                    <a href="newteam.php" class="alert-link"><strong>Be quick!</strong> We're about to start the quiz. Click here quick and enter your team.</a> 
                 </div>
                 <?php
                 }
@@ -70,7 +70,7 @@ if (array_key_exists("teamID", $_SESSION)){
                 <div class="jumbotron">
                     <h1>Sign up now!</h1>
                     <p>Mark your diaries, the next quiz will be on Friday at 8PM (UK Time). In the meantime...</p>
-                    <p><a class="btn btn-primary btn-lg" href="newteam.php" role="button">Register your team!</a></p>
+                    <p><a class="btn btn-primary btn-lg" href="newteam.php" role="button">Register your team!</a>   or   <a class="btn btn-info btn-lg" href="https://sociallydistant.pub/store/" role="button">Buy your raffle tickets...</a></p>
                 </div>
                 <?php
                 }
@@ -84,7 +84,7 @@ if (array_key_exists("teamID", $_SESSION)){
                             $teamprinter = 0;
                             foreach($teams_list as $team){
                                 $teamprinter = $teamprinter + 1;
-                                if (count($teams_list) > 14 and $teamprinter % 15 == 0 and $teamprinter > 0){
+                                if (count($teams_list) > 14 and $teamprinter % ceil(count($teams_list)/3) == 0 and $teamprinter > 0){
                                     // every 10th row, start a new column
                                     echo '</div><div class="col-md-4">';
                                 }
