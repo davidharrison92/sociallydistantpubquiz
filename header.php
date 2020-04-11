@@ -24,6 +24,7 @@ if(!isset($show_video)){
     <div class="row">
         <div class="navbar-default">
             <ul class="nav navbar-nav">
+                <li><a href="https://sociallydistant.pub/store/" target="_blank"><strong>Raffle</strong></a></li>
                 <li><a href="about.html" target="_blank">How To Play</a></li>
                 <li><a href="your_answers.php" target="_blank">Your Score</a></li>
                 <li><a href="leaderboard.php" target="_blank">Full Leaderboard</a></li>
