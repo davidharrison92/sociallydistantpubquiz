@@ -60,7 +60,7 @@ if (array_key_exists("teamID", $_SESSION)){
 
             <div class="alert alert-nhs">
                 <p class="lead">Sunday's raffle is raising money for <strong>NHS Charities Together</strong> and <strong>Mind</strong>.</p> 
-                <p><a class="btn btn-nhs" href="https://sociallydistant.pub/store/" role="button">Raffle tickets</a><span class="small">    <a class="link-nhs" href="charity.html">More info</a></span></p>
+                <p><a class="btn btn-nhs" href="https://sociallydistant.pub/store/" role="button">Raffle tickets</a><span class="small">    <a class="link-nhs" href="charity.html" target="_blank">More info</a></span></p>
             </div>
 
             <?php if ($allow_signup == 1 and $current_round > 0) { 
