@@ -46,6 +46,7 @@ if (array_key_exists("teamID", $_SESSION)){
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
         <link rel="stylesheet" href="vidcontrols.css" >
+        <link rel="stylesheet" href="nhs.css">
 
 
     </head>
@@ -56,6 +57,12 @@ if (array_key_exists("teamID", $_SESSION)){
 
             </div> <!-- / header row -->
             <hr>
+
+            <div class="alert alert-nhs">
+                <p class="lead">Tonight's raffle is raising money for <strong>NHS Charities Together</strong> and <strong>Mind</strong>.</p> 
+                <p><a class="btn btn-nhs" href="https://sociallydistant.pub/store/" role="button">Raffle tickets</a><span class="small"><a class="link-nhs" href="#">More info</a></span></p>
+            </div>
+
             <?php if ($allow_signup == 1 and $current_round > 0) { 
             ?>
             <div class="row">
@@ -77,20 +84,21 @@ if (array_key_exists("teamID", $_SESSION)){
                 if ($allow_signup == 1) {
                 ?>
                 <div class="row">
-                    <p class="lead">Teams registered so far: </p>
+                    <p class="lead"><strong><?php echo count($teams_list); ?> teams</strong> registered already! </p>
                     <div class="col-md-4">
                         <ul>
                             <?php
                             $teamprinter = 0;
                             foreach($teams_list as $team){
                                 $teamprinter = $teamprinter + 1;
-                                if (count($teams_list) > 14 and $teamprinter % ceil(count($teams_list)/3) == 0 and $teamprinter > 0){
+                                if (count($teams_list) > 14 and $teamprinter % ceil((count($teams_list)+1)/3) == 0 and $teamprinter > 0){
                                     // every 10th row, start a new column
                                     echo '</div><div class="col-md-4">';
                                 }
                                 echo "<li>".$team["team_name"]."</li>";
                             }
                                 ?>
+                          <li><a href="newteam.php">Click here to become team #<?php echo count($teams_list)+1; ?>...</a> </li>
                         </ul>
                     </div>
                 </div> 

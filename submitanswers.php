@@ -2,7 +2,7 @@
 
 include("db/db_config.php");
 session_start();
-include("funcs/pictureround.php")
+include("funcs/pictureround.php");
 
 include("db/get_game_state.php");
 

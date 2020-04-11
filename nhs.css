@@ -1,0 +1,28 @@
+/* Bootstrap classes, but with NHS branding.
+
+NHS Branding: https://www.england.nhs.uk/nhsidentity/identity-guidelines/colours/
+Fonts: https://www.england.nhs.uk/nhsidentity/identity-guidelines/fonts/
+
+*/
+
+.alert-nhs {
+  color: #ffffff;
+  background-color: #005EB8; /* pale grey */
+  border-color: #bce8f1; /* dark blue */
+}
+
+.btn-nhs {
+  color: #0072CE; /* bright blue */
+  background-color: #E8EDEE; /* NHS Pale Grey */
+  border-color: #46b8da;
+}
+
+.link-nhs{
+	color: #E8EDEE ; /* NHS bright blue */
+
+}
+
+.link-nhs:hover{
+	color: #ffffff ; /* NHS bright blue */
+	
+}
