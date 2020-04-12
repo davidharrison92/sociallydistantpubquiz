@@ -23,10 +23,16 @@ $rows = array();
 while($row = $result->fetch_assoc()){
 	$leaderboard[] = $row;
 };
+
+// Initial data for ranking scores
+$prev_total = 0;
+$current_rank = 0;
+$repeats = 1;
 ?>
 
 <table class="table table-condensed table-hover">
     <tr>
+		<td><strong>Rank</strong></td>
         <td><strong>Team Name</strong></td>
 		<?php 
 			for ($i = 1; $i <= $current_round; $i++){
@@ -50,10 +56,25 @@ foreach($leaderboard as $lb){
 	if (strlen($lb["person4"])>1){
 		$teammembers = $teammembers . ", ". $lb["person4"];
 	}
-
+	
+	/*
+	 * If total has changed from previous line to this
+	 * then increase the rank by the number of times the 
+	 * previous score repeated.
+	 * Otherwise just count another repeat
+	 * */
+	if ($prev_total != (int)$lb["total_score"]) {
+		
+		$prev_total = $lb["total_score"];
+		$current_rank = $current_rank + $repeats;
+		$repeats = 1;
+	} else {
+		$repeats = $repeats + 1;
+	}
 	?>
 
 <tr>
+	<td><p><?php echo $current_rank; ?></p></td>
 	<td><p><strong><?php echo $lb["team_name"];?></strong>
 		<span class="small"><?php echo $teammembers; ?></span> </p>
 
