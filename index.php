@@ -58,10 +58,10 @@ if (array_key_exists("teamID", $_SESSION)){
             </div> <!-- / header row -->
             <hr>
 
-         <!--    <div class="alert alert-nhs">
-                <p class="lead">Sunday's raffle is raising money for <strong>NHS Charities Together</strong> and <strong>Mind</strong>.</p> 
+            <div class="alert alert-nhs">
+                <p class="lead">Friday's raffle is raising money for <strong>NHS Charities Together</strong> and <strong>Mind</strong>.</p> 
                 <p><a class="btn btn-nhs" href="https://sociallydistant.pub/store/" role="button">Raffle tickets</a><span class="small">    <a class="link-nhs" href="charity.html" target="_blank">More info</a></span></p>
-            </div> -->
+            </div>
 
             <?php if ($allow_signup == 1 and $current_round > 0) { 
             ?>
@@ -76,8 +76,8 @@ if (array_key_exists("teamID", $_SESSION)){
                 ?>
                 <div class="jumbotron">
                     <h1>Sign up now!</h1>
-                    <p>Mark your diaries, the next quiz will be on Sunday at 8PM (UK Time). In the meantime...</p>
-                    <p><a class="btn btn-primary btn-lg" href="newteam.php" role="button">Register your team!</a>   or   <a class="btn btn-info btn-lg" href="https://sociallydistant.pub/store/" role="button">Buy your raffle tickets...</a></p>
+                    <p>Mark your diaries, the next quiz will be on Friday at 8PM (UK Time). In the meantime...</p>
+                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>   or   <a class="btn btn-nhs btn-lg" href="https://sociallydistant.pub/store/" role="button">Buy your <strong>charity raffle tickets</strong>...</a></p>
                 </div>
                 <?php
                 }
