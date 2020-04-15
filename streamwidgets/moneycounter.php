@@ -1,10 +1,3 @@
-<?php
-
-include("../db/db_wordpress.php");
-
-?>
-
-
 <html>
 <head>
         <title>Socially Distant Pub Quiz | Live Total</title>
@@ -23,18 +16,18 @@ include("../db/db_wordpress.php");
 </head>
 <body>
 	<div class="container">
-		<h1>Current Total: £560!   (£440 to go until baldness ensues!)</h1>
-
-		<h3>Last Donation: Alex L, £10! Thank You!</h3>
-
-		<h4>Biggest Donors so far:</h4>
-		<ul>
-			<li>Dave H - £100</li>
-			<li>Jonny A - £34</li>
-			<li>Stevie J - £23</li>
-		</ul>
+		<div class="col-xs-12">
+			<iframe id="runningtotals" width="100%" height="100%" frameborder="0" src="runningtotals.php"></iframe>
+		</div>
 	</div>
 </body>
 
+
+<script>
+window.setInterval("reloadIFrame();", 30000);
+function reloadIFrame() {
+ document.getElementById("runningtotals").src="runningtotals.php";
+}
+</script>
 
 </html>
