@@ -29,7 +29,7 @@ function pictureicon($imagesrc){
 
 
 	if (in_array(strtoupper(get_extension($imagesrc)), $allow_types))	{
-		$outputstring = '<img src="picture_round/' . $imagesrc . '" alt="Picture Question" class="img-thumbnail" height="50px" width="50px">';
+		$outputstring = '<img src="picture_round/' . $imagesrc . '" alt="Picture Question" class="img-circle" height="50px" width="50px">';
 		return $outputstring;
 	} else {
 		return 'Error - supplied image is not an allowable file format';

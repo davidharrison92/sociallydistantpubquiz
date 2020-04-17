@@ -8,7 +8,7 @@ if ($current_round > 0) {
 
     $get_questions = "SELECT picture_question,
                       CASE WHEN picture_question = 1 THEN question ELSE 'hidden' END AS 'img_address',
-                      question_number
+                      question_number, hint
                     FROM
                         quiz_questions
                     WHERE
@@ -59,9 +59,25 @@ if ($current_round > 0) {
             <tr>
                 <td><?php echo $qline["question_number"];?></td>
                 <td><?php if($qline["picture_question"] == "1") { 
+                        $lastimage = $qline["img_address"];
                         echo pictureround($qline["img_address"]) ."<br>"; 
-                    } ?> 
-                    <input type="text" class="form-control" id="<?php echo $qline["question_number"]; ?>" name="answered_questions[<?php echo $qline["question_number"]; ?>]" required="required" placeholder="<?php echo "Answer ". $qline["question_number"]; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')"></td>
+                    } 
+
+                    if (strlen($qline["hint"]) > 0 ) {
+                        $placeholder = $qline["hint"];
+                    } else {
+                        $placeholder = 'Answer ' . $qline["question_number"];
+                    }
+
+                    ?> 
+                     <?php if (strlen($qline["hint"]) > 0) {
+                        echo '<span min-width="100px" class="small">'. ' '. pictureicon($lastimage) .'  </span>';
+                    } ?>
+                    <input type="text" class="form-control" id="<?php echo $qline["question_number"]; ?>" name="answered_questions[<?php echo $qline["question_number"]; ?>]" required="required" placeholder="<?php echo $placeholder; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
+
+                   
+
+                </td>
                     <!-- ^ Script should remove any -->
             </tr>
         <?php } ?>
