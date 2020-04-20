@@ -21,10 +21,11 @@ $res_last_donor = mysqli_fetch_row($res_last_donor);
 $last_donor_name = $res_last_donor[0];
 $last_donor_amount = $res_last_donor[1];
 
-$qry_top_donors = "select concat(first_name, ' ',  left(last_name,1)) as 'ShortName', net_total  from wp_wc_order_stats ord 
+$qry_top_donors = "select concat(first_name, ' ',  left(last_name,1)) as 'ShortName', sum(net_total) as net_total from wp_wc_order_stats ord 
 				join wp_wc_customer_lookup cust 
 					on ord.customer_id = cust.customer_id
 				where status = 'wc-processing'
+				group by concat(first_name, ' ',  left(last_name,1)), cust.email
 				order by net_total DESC
 				Limit 3 ";
 
@@ -39,7 +40,7 @@ while ($row = $res_donors->fetch_assoc()){
 
 <?php 
 if ($charity_total > 350 and $charity_total <= 1000) { 
-	$note = '(£'. number_format(1000 - $charity_total, 2, '.',',') . ' until the big shave)';
+	$note = '£'. number_format(1000 - $charity_total, 2, '.',',') . ' until the big shave';
 } elseif ($charity_total > 1000) {
 	$note = '<strong>TARGET REACHED!</strong> Bring on the baldness!';
 } else {
@@ -54,15 +55,16 @@ if ($charity_total > 350 and $charity_total <= 1000) {
 
 <body>
 
-	<h1>Current Total: <strong>£<?php echo number_format($charity_total,2,'.',','); ?> </strong> <span class="lead"> <?php echo $note; ?></span> </h1>
+	<h1>Current Total: <strong>£<?php echo number_format($charity_total,2,'.',','); ?> </strong><br>
+	<span class="lead"> <?php echo $note; ?></span> </h1>
 
 
-			<h3>Last Donation: <?php echo $last_donor_name . ', £' . number_format($last_donor_amount,2,'.',','); ?>!, Thank You!</h3>
+			<h3>Last Donation: <?php echo ucwords($last_donor_name, ' ') . ', £' . number_format($last_donor_amount,2,'.',','); ?>!, Thank You!</h3>
 
 			<h4>Biggest Donors so far:</h4>
 			<ul>
 				<?php foreach($top_donors as $donor){
-					echo '<li><strong>'. $donor["ShortName"] . '</strong> - £' . number_format($donor["net_total"],2,'.',',') . '</li>'; 
+					echo '<li><strong>' . ucwords($donor["ShortName"], ' ') . '</strong> - £' . number_format($donor["net_total"],2,'.',',') . '</li>'; 
 				}
 				?>
 			</ul>
