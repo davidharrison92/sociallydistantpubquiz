@@ -39,8 +39,9 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question
+    $qdata_query = "SELECT s.round_number, r.round_title, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, d.pct_correct
         from submitted_answers s 
+            LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
         JOIN rounds r on r.round_number = s.round_number
         where s.marked = 1 and s.team_id = '" . $team_ID . "';";
@@ -115,16 +116,30 @@ if (!isset($question_data)){
                                 echo pictureround($q_detail["question"]);
                             } else {
                                 echo utf8_encode($q_detail["question"]);
-                            } ?> </td>
+                            } ?>
+                        </td>
                 <td><?php echo $q_detail["asub"]; ?> </td>
-                <td> <?php       
+                <td><p> <?php       
                     if ($q_detail["correct"] == "1"){
                         //tick
-                        echo '<span class="glyphicon glyphicon-ok"></span>'. $q_detail["answer"];
+                        echo '<span class="lead glyphicon glyphicon-ok"></span> '. $q_detail["answer"];
                     } else {
                         //wrong - show correct answer.
-                        echo '<span class="glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
+                        echo '<span class="lead glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
                     } ?>
+                    </p>
+                    <p class="text-muted">Guessed by: 
+                     <?php if ($q_detail["pct_correct"] > 67){
+                            // easy question
+                            echo '<span class="label label-success">'. round($q_detail["pct_correct"]).'% of teams';
+                        } elseif ($q_detail["pct_correct"]  < 67 and $q_detail ["pct_correct"]  > 45){
+                            // med question
+                            echo '<span class="label label-info">'. round($q_detail["pct_correct"]).'% of teams';
+                        } else {
+                            // hard question
+                            echo '<span class="label label-danger">'. round($q_detail["pct_correct"]).'% of teams';
+                        } ?>
+                    </p>
                 </td>
             <?php
             }
