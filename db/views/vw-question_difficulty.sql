@@ -1,4 +1,4 @@
-ALTER VIEW question_difficulty
+CREATE VIEW question_difficulty
 AS
 SELECT
 	q.round_number, q.question_number, (SUM(s.correct) / SUM(s.marked)) * 100 as 'pct_correct'
