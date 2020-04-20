@@ -1,17 +1,17 @@
 <?php
 include("db/db_config.php");
-include("../funcs/leaderboard_functions.php");
 
 if (!isset($current_round)){
 	// this won't be needed if embeded on index, but will be needed if running in standalone window.
 	include("db/get_game_state.php");
 }
 
+include("../funcs/leaderboard_functions.php")
 
 
 // this just spits out a table.
 
-$lbq = "select team_id, team_name, person1, person2, person3, person4, total_score, total_marked, R1Correct, R1Marked, R2Correct, R2Marked, R3Correct, R3Marked, R4Correct, R4Marked, R5Correct, R5Marked, R6Correct, R6Marked, R7Correct, R7Marked, R8Correct, R8Marked, R9Correct, R9Marked from complex_leaderboard" ;
+$lbq = "select team_id, team_name, person1, person2, person3, person4, total_score, total_marked, R1Correct, R1Marked, R2Correct, R2Marked, R3Correct, R3Marked, R4Correct, R4Marked, R5Correct, R5Marked, R6Correct, R6Marked, R7Correct, R7Marked, R8Correct, R8Marked, R9Correct, R9Marked from complex_leaderboard cl JOIN mini_league on cl.team_id = ml.league_member" ;
 
 
 
@@ -27,20 +27,9 @@ $current_rank = 0;
 $repeats = 1;
 ?>
 
-
-
 <table class="table table-condensed table-hover">
     <tr>
 		<td><strong>Rank</strong></td>
-		<?php 
-		if (array_key_exists("teamID", $_SESSION)){
-			?>
-			  <form action="leaderboard.php" method="POST">
-			  <td>
-			  	<button type="submit" class="btn btn-default btn-xs">+ My<br>League</button>
-			  </td>
-			 <?php
-		} ?> 
         <td><strong>Team Name</strong></td>
 		<?php 
 			for ($i = 1; $i <= $current_round; $i++){
@@ -83,7 +72,6 @@ foreach($leaderboard as $lb){
 
 <tr>
 	<td><p><?php echo $current_rank; ?></p></td>
-	<?php echo add_team($lb["team_id"]); ?>
 	<td><p><strong><?php echo $lb["team_name"];?></strong>
 		<span class="small"><?php echo $teammembers; ?></span> </p>
 
@@ -101,11 +89,5 @@ foreach($leaderboard as $lb){
 
 	<?php
 }
-
-	if (array_key_exists("teamID",$_SESSION)){
-		echo '</form>';
-	}
-
 ?>
-
-</table>
+</table
