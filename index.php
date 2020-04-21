@@ -77,7 +77,7 @@ if (array_key_exists("teamID", $_SESSION)){
                 <div class="jumbotron">
                     <h1>Sign up now!</h1>
                     <p>Mark your diaries, the next quiz will be on Friday at 8PM (UK Time). In the meantime...</p>
-                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>   or   <a class="btn btn-nhs btn-lg" href="https://sociallydistant.pub/store/" role="button">Buy your <strong>charity raffle tickets</strong>...</a></p>
+                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a></p>
                 </div>
                 <?php
                 }
