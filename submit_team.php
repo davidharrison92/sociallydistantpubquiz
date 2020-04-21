@@ -47,6 +47,15 @@ if ( empty($_POST) ) {
         $livestream = 0;
     }
 
+
+    $email_opt_in = 0;
+
+    if (array_key_exists("email_opt_in", $_POST)){
+        if (mysqli_real_escape_string($conn,$_POST["email_opt_in"]) == "1"){
+            $email_opt_in = 1;
+        }
+    }
+
     // VALIDATE TEAM NAME
 
     if (strlen($team_name) > 0) {
@@ -122,8 +131,8 @@ if ($error == 0){
 
  // echo $team_ID;
 
-  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant) "; 
-  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream);" ;
+  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant, email_opt_in) "; 
+  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream, $email_opt_in);" ;
 
 
 
