@@ -66,21 +66,25 @@ include ("db/get_game_state.php");
                         <label for="email"class="col-sm-2 control-label">Email address</label>
                             <div class="col-sm-10">
                         <input type="email" class="form-control" id="email" name="team_email" placeholder="Email" required="required">
-                            <p class="help-block">We'll let you know before the quiz starts. We will not spam you or share this. <a href="about.html" target="_blank">More info</a></p>
-                            <input type="checkbox" value="1" name="livestream"><strong> I'm happy for you to include me in the live video</strong> (you'll need to provide a <em>GMail</em> address)
+                        <input type="checkbox" value="1" name="mailing_opt_in"> Keep me up to date with details of future quizzes and events.
+
+                            
 
                         </div>
                     </div>
+                    <hr>
                     <div class="form-group">
                         <label for="names" class="col-sm-2 control-label">Team Members</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="member1" name="member1" placeholder="Team Member #1" required="required" >
-                        <input type="text" class="form-control" id="member2" name="member2" placeholder="Team Member #2">
-                        <input type="text" class="form-control" id="member3" name="member3" placeholder="Team Member #3">
-                        <input type="text" class="form-control" id="member4" name="member4" placeholder="Team Member #4">
+                            <input type="text" class="form-control" id="member1" name="member1" placeholder="Team Member #1" required="required" >
+                            <input type="text" class="form-control" id="member2" name="member2" placeholder="Team Member #2">
+                            <input type="text" class="form-control" id="member3" name="member3" placeholder="Team Member #3">
+                            <input type="text" class="form-control" id="member4" name="member4" placeholder="Team Member #4">
+                            <input type="checkbox" value="1" name="livestream"><strong> We're happy for you to include us in the live video</strong> <span class="text-muted">(you'll need to provide a Gmail address so we can call you on Hangouts)</span>
                         </div>
                     </div>
 
+                    <hr>
                     <div class="form-group">
                         <label for="team_secret" class="col-sm-2 control-label">Team Secret</label>
                         <div class="col-sm-10">
