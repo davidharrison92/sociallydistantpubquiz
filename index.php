@@ -46,8 +46,8 @@ if (array_key_exists("teamID", $_SESSION)){
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
         <link rel="stylesheet" href="vidcontrols.css" >
-        <link rel="stylesheet" href="nhs.css">
-
+<!--         <link rel="stylesheet" href="nhs.css">
+ -->
 
     </head>
     <body>
@@ -57,11 +57,11 @@ if (array_key_exists("teamID", $_SESSION)){
 
             </div> <!-- / header row -->
             <hr>
-
+<!-- 
             <div class="alert alert-nhs">
                 <p class="lead">Friday's raffle is raising money for <strong>NHS Charities Together</strong> and <strong>Mind</strong>.</p> 
                 <p><a class="btn btn-nhs" href="https://sociallydistant.pub/store/" role="button">Raffle tickets</a><span class="small">    <a class="link-nhs" href="charity.html" target="_blank">More info</a></span></p>
-            </div>
+            </div> -->
 
             <?php if ($allow_signup == 1 and $current_round > 0) { 
             ?>
