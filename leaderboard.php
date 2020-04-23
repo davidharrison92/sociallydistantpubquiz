@@ -3,6 +3,17 @@ session_start();
 include("db/db_config.php");
 include("db/get_game_state.php");
 
+
+
+if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){ 
+    $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]); // watch out! - $teamID is the form value. $team_id is the Session value.
+    $teamsecret = mysqli_real_escape_string($conn,$_POST["teamsecret"]);
+    include("db/check_login.php");
+}
+
+
+
+
 //Build Mini League on form submit
 
     if (array_key_exists("addteam", $_POST) and array_key_exists("teamID",$_SESSION)){
@@ -101,10 +112,33 @@ if (array_key_exists("teamID", $_SESSION)){
         <?php if (!array_key_exists("teamID",$_SESSION)) {
             // no team logged in
             ?>
+
             <div class="alert alert-warning">
                 <p class="lead">You're not logged in</p>
                 <p>Log in below to see your rivals</p>
             </div>
+
+            <form class="form-inline" method="POST" action="leaderboard.php">
+                <div class="form-group">
+                    <label for="teamname">Team Name</label>
+                    <select class="form-control" id="teamname" name="teamID">
+                    <?php foreach($teams_list as $team){
+                        echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
+                    } ?>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="teamsecret">Team Secret</label>
+                    <input type="text" class="form-control" id="teamsecret" name="teamsecret" placeholder="Ssssh" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
+                </div>
+
+                <div class="form-group">
+                    <div class="col-sm-offset-2 col-sm-10">
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </div>
+                </div>
+
         <?php
         } elseif ($mini_league_exists == false) {
             ?>

@@ -99,13 +99,18 @@ foreach($leaderboard as $lb){
 	<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
 	</tr>
 
-	<?php
+<?php
 }
-
-	if (array_key_exists("teamID",$_SESSION)){
-		echo '</form>';
-	}
-
 ?>
 
+	
+
 </table>
+<?php
+if (array_key_exists("teamID",$_SESSION)){
+	?>
+	<button type="submit" class="btn btn-default btn-small">Add to My League</button>
+</form>
+<?php
+	} 
+?>
