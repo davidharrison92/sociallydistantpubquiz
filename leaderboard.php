@@ -110,6 +110,7 @@ if (array_key_exists("teamID", $_SESSION)){
         <h4>Compete against the teams that matter...</h4>
 
         <?php if (!array_key_exists("teamID",$_SESSION)) {
+            include_once("db/get_teams.php");
             // no team logged in
             ?>
 
