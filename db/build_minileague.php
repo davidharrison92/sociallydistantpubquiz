@@ -38,68 +38,75 @@ $prev_total = 0;
 $current_rank = 0;
 $repeats = 1;
 ?>
+<form action="leaderboard.php" method="POST">
 
-<table class="table table-condensed table-hover">
-    <tr>
-		<td><strong>Rank</strong></td>
-        <td><strong>Team Name</strong></td>
+	<table class="table table-condensed table-hover">
+	    <tr><td>-</td>
+			<td><strong>Rank</strong></td>
+	        <td><strong>Team Name</strong></td>
+			<?php 
+				for ($i = 1; $i <= $current_round; $i++){
+					?>
+					<td><strong>Rnd. <?php echo $i; ?></strong></td> 
+				<?php 
+				} ?> <!--  end for loop (header) -->
+			<td><strong>Total Score</strong></td>
+		</tr>
+	<?php
+	foreach($minileague as $ml){
+
+		$teammembers = $ml["person1"];
+		if (strlen($ml["person2"])>1){
+			$teammembers = $teammembers . ", ". $ml["person2"];
+		}
+
+		if (strlen($ml["person3"])>1){
+			$teammembers = $teammembers . ", ". $ml["person3"];
+		}
+
+		if (strlen($ml["person4"])>1){
+			$teammembers = $teammembers . ", ". $ml["person4"];
+		}
+		
+		/*
+		 * If total has changed from previous line to this
+		 * then increase the rank by the number of times the 
+		 * previous score repeated.
+		 * Otherwise just count another repeat
+		 * */
+		if ($prev_total != (int)$ml["total_score"]) {
+			
+			$prev_total = $ml["total_score"];
+			$current_rank = $current_rank + $repeats;
+			$repeats = 1;
+		} else {
+			$repeats = $repeats + 1;
+		}
+		?>
+
+	<tr>
+		<?php echo remove_team($ml["team_id"]); ?>
+
+		<td><p><?php echo $current_rank; ?></p></td>
+		<td><p><strong><?php echo $ml["team_name"];?></strong>
+			<span class="small"><?php echo $teammembers; ?></span> </p>
+
+		</td>
+
+
 		<?php 
 			for ($i = 1; $i <= $current_round; $i++){
 				?>
-				<td><strong>Rnd. <?php echo $i; ?></strong></td> 
+				<td><?php echo $ml[FindIndex($i, 'Correct')]; ?> /<small><?php echo $ml[FindIndex($i, 'Marked')]; ?></small></td> 
 			<?php 
-			} ?> <!--  end for loop (header) -->
-		<td><strong>Total Score</strong></td>
-<?php
-foreach($minileague as $ml){
+			} // end for loop (header)
+			?>	
+		<td><strong><?php echo $ml["total_score"]; ?></strong> /<small><?php echo $ml["total_marked"]; ?></small></td>
+		</tr>
 
-	$teammembers = $ml["person1"];
-	if (strlen($ml["person2"])>1){
-		$teammembers = $teammembers . ", ". $ml["person2"];
-	}
-
-	if (strlen($ml["person3"])>1){
-		$teammembers = $teammembers . ", ". $ml["person3"];
-	}
-
-	if (strlen($ml["person4"])>1){
-		$teammembers = $teammembers . ", ". $ml["person4"];
-	}
-	
-	/*
-	 * If total has changed from previous line to this
-	 * then increase the rank by the number of times the 
-	 * previous score repeated.
-	 * Otherwise just count another repeat
-	 * */
-	if ($prev_total != (int)$ml["total_score"]) {
-		
-		$prev_total = $ml["total_score"];
-		$current_rank = $current_rank + $repeats;
-		$repeats = 1;
-	} else {
-		$repeats = $repeats + 1;
+		<?php
 	}
 	?>
-
-<tr>
-	<td><p><?php echo $current_rank; ?></p></td>
-	<td><p><strong><?php echo $ml["team_name"];?></strong>
-		<span class="small"><?php echo $teammembers; ?></span> </p>
-
-	</td>
-
-	<?php 
-		for ($i = 1; $i <= $current_round; $i++){
-			?>
-			<td><?php echo $ml[FindIndex($i, 'Correct')]; ?> /<small><?php echo $ml[FindIndex($i, 'Marked')]; ?></small></td> 
-		<?php 
-		} // end for loop (header)
-		?>	
-	<td><strong><?php echo $ml["total_score"]; ?></strong> /<small><?php echo $ml["total_marked"]; ?></small></td>
-	</tr>
-
-	<?php
-}
-?>
-</table
+	</table>
+<button type="submit" class="btn btn-danger btn-xs">Remove from League</button> <span class="text-muted">You can always add them back later...</span>
+</form>

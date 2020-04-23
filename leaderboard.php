@@ -33,6 +33,25 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
 
     }
 
+
+
+//Build Mini League on form submit
+
+    if (array_key_exists("deleteteam", $_POST) and array_key_exists("teamID",$_SESSION)){
+        
+        foreach($_POST["deleteteam"] as $entry) {
+            $ins_array[] = "'" . mysqli_real_escape_string($conn,$entry) . "'";
+        }
+
+        $ins_qry = "DELETE FROM mini_leagues where league_owner = '". $_SESSION["teamID"]. "' AND league_member in (" . implode(",", $ins_array) . ") ;" ;
+
+        if(mysqli_query($conn, $ins_qry)){
+            // inserted succesfully
+        } else {
+            // failed to insert - raise an error
+        }
+
+    }
 // Check if there's a Mini League for this team ID
 
 if (array_key_exists("teamID", $_SESSION)){

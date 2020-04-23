@@ -52,6 +52,7 @@ $repeats = 1;
 <?php
 foreach($leaderboard as $lb){
 
+
 	$teammembers = $lb["person1"];
 	if (strlen($lb["person2"])>1){
 		$teammembers = $teammembers . ", ". $lb["person2"];
@@ -109,7 +110,7 @@ foreach($leaderboard as $lb){
 <?php
 if (array_key_exists("teamID",$_SESSION)){
 	?>
-	<button type="submit" class="btn btn-default btn-small">Add to My League</button>
+	<button type="submit" class="btn btn-info btn-xs">Add to My League</button>
 </form>
 <?php
 	} 

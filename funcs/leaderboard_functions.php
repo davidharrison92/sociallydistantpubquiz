@@ -12,3 +12,11 @@ function add_team($team_id){
 	}
 
 }
+
+
+function remove_team($team_id){
+	if (array_key_exists("teamID",$_SESSION)){
+		return '<td><input type="checkbox" name="deleteteam[]" value="'.$team_id.'"></td>';
+	}
+
+}
