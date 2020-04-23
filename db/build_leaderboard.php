@@ -1,10 +1,10 @@
 <?php
-include("db/db_config.php");
-include("../funcs/leaderboard_functions.php");
+include_once("db/db_config.php");
+include_once("funcs/leaderboard_functions.php");
 
 if (!isset($current_round)){
 	// this won't be needed if embeded on index, but will be needed if running in standalone window.
-	include("db/get_game_state.php");
+	include_once("db/get_game_state.php");
 }
 
 

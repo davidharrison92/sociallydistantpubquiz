@@ -1,25 +1,37 @@
 <?php
-include("db/db_config.php");
+include_once("db/db_config.php");
 
-if (!isset($current_round)){
-	// this won't be needed if embeded on index, but will be needed if running in standalone window.
-	include("db/get_game_state.php");
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
 }
 
-include("../funcs/leaderboard_functions.php")
+include_once("db/get_game_state.php");
+
+include_once("funcs/leaderboard_functions.php");
 
 
 // this just spits out a table.
 
-$lbq = "select team_id, team_name, person1, person2, person3, person4, total_score, total_marked, R1Correct, R1Marked, R2Correct, R2Marked, R3Correct, R3Marked, R4Correct, R4Marked, R5Correct, R5Marked, R6Correct, R6Marked, R7Correct, R7Marked, R8Correct, R8Marked, R9Correct, R9Marked from complex_leaderboard cl JOIN mini_league on cl.team_id = ml.league_member" ;
+if (array_key_exists("teamID", $_SESSION) ){
+
+	$team_id = $_SESSION["teamID"];
+
+	$mlq = "select team_id, team_name, person1, person2, person3, person4, total_score, total_marked, R1Correct, R1Marked, R2Correct, R2Marked, R3Correct, R3Marked, R4Correct, R4Marked, R5Correct, R5Marked, R6Correct, R6Marked, R7Correct, R7Marked, R8Correct, R8Marked, R9Correct, R9Marked from complex_leaderboard cl JOIN mini_leagues ml on cl.team_id = ml.league_member WHERE league_owner = '$team_id'" ;
+
+	$result = mysqli_query($conn, $mlq);
+	
+
+	while($row = $result->fetch_assoc()){
+		$minileague[] = $row;
+	};
+
+
+}
 
 
 
-$result = mysqli_query($conn, $lbq);
-$rows = array();
-while($row = $result->fetch_assoc()){
-	$leaderboard[] = $row;
-};
+
+
 
 // Initial data for ranking scores
 $prev_total = 0;
@@ -39,19 +51,19 @@ $repeats = 1;
 			} ?> <!--  end for loop (header) -->
 		<td><strong>Total Score</strong></td>
 <?php
-foreach($leaderboard as $lb){
+foreach($minileague as $ml){
 
-	$teammembers = $lb["person1"];
-	if (strlen($lb["person2"])>1){
-		$teammembers = $teammembers . ", ". $lb["person2"];
+	$teammembers = $ml["person1"];
+	if (strlen($ml["person2"])>1){
+		$teammembers = $teammembers . ", ". $ml["person2"];
 	}
 
-	if (strlen($lb["person3"])>1){
-		$teammembers = $teammembers . ", ". $lb["person3"];
+	if (strlen($ml["person3"])>1){
+		$teammembers = $teammembers . ", ". $ml["person3"];
 	}
 
-	if (strlen($lb["person4"])>1){
-		$teammembers = $teammembers . ", ". $lb["person4"];
+	if (strlen($ml["person4"])>1){
+		$teammembers = $teammembers . ", ". $ml["person4"];
 	}
 	
 	/*
@@ -60,9 +72,9 @@ foreach($leaderboard as $lb){
 	 * previous score repeated.
 	 * Otherwise just count another repeat
 	 * */
-	if ($prev_total != (int)$lb["total_score"]) {
+	if ($prev_total != (int)$ml["total_score"]) {
 		
-		$prev_total = $lb["total_score"];
+		$prev_total = $ml["total_score"];
 		$current_rank = $current_rank + $repeats;
 		$repeats = 1;
 	} else {
@@ -72,7 +84,7 @@ foreach($leaderboard as $lb){
 
 <tr>
 	<td><p><?php echo $current_rank; ?></p></td>
-	<td><p><strong><?php echo $lb["team_name"];?></strong>
+	<td><p><strong><?php echo $ml["team_name"];?></strong>
 		<span class="small"><?php echo $teammembers; ?></span> </p>
 
 	</td>
@@ -80,11 +92,11 @@ foreach($leaderboard as $lb){
 	<?php 
 		for ($i = 1; $i <= $current_round; $i++){
 			?>
-			<td><?php echo $lb[FindIndex($i, 'Correct')]; ?> /<small><?php echo $lb[FindIndex($i, 'Marked')]; ?></small></td> 
+			<td><?php echo $ml[FindIndex($i, 'Correct')]; ?> /<small><?php echo $ml[FindIndex($i, 'Marked')]; ?></small></td> 
 		<?php 
 		} // end for loop (header)
 		?>	
-	<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
+	<td><strong><?php echo $ml["total_score"]; ?></strong> /<small><?php echo $ml["total_marked"]; ?></small></td>
 	</tr>
 
 	<?php
