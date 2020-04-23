@@ -1,4 +1,13 @@
 <?php
+
+// START SESSION
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
+
+
 // GET CURRENT ROUND INFO
 
 $round_qry = "SELECT roundnumber, round_label, show_video, allow_signup, youtubeID,quiz_complete from current_round";

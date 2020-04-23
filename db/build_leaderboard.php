@@ -1,16 +1,13 @@
 <?php
-include("db/db_config.php");
+include_once("db/db_config.php");
+include_once("funcs/leaderboard_functions.php");
 
 if (!isset($current_round)){
 	// this won't be needed if embeded on index, but will be needed if running in standalone window.
-	include("db/get_game_state.php");
+	include_once("db/get_game_state.php");
 }
 
-function FindIndex($round, $scoretype){
-	//round 1-9
-	//scoretype (Marked, Correct)
-	return 'R'.$round.$scoretype;
-}
+
 
 // this just spits out a table.
 
@@ -30,9 +27,20 @@ $current_rank = 0;
 $repeats = 1;
 ?>
 
+
+
 <table class="table table-condensed table-hover">
     <tr>
 		<td><strong>Rank</strong></td>
+		<?php 
+		if (array_key_exists("teamID", $_SESSION)){
+			?>
+			  <form action="leaderboard.php" method="POST">
+			  <td>
+			  	<button type="submit" class="btn btn-default btn-xs">+ My<br>League</button>
+			  </td>
+			 <?php
+		} ?> 
         <td><strong>Team Name</strong></td>
 		<?php 
 			for ($i = 1; $i <= $current_round; $i++){
@@ -43,6 +51,7 @@ $repeats = 1;
 		<td><strong>Total Score</strong></td>
 <?php
 foreach($leaderboard as $lb){
+
 
 	$teammembers = $lb["person1"];
 	if (strlen($lb["person2"])>1){
@@ -75,6 +84,7 @@ foreach($leaderboard as $lb){
 
 <tr>
 	<td><p><?php echo $current_rank; ?></p></td>
+	<?php echo add_team($lb["team_id"]); ?>
 	<td><p><strong><?php echo $lb["team_name"];?></strong>
 		<span class="small"><?php echo $teammembers; ?></span> </p>
 
@@ -90,7 +100,18 @@ foreach($leaderboard as $lb){
 	<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
 	</tr>
 
-	<?php
+<?php
 }
 ?>
-</table
+
+	
+
+</table>
+<?php
+if (array_key_exists("teamID",$_SESSION)){
+	?>
+	<button type="submit" class="btn btn-info btn-xs">Add to My League</button>
+</form>
+<?php
+	} 
+?>

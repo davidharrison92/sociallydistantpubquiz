@@ -3,12 +3,13 @@ include("db/db_config.php");
 include("funcs/pictureround.php");
 session_start();
 
+include_once("funcs/login.php");
 
-if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){ 
-    $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]); // watch out! - $teamID is the form value. $team_id is the Session value.
-    $teamsecret = mysqli_real_escape_string($conn,$_POST["teamsecret"]);
-    include("db/check_login.php");
-}
+// if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){ 
+//     $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]); // watch out! - $teamID is the form value. $team_id is the Session value.
+//     $teamsecret = mysqli_real_escape_string($conn,$_POST["teamsecret"]);
+//     include("db/check_login.php");
+// }
 
 
 // by now session  will exist if either:
@@ -157,28 +158,9 @@ if(!array_key_exists("teamID",$_SESSION)){
     include("db/get_teams.php");
     ?>
     <p class="lead">To view your report card, you need to log back in...</p>
-    <form class="form-inline" method="POST" action="your_answers.php">
-        <div class="form-group">
-            <label for="teamname">Team Name</label>
-            <select class="form-control" id="teamname" name="teamID">
-            <?php foreach($teams_list as $team){
-                echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
-            } ?>
-            </select>
-        </div>
-
-        <div class="form-group">
-            <label for="teamsecret">Team Secret</label>
-            <input type="text" class="form-control" id="teamsecret" name="teamsecret" placeholder="Ssssh" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
-        </div>
-
-        <div class="form-group">
-            <div class="col-sm-offset-2 col-sm-10">
-                <button type="submit" class="btn btn-default">Submit</button>
-            </div>
-        </div>
-
-    </form>
+    
+    <?php echo loginform("reportcard.php"); 
+    ?>
 
 
 <?php
