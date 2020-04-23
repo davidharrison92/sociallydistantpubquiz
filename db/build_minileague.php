@@ -16,7 +16,7 @@ if (array_key_exists("teamID", $_SESSION) ){
 
 	$team_id = $_SESSION["teamID"];
 
-	$mlq = "select team_id, team_name, person1, person2, person3, person4, total_score, total_marked, R1Correct, R1Marked, R2Correct, R2Marked, R3Correct, R3Marked, R4Correct, R4Marked, R5Correct, R5Marked, R6Correct, R6Marked, R7Correct, R7Marked, R8Correct, R8Marked, R9Correct, R9Marked from complex_leaderboard cl JOIN mini_leagues ml on cl.team_id = ml.league_member WHERE league_owner = '$team_id'" ;
+	$mlq = "select team_id, team_name, person1, person2, person3, person4, total_score, total_marked, R1Correct, R1Marked, R2Correct, R2Marked, R3Correct, R3Marked, R4Correct, R4Marked, R5Correct, R5Marked, R6Correct, R6Marked, R7Correct, R7Marked, R8Correct, R8Marked, R9Correct, R9Marked from complex_leaderboard cl JOIN mini_leagues ml on cl.team_id = ml.league_member WHERE league_owner = '$team_id' ORDER BY total_score desc" ;
 
 	$result = mysqli_query($conn, $mlq);
 	
