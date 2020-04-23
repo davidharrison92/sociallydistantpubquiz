@@ -10,8 +10,8 @@ include("db/get_game_state.php");
         foreach($_POST["addteam"] as $entry) {
             $ins_array[] = "('".$_SESSION["teamID"]."' , '".$entry."')";
         }
+        $ins_array[] = "('".$_SESSION["teamID"]."' , '".$_SESSION["teamID"]."')"; // add to own league.
 
-       // var_dump($ins_array);
         $ins_qry = 'INSERT IGNORE mini_leagues(league_owner,league_member) VALUES' . implode(" , ", $ins_array) ;
 
         if(mysqli_query($conn, $ins_qry)){
@@ -91,26 +91,57 @@ if (array_key_exists("teamID", $_SESSION)){
     </div>
 
 
-    <div role="tabpanel" class="tab-pane" id="mini">prof</div>
+    <div role="tabpanel" class="tab-pane" id="mini">
 
 
 
         <h1>Mini Leaderboard:</h1>
         <h4>Compete against the teams that matter...</h4>
 
+        <?php if (!array_key_exists("teamID",$_SESSION)) {
+            // no team logged in
+            ?>
+            <div class="alert alert-warning">
+                <p class="lead">You're not logged in</p>
+                <p>Log in below to see your rivals</p>
+            </div>
         <?php
-        if ($current_round > 1){
-         include("db/build_minileague.php"); 
+        } elseif ($mini_league_exists == false) {
+            ?>
+            <div class="alert alert-info">You don't have your own league yet...</div>
+            <div class="panel panel-default">
+              <div class="panel-heading">
+                <h3 class="panel-title">How to build your own league table...</h3>
+              </div>
+              <div class="panel-body">
+                <ol>
+                    <li>Go to the "Full Leaderboard" tab</li>
+                    <li>Tick the names of your rivals</li>
+                    <li>Click the button to add to your league</li>
+                </ol>
+                You can add more rivals to the league table any time you like...
+              </div>
+            </div>
+
+
+            <?php
         } else {
-        ?>
-        <div class="alert alert-warning"><p><strong>The results aren't in yet</strong></p>
-            <p>The leaderboard will become available after the first round has been marked</p>
-        </div>
-        <?php
-        }
-        ?>
+            //League exists!
+            if ($current_round > 1){
+             include("db/build_minileague.php"); 
+            } else {
+            ?>
+            <div class="alert alert-warning"><p><strong>The results aren't in yet</strong></p>
+                <p>The leaderboard will become available after the first round has been marked</p>
+            </div>
+            <?php
+            }
+        } // end: else  
 
 
+        ?>
+
+    </div> <!-- End of tab: my league div -->
 
   </div>
 
