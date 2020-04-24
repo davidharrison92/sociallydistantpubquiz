@@ -158,6 +158,7 @@ if (array_key_exists("teamID", $_SESSION)){
                         <button type="submit" class="btn btn-default">Submit</button>
                     </div>
                 </div>
+            </form>
 
         <?php
         } elseif ($mini_league_exists == false) {
