@@ -20,3 +20,17 @@ function remove_team($team_id){
 	}
 
 }
+
+
+function iscurrent($teamID){
+
+	$match = false;
+
+	if (array_key_exists("teamID", $_SESSION)) {
+		if ($teamID == $_SESSION["teamID"]){
+			$match = true;
+		}
+	}
+
+	return $match;
+}

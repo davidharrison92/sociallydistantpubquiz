@@ -84,7 +84,7 @@ $repeats = 1;
 		}
 		?>
 
-	<tr>
+	<tr <?php if (iscurrent($ml["team_id"])) { echo 'class="info"'; } ?>>
 		<?php echo remove_team($ml["team_id"]); ?>
 
 		<td><p><?php echo $current_rank; ?></p></td>

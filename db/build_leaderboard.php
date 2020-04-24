@@ -30,14 +30,14 @@ $repeats = 1;
 
 
 <table class="table table-condensed table-hover">
-    <tr>
+	<tr>
 		<td><strong>Rank</strong></td>
 		<?php 
 		if (array_key_exists("teamID", $_SESSION)){
 			?>
 			  <form action="leaderboard.php" method="POST">
 			  <td>
-			  	<button type="submit" class="btn btn-default btn-xs">+ My<br>League</button>
+			  	<button type="submit" class="btn btn-info btn-xs">+ My<br>League</button>
 			  </td>
 			 <?php
 		} ?> 
@@ -82,7 +82,7 @@ foreach($leaderboard as $lb){
 	}
 	?>
 
-<tr>
+<tr <?php if (iscurrent($lb["team_id"])) { echo 'class="info"'; } ?>>
 	<td><p><?php echo $current_rank; ?></p></td>
 	<?php echo add_team($lb["team_id"]); ?>
 	<td><p><strong><?php echo $lb["team_name"];?></strong>
