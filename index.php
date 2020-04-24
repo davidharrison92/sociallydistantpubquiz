@@ -1,5 +1,9 @@
 <?php include ("db/db_config.php");
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 include("db/get_game_state.php");
 
 include("db/get_teams.php");
@@ -19,9 +23,14 @@ if (array_key_exists("teamID", $_SESSION)){
 	}
 }
 ?>
-
+<!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
         <script>

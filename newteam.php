@@ -5,8 +5,13 @@ session_start();
 include ("db/get_game_state.php");
 ?>
 
+<!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
         <script>
@@ -96,7 +101,7 @@ include ("db/get_game_state.php");
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
-                        <button type="submit" class="btn btn-default">Sign up!</button>   <span class="small">  By signing up, you agree to our <a href="about.html" target="_blank">terms and privacy policy</a>.</span>
+                        <button type="submit" class="btn btn-default">Sign up!</button>   <span class="small">  By signing up, you agree to our <a href="about.php" target="_blank">terms and privacy policy</a>.</span>
 
                         </div>
                     </div>

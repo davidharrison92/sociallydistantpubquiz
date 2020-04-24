@@ -1,5 +1,9 @@
 <?php
-session_start();
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
+
 include("db/db_config.php");
 include("db/get_game_state.php");
 
@@ -72,7 +76,11 @@ if (array_key_exists("teamID", $_SESSION)){
 }
 
 ?>
+<!DOCTYPE html>
 <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Socially Distant Pub Quiz</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 
@@ -93,6 +101,10 @@ if (array_key_exists("teamID", $_SESSION)){
 
 <div>
 
+  <?php include_once("header.php");
+    ?>
+
+
   <!-- Nav tabs -->
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Full Leaderboard</a></li>
@@ -103,7 +115,7 @@ if (array_key_exists("teamID", $_SESSION)){
   <div class="tab-content">
     <div role="tabpanel" class="tab-pane active" id="main">
 
-        <h1>Main Leaderboard:</h1>
+        <h2>Main Leaderboard:</h2>
         <h4>Socially Distanced Pub Quiz - Overall</h4>
 
         <?php
@@ -125,7 +137,7 @@ if (array_key_exists("teamID", $_SESSION)){
 
 
 
-        <h1>Mini Leaderboard:</h1>
+        <h2>Mini Leaderboard:</h2>
         <h4>Compete against the teams that matter...</h4>
 
         <?php if (!array_key_exists("teamID",$_SESSION)) {

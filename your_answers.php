@@ -1,6 +1,10 @@
+<!DOCTYPE html>
 <html>
 	<!-- This is just a standalone page to hold the reportcard.php elements (when not on index.php) -->
 	<head>
+		<meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
 
 	    <!-- Global site tag (gtag.js) - Google Analytics -->
 	    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
@@ -32,6 +36,8 @@
 
 	<body>
 		<div class="container">
+
+		<?php include("header.php"); ?>
 
 
 		<?php
