@@ -6,17 +6,25 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title>Socially Distant Pub Quiz</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'UA-161589071-1');
+        </script>
+
     </head>
     <body>
         <div class="container">
-            <div class="row">
-              <div class="col-xs-12 col-md-8">
-                  <h1>Socially Distant Pub Quiz</h1>
-              </div>
-            </div>
+           <?php include("header.php") ; ?>
+
             <hr>
             <div class="row">
-                <div class="col-xs-12 col-md-8">
+                <div class="col-xs-12 col-md-12">
                     <h3>About</h3>
                     <p>This idea is the work of Alex Light (<a href="https://twitter.com/Electricloo">@ElectricBloo</a>) and Dave Harrison <a href="https://twitter.com/davidharrison92">@davidharrison92</a>), who started to get a little stir crazy as a result of social distancing. </p>
                     <p>We run quizzes every Friday night (with some special one!). Follow us on Twitter (<a href="https://twitter.com/PubQuizStreams">@PubQuizStreams</a>) so you don't miss one.</p>
@@ -93,7 +101,7 @@
                         <li><strong><a href="https://twitter.com/davidharrison92">David Harrison</a></strong> designed, built and maintained this website.</li>
                         <li><strong><a href="https://twitter.com/volgriff">Mark Christian</a></strong> created the magnificent <a href="thepanickedshopper_full_res.jpg">Pub Sign image</a>.</li>
                         <li>Website style and layout by <a href="https://getbootstrap.com/docs/3.3">Bootstrap</a>, used under license <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a></li>
-                        <li><strong>George Walker</strong>, <strong>Gary Christian</strong> and <strong>Alex Sim</strong> for their contributions and support with website development.
+                        <li><strong>George Walker</strong>, <strong>Gary Christian</strong>, <strong>Luke Ferris</strong>, and <strong>Alex Sim</strong> for their contributions and support with website development.
                     </ul>
                 </div><!--/content-->
             </div><!--/row-->

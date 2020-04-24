@@ -1,8 +1,11 @@
 <?php
 include("db/db_config.php");
 include("funcs/pictureround.php");
-session_start();
 
+
+if (session_status() == PHP_SESSION_NONE) {
+    session_start();
+}
 
 if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){ 
     $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]); // watch out! - $teamID is the form value. $team_id is the Session value.
