@@ -41,9 +41,13 @@ if (!$teamKnownBool){
 	$team_secret_pass = 1;
 }
 ?>
-
+<!DOCTYPE html>
 <html>
     <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-161589071-1"></script>
         <script>
