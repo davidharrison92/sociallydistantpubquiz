@@ -35,13 +35,21 @@ function site_tabs($current_round, $quiz_complete){
     <div class="row">
         <div class="navbar-default">
             <ul class="nav navbar-nav">
-<!--                 <li><a href="https://sociallydistant.pub/store/" target="_blank"><strong>Raffle</strong></a></li>
- -->            <li><a href="about.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >How To Play</a></li>
+                <?php 
+                    if ($current_round > 0){
+                        ?>
+                        <li><a href="index.php" <?php echo site_tabs($current_round, $quiz_complete); ?> ><strong>Answer Sheet</strong></a></li>
+                    <?php 
+                    } ?>
+                <li><a href="https://sociallydistant.pub/store/" <?php echo site_tabs($current_round, $quiz_complete); ?>>
+                    <strong>Raffle</strong>
+                </a></li>
+                <li><a href="about.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >How To Play</a></li>
                 <li><a href="your_answers.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >Your Score</a></li>
                 <li><a href="leaderboard.php"  <?php echo site_tabs($current_round, $quiz_complete); ?> >Full Leaderboard</a></li>
-                <li class="navbar-right"><a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a></li>
-                <li class="navbar-right"><a href="https://twitter.com/ElectricBloo" target="_blank">@Alex</a></li>
-                <li class="navbar-right"><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li>
+                <li><a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a></li>
+                <li><a href="https://twitter.com/ElectricBloo" target="_blank">@Alex</a></li>
+                <li><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li>
 
             </ul>
         </div>
