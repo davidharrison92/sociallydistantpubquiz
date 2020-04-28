@@ -32,9 +32,12 @@
                         <div id="coll_Register" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="hd_Register">
                           <div class="panel-body">
                             <p class="lead">We open registration a few days before the quiz, giving you time to get a team together.</p>
+                             <div class="embed-responsive embed-responsive-16by9 col-xs-12 text-center">
+                               <iframe width="560" height="315" src="https://www.youtube.com/embed/4tJLu9ME4IQ" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                             </div>
                             <ol>
                                 <li>
-                                    Go to SociallyDistant.pub and click <button class="btn btn-default" href="newteam.php">Register your team</button>
+                                    Go to SociallyDistant.pub and click <a class="btn btn-default" role="button" href="newteam.php">Register your team</a>
                                 </li>
 
                                 <li>
@@ -227,7 +230,29 @@
                             <p class="lead">Yes.</p>
                             <p>We give our time freely, but there are running costs that increase as the quiz gets more popular</p>
                             <p>You're welcome to donate using the button below. There's no pressure here at all, though!</p>
+                              <form action="https://www.paypal.com/cgi-bin/webscr" method="post">
 
+                                  <!-- Identify your business so that you can collect the payments. -->
+                                  <input type="hidden" name="business"
+                                      value="david.harrison1992@googlemail.com">
+
+                                  <!-- Specify a Donate button. -->
+                                  <input type="hidden" name="cmd" value="_donations">
+
+                                  <!-- Specify details about the contribution -->
+                                  <input type="hidden" name="item_name" value="Pub Quiz donation">
+                                  <input type="hidden" name="item_number" value="We are eternally grateful.">
+                                  <input type="hidden" name="amount" value="5.00">
+                                  <input type="hidden" name="currency_code" value="GBP">
+
+                                  <!-- Display the payment button. -->
+                                  <input type="image" name="submit"
+                                  src="https://www.paypalobjects.com/webstatic/en_US/i/btn/png/btn_donate_92x26.png"
+                                  alt="Buy me beer">
+                                  <img alt="" width="1" height="1"
+                                  src="https://www.paypalobjects.com/en_US/i/scr/pixel.gif" >
+
+                              </form>
                             <p>We run regular raffles to raise money. All the money raised goes to the running costs of the website. That includes site and data hosting, domains, and development.</p>
 
                             <p>From time to time we run this raffle for charity. Last time round, we raised over £1,200. Dave and Alex shaved their heads.</p>
