@@ -151,7 +151,7 @@ TODO:                                Image: mobile/desktop, show-hide with width
 
                 </div> <!-- End of "How to play" tab content -->
 
-                <div role="tabpanel" class="tab-pane" id="who"><p class="lead">Pub Quiz Streams started as a throwaway tweet (LINK), but quickly exploded into a popular weekly quiz played by thousands of players.</p>
+                <div role="tabpanel" class="tab-pane" id="who"><p class="lead">Pub Quiz Streams started as a couple of <a href="https://twitter.com/ElectricBloo/status/1241057137914187776">throwaway</a> <a href="https://twitter.com/davidharrison92/status/1241079232421343232">tweets</a>, but quickly exploded into a popular weekly quiz played by thousands of players.</p>
 
 
                     <div class="panel-group" id="accordion_about" role="tablist" aria-multiselectable="true">
@@ -165,8 +165,30 @@ TODO:                                Image: mobile/desktop, show-hide with width
                         </div>
                         <div id="coll_Blokes" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="hd_Blokes">
                           <div class="panel-body">
-                            WHO ARE THOSE BLOKES
+                            <p><em>Harsh… these shirts are great...</em></p>
 
+                            <p>We’re <strong>Alex Light</strong> and <strong>David Harrison</strong>: old school friends and, now, the landlords of The Panicked Shopper. After missing our local pubs and the weekly quiz, we decided to start our own - but at a safe distance.</p>
+                            <div class="row">
+                                <div class="col-xs-4 col-md-3 pull-left">
+                                    <img class="img img-circle img-responsive" src="img/dave_headshot.jpeg" />
+                                </div>
+                                <div class="col-xs-8 col-md-9">
+                                    <p class="lead"><strong>David Harrison</strong></p>
+                                    <p>Dave is a professional software developer who somehow got persuaded to build an entire website for drunk people... As well as writing code, he also writes and occasionally presents questions. On quiz night, he’ll be marking the answers, and <a href="https://twitter.com/PubQuizStreams/status/1248716818514169858">fielding your abuse on Twitter</a>.</p>
+                                    <p>You can find Dave as <a href="https://twitter.com/davidharrison92">@davidharrison92</a> on Twitter, or on GitHub <a href="https://github.com/davidharrison92">here</a></p>
+                                    <p>He's open to job offers</p>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-xs-4 col-md-3 pull-left">
+                                    <img class="img img-circle img-responsive" src="img/alex_headshot.jpeg" />
+                                </div>
+                                <div class="col-xs-8 col-md-9">
+                                    <p class="lead"><strong>Alex Light</strong></p>
+                                    <p>Alex has years of experience in radio and events presenting, which he uses to bring exceptional quality (we never leave the mic open) to the live video for every quiz. He writes and smooooothly delivers most of the questions. He’s the guy you want to blame for 99% of the terrible ideas.</p>
+                                    <p>Alex is <a href="https://twitter.com/electricbloo">@ElectricBloo</a> on Twitter</p>
+                                </div>
+                            </div>
                           </div>
                         </div>
                       </div>
@@ -180,7 +202,18 @@ TODO:                                Image: mobile/desktop, show-hide with width
                         </div>
                         <div id="coll_Why" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_Why">
                           <div class="panel-body">
-                            Why?
+                            <p class="lead"> For a bit of a laugh!</p>
+
+                            <p>It started as a joke. We were surprised that it caught on, and now we’re trying to run the best socially distant pub quiz n the UK. </p>
+
+                            <p>More recently, we’ve used our platform for good and have raised over £1100 for Charity.<p>
+                            <div class="col-xs-6">
+                                <img class="img img-responsive img-thumbnail" src="mind_logo.jpg">
+                            </div>
+                             <div class="col-xs-6">
+                                <img class="img img-responsive img-thumbnail" src="nhsct_logo.jpg">
+                            </div>
+
                           </div>
                         </div>
                       </div>
@@ -188,13 +221,21 @@ TODO:                                Image: mobile/desktop, show-hide with width
                         <div class="panel-heading" role="tab" id="hd_Raffle">
                           <h4 class="panel-title">
                             <a class="collapsed" role="button" data-toggle="collapse" data-parent="#accordion_about" href="#coll_Raffle" aria-expanded="false" aria-controls="coll_Raffle">
-                              <h4>What's this about a Raffle?</h4>
+                              <h4>Does this cost money to run?</h4>
                             </a>
                           </h4>
                         </div>
-                        <div id="col_Raffle" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_Raffle">
+                        <div id="coll_Raffle" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_Raffle">
                           <div class="panel-body">
-                            <p class="lead">Raffle</p>
+                            <p class="lead">Yes.</p>
+                            <p>We give our time freely, but there are running costs that increase as the quiz gets more popular</p>
+                            <p>You're welcome to donate using the button below. There's no pressure here at all, though!</p>
+
+                            <p>We run regular raffles to raise money. All the money raised goes to the running costs of the website. That includes site and data hosting, domains, and development.</p>
+
+                            <p>From time to time we run this raffle for charity. Last time round, we raised over £1,200. Dave and Alex shaved their heads.</p>
+
+                            <p>We also run separate (different website, different questions!) quizzes for companies as a social events to bring distant colleagues together. If you're interested in hearing more about this, please <a href="mailto:hello@sociallydistant.pub">send us an email</a>.</p>
                           </div>
                         </div>
                       </div>
@@ -208,9 +249,9 @@ TODO:                                Image: mobile/desktop, show-hide with width
                         </div>
                         <div id="coll_How" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_How">
                           <div class="panel-body">
-                            <p><em>This bit is really for the nerds, if you think you can help out, then please get in touch (link, tw, dave).</em></p>
+                            <p><em>This bit is really for the nerds, if you think you can help out, then please <a href="https://twitter.com/davidharrison92">get in touch</a>.</em></p>
                             <ul>
-                                <li>We use Open Broadcast Software (link) for our live streams.</li>
+                                <li>We use Open Broadcast Software for our live streams.</li>
                                 <li>Most of the code (PHP, MySQL) for this site is <a href="https://github.com/davidharrison92">handwritten by David Harrison</a></li>
                                 <li>We use Amazon Web Services (AWS) for the hosting of the site.
                                     <ul>
@@ -219,7 +260,7 @@ TODO:                                Image: mobile/desktop, show-hide with width
                                         <li>Data is stored using Relational Database Service (RDS)</li>
                                     </ul>
                                 </li>
-                                <li>The code is open source, view it on GitHub here. (link)</li>
+                                <li>The website code (except for the store) is open source, feel free to <a href="https://github.com/davidharrison92/sociallydistantpubquiz">explore it on GitHub</a>.</li>
                             <ul>
                             <p><strong>Our sincere thanks go to:</strong></p>
                             <ul>
@@ -290,7 +331,7 @@ TODO:                                Image: mobile/desktop, show-hide with width
                         </div>
                         <div id="coll_Contact" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_Contact">
                           <div class="panel-body">
-                            <p class="lead">Where you give explicit consent, we will add you to our promotional mailing list. We use this to keep you up to date with news about, and upcoming events for, our quizzes.</p>
+                            <p>Where you give explicit consent, we will add you to our promotional mailing list. We use this to keep you up to date with news about, and upcoming events for, our quizzes.</p>
                             <p>All emails include an unsubscribe link. </p>
                             <p>We use MailChimp to manage this.</p>
                             </p>
