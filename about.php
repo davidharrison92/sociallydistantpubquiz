@@ -37,8 +37,6 @@
                                     Go to SociallyDistant.pub and click <button class="btn btn-default" href="newteam.php">Register your team</button>
                                 </li>
 
-TODO:                                Image: mobile/desktop, show-hide with width.
-
                                 <li>
                                     Tell us your <strong>Team Name</strong> as well as an <strong>email address</strong> and the names of the <strong>people in your team</strong>.<br>
                                     <span class="small text-muted">It’s not a rule, but we recommend that teams are kept to 4 people at most. More than this many people, and it starts to get a bit messy on video calls.</span>
@@ -139,9 +137,8 @@ TODO:                                Image: mobile/desktop, show-hide with width
                         <div id="coll_Report" class="panel-collapse collapse" role="tabpanel" aria-labelledby="hd_Report">
                           <div class="panel-body">
                             <p>After each round is marked, you can go to <a href="your_answers.php">Your Answers</a> to see how we marked you for each question. If you don’t agree, you’re more than welcome to whine to us <a href="https://twitter.com/PubQuizStreams">on twitter</a>.</p>
- TODO:                           IMAGE
                             <p>You can compare yourself to other teams. We show you what proportion of teams got it right this time round.</p>
-                            <p>We’ll always show you the correct answer, and sometimes some witty (tooltip: well, we think so anyway) extra information. </p>
+                            <p>We’ll always show you the correct answer, and sometimes some witty (well, we think so anyway) extra information. </p>
 
                           </div>
                         </div>
@@ -257,7 +254,7 @@ TODO:                                Image: mobile/desktop, show-hide with width
                                     <ul>
                                         <li>Front End Servers are Elastic Cloud Compute (EC2) Ubuntu and NGINX</li>
                                         <li>HTTPS / SSL is courtesy of <a href="https://letsencrypt.org/">LetsEncrypt</a></li>
-                                        <li>Data is stored using Relational Database Service (RDS)</li>
+                                        <li>Data is stored securely using Relational Database Service (RDS)</li>
                                     </ul>
                                 </li>
                                 <li>The website code (except for the store) is open source, feel free to <a href="https://github.com/davidharrison92/sociallydistantpubquiz">explore it on GitHub</a>.</li>
