@@ -29,8 +29,8 @@ $repeats = 1;
 
 
 
-<table class="table table-condensed table-hover">
-	<tr>
+<table id="mainleaderboard" class="table table-condensed table-hover">
+	<thead>
 		<td><strong>Rank</strong></td>
 		<?php 
 		if (array_key_exists("teamID", $_SESSION)){
@@ -49,6 +49,7 @@ $repeats = 1;
 			<?php 
 			} ?> <!--  end for loop (header) -->
 		<td><strong>Total Score</strong></td>
+	</thead>
 <?php
 foreach($leaderboard as $lb){
 
@@ -115,3 +116,15 @@ if (array_key_exists("teamID",$_SESSION)){
 <?php
 	} 
 ?>
+
+
+  <!-- Tablesort -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#mainleaderboard').DataTable( {
+              "lengthChange": false,
+              "paging": false
+          });
+      });
+  </script>
