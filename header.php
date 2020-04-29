@@ -18,10 +18,10 @@ function site_tabs($current_round, $quiz_complete){
 
 <div class="container">
      <div class="row">
-        <div class="col-xs-12 col-md-5">
-            <a href="index.php"><img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 200px; max-width: 200px;"></a>
-            <h1>Socially Distant Pub Quiz</h1>
-            <h4>Now with 100% less human contact</h4>
+        <div class="col-xs-12 col-md-6">
+            <a href="index.php"><img src="pqs_logo.png" class="img-responsive" max alt="Responsive image"></a>
+            <h2>Socially Distant Pub Quiz</h2>
+            <h4>It's not just the questions that get hard...</h4>
         </div>
         <div class="col-xs-12 col-md-6 pull-right">
             <?php if ($show_video == 1) {

@@ -83,6 +83,17 @@ include ("db/get_game_state.php");
 
                     <div class="form-group">
                         <div class="col-sm-offset-2 col-sm-10">
+                        <div class="panel panel-warning">
+                          <div class="panel-heading">
+                              <h3 class="panel-title">Over 18s Only!</h3>
+                          </div>
+                          <div class="panel-body">
+                            <p>If you hadn't noticed, this week's quiz is going to be a little different. The questions are going to include some adult themes.</p>
+                            
+                            <input type="checkbox" value="1" required="required" name="agreeover18"><strong>  All team members are over the age of 18, and understand this might be a little lewd.</strong></span>
+
+                          </div>
+                        </div>
                         <button type="submit" class="btn btn-default">Sign up!</button>   <span class="small">  By signing up, you agree to our <a href="about.php" target="_blank">terms and privacy policy</a>.</span>
 
                         </div>

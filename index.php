@@ -55,9 +55,11 @@ if (array_key_exists("teamID", $_SESSION)){
                 if ($current_round == 0 and $allow_signup == 1) {
                 ?>
                 <div class="jumbotron">
-                    <h1>Sign up now!</h1>
-                    <p>Mark your diaries, the next quiz will be on Friday at 8PM (UK Time). In the meantime...</p>
-                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a></p>
+                    <h1><span class="text-warning">Sign up now!</span></h1>
+                    <h3>The Best Online Pub Quiz just got a bit naughtier...</h3>
+                    <p>Mark your diaries, this week's extra special quiz will be on Friday at 8.30 PM (UK Time). In the meantime...</p>
+                    <p class="text-muted">Over 18s Only!</p>
+                    <p><a class="btn btn-warning btn-lg" href="newteam.php" role="button">Register your team!</a></p>
                 </div>
                 <?php
                 }
