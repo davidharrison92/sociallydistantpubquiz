@@ -54,10 +54,21 @@ if (array_key_exists("teamID", $_SESSION)){
 
                 if ($current_round == 0 and $allow_signup == 1) {
                 ?>
+                <div class="panel panel-info">
+                  <div class="panel-heading">
+                    <h3 class="panel-title">Our quiz is moving this week!</h3>
+                  </div>
+                  <div class="panel-body">
+                    <p><strong>For one week only</strong>, we're trying something a little... naughty.</p>
+                    <p>We're running a more adult themed quiz for Over 18s only. It'll be a lot of <del>good clean</del> fun.</p>
+                    <a href="https://naughty.sociallydistant.pub" role="button" class="btn btn-info">Sign up...</a>
+                  </div>
+                </div>
                 <div class="jumbotron">
-                    <h1>Sign up now!</h1>
-                    <p>Mark your diaries, the next quiz will be on Friday at 8PM (UK Time). In the meantime...</p>
-                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a></p>
+                    <h1>We're doing something <em>different</em> this week...</h1>
+                    <p>Our next "normal" quiz will be on Friday 8th May... We hope to see you then.</p>
+                    <p><a class="btn disabled btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
+                    <a class="btn btn-warning btn-lg" href="newteam.php" role="button">Or try our adults-only quiz</a></p>
                 </div>
                 <?php
                 }
