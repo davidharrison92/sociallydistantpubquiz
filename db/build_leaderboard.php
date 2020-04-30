@@ -31,24 +31,27 @@ $repeats = 1;
 
 <table id="mainleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
 	<thead>
-		<td><strong>Rank</strong></td>
-		<?php 
-		if (array_key_exists("teamID", $_SESSION)){
-			?>
-			  <form action="leaderboard.php" method="POST">
-			  <td>
-			  	<button type="submit" class="btn btn-info btn-xs">+ My<br>League</button>
-			  </td>
-			 <?php
-		} ?> 
-        <td><strong>Team Name</strong></td>
-		<?php 
-			for ($i = 1; $i <= $current_round; $i++){
-				?>
-				<td><strong>Rnd. <?php echo $i; ?></strong></td> 
+		<tr>			
 			<?php 
-			} ?> <!--  end for loop (header) -->
-		<td><strong>Total Score</strong></td>
+			if (array_key_exists("teamID", $_SESSION)){
+				?>
+				  <form action="leaderboard.php" method="POST">
+				  <td>
+				  	<button type="submit" class="btn btn-info btn-xs">Add to<br>League</button>
+				  </td>
+				 <?php
+			} ?> 
+
+			<td><strong>Rank</strong></td>
+	        <td style="min-width: 40%;"><strong>Team Name</strong></td>
+			<?php 
+				for ($i = 1; $i <= $current_round; $i++){
+					?>
+					<td><strong>Rnd. <?php echo $i; ?></strong></td> 
+				<?php 
+				} ?> <!--  end for loop (header) -->
+			<td><strong>Total Score</strong></td>
+		</tr>
 	</thead>
 <?php
 foreach($leaderboard as $lb){
@@ -84,9 +87,9 @@ foreach($leaderboard as $lb){
 	?>
 
 	<tr class="<?php if (iscurrent($lb["team_id"])) { echo 'info'; } ?> parent" role="row" >
-		<td><p><?php echo $current_rank; ?></p></td>
 		<?php echo add_team($lb["team_id"]); ?>
-		<td><p><strong><?php echo $lb["team_name"];?></strong>
+		<td><p><?php echo $current_rank; ?></p></td>
+		<td><p><strong><?php echo $lb["team_name"];?></strong><br>
 			<span class="small"><?php echo $teammembers; ?></span> </p>
 
 		</td>
@@ -119,7 +122,7 @@ if (array_key_exists("teamID",$_SESSION)){
 ?>
 
 
-  <!-- Tablesort -->
+  <!-- DataTables -->
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript">
       $(document).ready(function() {
@@ -128,24 +131,4 @@ if (array_key_exists("teamID",$_SESSION)){
               "paging": false
           });
       });
-
-
-
-    // Add event listener for opening and closing details
-    $('#mainleaderboard tbody').on('click', 'td.details-control', function () {
-        var tr = $(this).closest('tr');
-        var row = table.row( tr );
-        console.log("CLICKY");
- 
-        if ( row.child.isShown() ) {
-            // This row is already open - close it
-            row.child.hide();
-            tr.removeClass('shown');
-        }
-        else {
-            // Open this row
-            row.child( format(row.data()) ).show();
-            tr.addClass('shown');
-        }
-    } );
   </script>
