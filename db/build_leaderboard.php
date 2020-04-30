@@ -29,8 +29,8 @@ $repeats = 1;
 
 
 
-<table class="table table-condensed table-hover">
-	<tr>
+<table id="mainleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
+	<thead>
 		<td><strong>Rank</strong></td>
 		<?php 
 		if (array_key_exists("teamID", $_SESSION)){
@@ -49,6 +49,7 @@ $repeats = 1;
 			<?php 
 			} ?> <!--  end for loop (header) -->
 		<td><strong>Total Score</strong></td>
+	</thead>
 <?php
 foreach($leaderboard as $lb){
 
@@ -82,23 +83,24 @@ foreach($leaderboard as $lb){
 	}
 	?>
 
-<tr <?php if (iscurrent($lb["team_id"])) { echo 'class="info"'; } ?>>
-	<td><p><?php echo $current_rank; ?></p></td>
-	<?php echo add_team($lb["team_id"]); ?>
-	<td><p><strong><?php echo $lb["team_name"];?></strong>
-		<span class="small"><?php echo $teammembers; ?></span> </p>
+	<tr class="<?php if (iscurrent($lb["team_id"])) { echo 'info'; } ?> parent" role="row" >
+		<td><p><?php echo $current_rank; ?></p></td>
+		<?php echo add_team($lb["team_id"]); ?>
+		<td><p><strong><?php echo $lb["team_name"];?></strong>
+			<span class="small"><?php echo $teammembers; ?></span> </p>
 
-	</td>
+		</td>
 
-	<?php 
-		for ($i = 1; $i <= $current_round; $i++){
-			?>
-			<td><?php echo $lb[FindIndex($i, 'Correct')]; ?> /<small><?php echo $lb[FindIndex($i, 'Marked')]; ?></small></td> 
 		<?php 
-		} // end for loop (header)
-		?>	
-	<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
+			for ($i = 1; $i <= $current_round; $i++){
+				?>
+				<td><?php echo $lb[FindIndex($i, 'Correct')]; ?> /<small><?php echo $lb[FindIndex($i, 'Marked')]; ?></small></td> 
+			<?php 
+			} // end for loop (header)
+			?>	
+		<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
 	</tr>
+	
 
 <?php
 }
@@ -115,3 +117,35 @@ if (array_key_exists("teamID",$_SESSION)){
 <?php
 	} 
 ?>
+
+
+  <!-- Tablesort -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#mainleaderboard').DataTable( {
+              "lengthChange": false,
+              "paging": false
+          });
+      });
+
+
+
+    // Add event listener for opening and closing details
+    $('#mainleaderboard tbody').on('click', 'td.details-control', function () {
+        var tr = $(this).closest('tr');
+        var row = table.row( tr );
+        console.log("CLICKY");
+ 
+        if ( row.child.isShown() ) {
+            // This row is already open - close it
+            row.child.hide();
+            tr.removeClass('shown');
+        }
+        else {
+            // Open this row
+            row.child( format(row.data()) ).show();
+            tr.addClass('shown');
+        }
+    } );
+  </script>

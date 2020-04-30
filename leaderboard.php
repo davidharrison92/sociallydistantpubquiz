@@ -80,6 +80,8 @@ if (array_key_exists("teamID", $_SESSION)){
 <head>
     <title>Leaderboard | Socially Distant Pub Quiz</title>
     <?php include("htmlheader.php"); ?>
+    <!-- DataTables CDN -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.css">
 </head>
 <body>
     <div class="container">
