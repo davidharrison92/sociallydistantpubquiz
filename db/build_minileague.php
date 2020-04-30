@@ -40,10 +40,11 @@ $repeats = 1;
 ?>
 <form action="leaderboard.php" method="POST">
 
-	<table class="table table-condensed table-hover">
-	    <tr><td>-</td>
+	<table id="minileague" width="100%" class="table table-condensed dtr-inline collapsed table-hover display">
+	   <thead> 
+	    <tr><td style="max-width: 20px"><span class="text-muted">Remove</span></td>
 			<td><strong>Rank</strong></td>
-	        <td><strong>Team Name</strong></td>
+	        <td style="min-width: 40%"><strong>Team Name</strong></td>
 			<?php 
 				for ($i = 1; $i <= $current_round; $i++){
 					?>
@@ -52,6 +53,7 @@ $repeats = 1;
 				} ?> <!--  end for loop (header) -->
 			<td><strong>Total Score</strong></td>
 		</tr>
+	   </thead>
 	<?php
 	foreach($minileague as $ml){
 
@@ -88,7 +90,7 @@ $repeats = 1;
 		<?php echo remove_team($ml["team_id"]); ?>
 
 		<td><p><?php echo $current_rank; ?></p></td>
-		<td><p><strong><?php echo $ml["team_name"];?></strong>
+		<td><p><strong><?php echo $ml["team_name"];?></strong><br>
 			<span class="small"><?php echo $teammembers; ?></span> </p>
 
 		</td>
@@ -110,3 +112,14 @@ $repeats = 1;
 	</table>
 <button type="submit" class="btn btn-danger btn-xs">Remove from League</button> <span class="text-muted">You can always add them back later...</span>
 </form>
+
+<!-- DataTables -->
+  <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript">
+      $(document).ready(function() {
+          $('#minileague').DataTable( {
+              "lengthChange": false,
+              "paging": false
+          });
+      });
+  </script>
