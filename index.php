@@ -68,7 +68,7 @@ if (array_key_exists("teamID", $_SESSION)){
                     <h1>We're doing something <em>different</em> this week...</h1>
                     <p>Our next "normal" quiz will be on Friday 8th May... We hope to see you then.</p>
                     <p><a class="btn disabled btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
-                    <a class="btn btn-warning btn-lg" href="newteam.php" role="button">Or try our adults-only quiz</a></p>
+                    <a class="btn btn-warning btn-lg" href="https://xxx.sociallydistant.pub/newteam.php" role="button">Or try our adults-only quiz</a></p>
                 </div>
                 <?php
                 }
