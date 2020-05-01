@@ -52,7 +52,7 @@ if (array_key_exists("teamID", $_SESSION)){
                 <?php
                 }
 
-                if ($current_round == 0 and $allow_signup == 1) {
+                if ($current_round == 0) {
                 ?>
                 <div class="panel panel-info">
                   <div class="panel-heading">
