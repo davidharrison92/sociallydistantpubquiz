@@ -45,7 +45,7 @@ if (!$teamKnownBool){
 <html>
     <head>
         <title>Socially Distant Pub Quiz | Submit</title>
-        <?php include("htmlheaders.php"); ?>
+        <?php include("htmlheader.php"); ?>
 
     </head>
     <body>
