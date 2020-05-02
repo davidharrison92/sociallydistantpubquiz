@@ -3,6 +3,7 @@
 include ("db/db_config.php");
 include_once("funcs/pictureround.php");
 
+
 function answer_row(int $question_number, 
                     string $question_type,
                     string $question, 
@@ -23,14 +24,11 @@ function answer_row(int $question_number,
         echo '<br><span class="text-info">'.$hint.'</span>';
      }
 
-}
+} // end answer_row fn. def
 
 
-
-
-
-$questions = array();
-
+if (array_key_exists("teamID", $_SESSION)){
+    //Team Logged in
 
 
 //GET THE ROUNDS
@@ -59,8 +57,14 @@ $questions = array();
     <li role="presentation" <?php if ($round["round_number"] == $current_round) { echo 'class="active"'; } ?> >
         <a href="#<?php echo $divname; ?>" aria-controls="<?php echo $divname; ?>" role="tab" data-toggle="tab">
         
-            <?php echo 'Round #' . $round["round_number"] ;
-                if (($round["qsubmitted"] > 0 or $round["round_number"] < $current_round) AND $round["qmarked"] == 0) {
+            <?php echo 'Round #' . $round["round_number"] . ' ' ;
+
+                if ($round["round_locked"] == 1){
+                    //Round Locked
+                    $round_status[$round["round_number"]] = 'locked';
+                    echo '<span class="glyphicon glyphicon-lock"></span>';
+
+                } elseif (($round["qsubmitted"] > 0 or $round["round_number"] < $current_round) AND $round["qmarked"] == 0) {
                     //submitted, or historical round - not locked
                     $round_status[$round["round_number"]] = 'pending';
                     echo '<span class="glyphicon glyphicon-upload"></span>';
@@ -125,6 +129,14 @@ foreach($rounds as $round){
 
     if ($round_locked == 1){
         // Show an Error Page
+        ?>
+        <div class="panel panel-warning">
+            <div class="panel-heading">This Round is Locked</div>
+            <div class="panel-body">   
+                We've probably got something special planned, and don't want to spoil the surprise
+            </div>
+        </div>
+        <?php
     } else{
         //Get the questions - TO DO USE SESSION ID HERE
 
@@ -178,41 +190,50 @@ foreach($rounds as $round){
 
 
 
-?>
- </table>
-<?php 
-if ($round_status[$round_number] == 'enabled'){
-    echo '<button type="submit" class="btn btn-default">Submit</button>';
-}
+    ?>
+     </table>
+    <?php 
+    if ($round_status[$round_number] == 'enabled'){
+        echo '<button type="submit" class="btn btn-default">Submit</button>';
+    }
 
-if ($round_status[$round_number] == 'enabled'){
-    echo '<button type="submit" class="btn btn-default">Update Answers</button>';
-}
+    if ($round_status[$round_number] == 'pending'){
+        echo '<button type="submit" class="btn btn-default">Update Answers</button>';
+    }
 
-if ($round_status[$round_number] == 'locked'){
-    echo '<button type="submit" class="btn btn-default disabled">Submit</button>';
-    echo '<span class="text-danger">Sorry, this round is locked and can\'t be edited any more</span>';
-}
-?>
-</form>
- </div> <!-- End for the round panel -->
+    if ($round_status[$round_number] == 'locked'){
+        echo '<button type="submit" class="btn btn-default disabled">Submit</button>';
+        echo '<span class="text-danger">Sorry, this round is locked and can\'t be edited any more</span>';
+    }
+    ?>
+    </form>
+     </div> <!-- End for the round panel -->
 
+    <?php
+    } // end foreach
+    ?>
+
+
+
+
+      </div> <!-- End of the tab-content div -->
+
+    </div> <!-- End of  overall Nav Div  -->
+
+
+
+    <script>
+        $('#myTabs a').click(function (e) {
+      e.preventDefault()
+      $(this).tab('show')
+    })
+    </script>
 <?php
-} // end foreach
-?>
+
+} // end of IF team logged in
 
 
 
-
-  </div> <!-- End of the tab-content div -->
-
-</div> <!-- End of  overall Nav Div  -->
+$questions = array();
 
 
-
-<script>
-    $('#myTabs a').click(function (e) {
-  e.preventDefault()
-  $(this).tab('show')
-})
-</script>
