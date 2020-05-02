@@ -3,6 +3,12 @@
 include ("db/db_config.php");
 include_once("funcs/pictureround.php");
 
+//login if needed.
+if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){ 
+    $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]); // watch out! - $teamID is the form value. $team_id is the Session value.
+    $teamsecret = mysqli_real_escape_string($conn,$_POST["teamsecret"]);
+    include("db/check_login.php");
+}
 
 function answer_row(int $question_number, 
                     string $question_type,
@@ -231,6 +237,19 @@ foreach($rounds as $round){
 <?php
 
 } // end of IF team logged in
+else { //when a team is not logged in - show the login form
+
+    ?>
+    <div class="alert alert-danger">
+        You'll need to log in <strong>before you can submit any answers</strong>. 
+    </div>
+
+    <?php 
+    include("loginform.php");
+
+
+
+}
 
 
 
