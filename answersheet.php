@@ -35,12 +35,14 @@ function answer_row(int $question_number,
 
 if (array_key_exists("teamID", $_SESSION)){
     //Team Logged in
+    $teamID = $_SESSION["teamID"];
 
 
 //GET THE ROUNDS
-    $rounds_qry = "SELECT r.round_number, round_locked, round_title, count(s.question_number) as 'qsubmitted', sum(IFNULL(s.marked,0)) as 'qmarked'
-            FROM rounds r
-            LEFT JOIN submitted_answers s on s.round_number = r.round_number and s.team_id = '5e99cb7127f21'
+    $rounds_qry = "SELECT t.team_name, t.person1, t.person2, t.person3, t.person4, r.round_number, round_locked, round_title, count(s.question_number) as 'qsubmitted', sum(IFNULL(s.marked,0)) as 'qmarked'
+            FROM teams t, rounds r
+            LEFT JOIN submitted_answers s on s.round_number = r.round_number and s.team_id = '$teamID'
+            WHERE t.team_id = '$teamID'
             GROUP BY r.round_number, round_locked, round_title
             ORDER by r.round_number ASC; ";
 
@@ -51,7 +53,28 @@ if (array_key_exists("teamID", $_SESSION)){
     while ($row = $result->fetch_assoc()){
         $rounds[] = $row;
     }
+
+    $team_name = $rounds[0]["team_name"];
+
+    $team_members = $rounds[0]["person1"];
+
+    if (strlen($rounds[0]["person2"]) > 0){
+        $team_members = $team_members . ', ' . $rounds[0]["person2"];
+    }
+    if (strlen($rounds[0]["person3"]) > 0){
+        $team_members = $team_members . ', ' . $rounds[0]["person3"];
+    }
+    if (strlen($rounds[0]["person4"]) > 0){
+        $team_members = $team_members . ', ' . $rounds[0]["person4"];
+    }
+
 ?>
+
+    <h3><?php echo $team_name; ?>  <small>(<?php echo $team_members;?>)</small></h3>
+    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>" class="text-small">Not You?</a>
+
+    <hr>
+
 <div>
 
   <!-- Nav tabs -->
