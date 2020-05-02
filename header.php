@@ -5,6 +5,21 @@ if(!isset($show_video)){
     include_once("db/get_game_state.php");
 }
 
+// get naughty taglines
+
+$tagqry = 'select tag from taglines order by rand();';
+
+    $result = mysqli_query($conn,$tagqry);
+
+    $rows = array();
+
+    while($row = $result->fetch_assoc()){
+        $taglines[] = $row["tag"];
+
+    };
+
+
+
 function site_tabs($current_round, $quiz_complete){
     //BEFORE and AFTER a quiz, keep to one tab. During the quiz, secondary pages open in new tabs (_blank)
     if($quiz_complete == 1 OR $current_round == 0){
@@ -21,7 +36,7 @@ function site_tabs($current_round, $quiz_complete){
         <div class="col-xs-12 col-md-6">
             <a href="index.php"><img src="pqs_logo.png" class="img-responsive" max alt="Responsive image"></a>
             <h2>Socially Distant Pub Quiz</h2>
-            <h4>It's not just the questions that get hard...</h4>
+            <h4 id="subheading"><?php echo $taglines[0]; ?></h4>
         </div>
         <div class="col-xs-12 col-md-6 pull-right">
             <?php if ($show_video == 1) {
@@ -55,3 +70,15 @@ function site_tabs($current_round, $quiz_complete){
         </div>
     </div> <!-- end row -->
 </div> <!-- end container -->
+
+<script>
+$(function () {
+  wordsArray = <?php echo json_encode($taglines); ?> ;
+  setInterval(function () {
+    $("#subheading").fadeOut(400, function () {
+      $(this).text(wordsArray[Math.floor(Math.random()*wordsArray.length)]).fadeIn(400);
+
+    });
+  }, 7000);
+});
+</script>
