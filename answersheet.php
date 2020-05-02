@@ -23,7 +23,7 @@ function answer_row(int $question_number,
     }
     
         ?>
-        <input type="text" class="form-control" id="<?php echo $question_number; ?>" name="answered_questions[<?php echo $question_number; ?>]" required="required" placeholder="<?php echo $prefill; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
+        <input type="text" class="form-control" id="<?php echo $question_number; ?>" name="answered_questions[<?php echo $question_number; ?>]" required="required" value="<?php echo $prefill; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
         <?php
 
      if (strlen($hint)>=1){
@@ -171,7 +171,7 @@ foreach($rounds as $round){
 
         $get_questions = "select q.round_number, q.question_number, q.question, q.questiontype, ifnull(s.answer,'') as 'submittedanswer', q.hint
                         FROM quiz_questions q
-                        left join submitted_answers s on s.question_number = q.question_number and s.round_number = q.round_number and s.team_id = '5e99cb7127f21'  
+                        left join submitted_answers s on s.question_number = q.question_number and s.round_number = q.round_number and s.team_id = '$teamID'  
                         where q.round_number = " . $round_number . ";" ;
 
             
@@ -198,7 +198,7 @@ foreach($rounds as $round){
             foreach ($round_questions[$round_number] as $qdata){
                 ?>
                 <tr>
-                    <td><strong><?php echo $qdata["question_number"]; ?></strong></td>
+                    <td width="35"><strong><?php echo $qdata["question_number"]; ?></strong></td>
                     <td><?php
                         if ($round_status[$round_number] == "enabled" OR $round_status[$round_number] == "pending"){
                             //call function, build the answer box
@@ -209,6 +209,7 @@ foreach($rounds as $round){
                                             $qdata["hint"]);
                         } else {
                             // just spit out the answer they gave, if it's empty then maybe some placeholder?
+                            echo $qdata["submittedanswer"];
                         }
                         
             }
