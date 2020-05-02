@@ -100,10 +100,10 @@ if (array_key_exists("teamID", $_SESSION)){
             if (($current_round > 0) and ($quiz_complete == 0)) {
             ?>
 
-            <div class="row">
+           <!--  <div class="row">
                 <button type="button" class="btn btn-default" id="bigplayer">Video Only</button>
                 <button type="button" class="btn btn-default hidden" id="showanswers">Show Answer Sheet</button>
-            </div>
+            </div> -->
             <div class="col-xs-12 col-md-12">
                 <?php
                     include("answersheet.php");
