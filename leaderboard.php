@@ -75,7 +75,7 @@ if (array_key_exists("teamID", $_SESSION)){
     $mini_league_exists = false;
 }
 
-?>
+?>  
 <!DOCTYPE html>
 <head>
     <title>Leaderboard | Socially Distant Pub Quiz</title>
@@ -138,8 +138,8 @@ if (array_key_exists("teamID", $_SESSION)){
                 <p>Log in below to see your rivals</p>
             </div>
 
-            <?php include("loginform.php");
-        <?php
+        <?php include("loginform.php");
+        
         } elseif ($mini_league_exists == false) {
             ?>
             <div class="alert alert-info">You don't have your own league yet...</div>
