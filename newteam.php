@@ -46,7 +46,7 @@ include ("db/get_game_state.php");
                     <div class="form-group">
                         <label for="team_name" class="col-sm-2 control-label">Team Name</label>
                         <div class="col-sm-10">
-                        <input type="text" class="form-control" id="team_name" name="team_name" placeholder="The General's Knowledge" required="required" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
+                        <input type="text" class="form-control" id="team_name" name="team_name" placeholder="The General's Knowledge" required="required">
                         </div>
                     </div>
                     <div class="form-group">
