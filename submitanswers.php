@@ -45,7 +45,7 @@ if (!$teamKnownBool){
 <html>
     <head>
         <title>Socially Distant Pub Quiz | Submit</title>
-        <?php include("htmlheaders.php"); ?>
+        <?php include("htmlheader.php"); ?>
 
     </head>
     <body>
@@ -106,7 +106,7 @@ if (!$teamKnownBool){
 
                                 if (($exists["Count"] * 1) >= 1) {
                                     // yes - update it
-                                    $ans_query = "UPDATE submitted_answers set answer = '$ans' where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID'";
+                                    $ans_query = "UPDATE submitted_answers set answer = '$ans' , marked = 0, correct = 0, where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID'";
                                 } else {
                                     // no - insert it
                                     $ans_query = "INSERT INTO submitted_answers (team_id, round_number, question_number, answer) VALUES ('$teamID', '$round', '$question_number', '$ans');";
