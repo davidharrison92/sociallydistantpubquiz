@@ -53,7 +53,7 @@ include ("db/get_game_state.php");
                         <label for="email"class="col-sm-2 control-label">Email address</label>
                             <div class="col-sm-10">
                         <input type="email" class="form-control" id="email" name="team_email" placeholder="Email" required="required">
-                        <input type="checkbox" value="1" name="email_opt_in"> Keep me up to date with details of future quizzes and events.
+                        <input type="checkbox" value="1" name="email_opt_in"> Add me to the mailing list so I can stay up to date with what you idiots are planning...
 
                             
 
