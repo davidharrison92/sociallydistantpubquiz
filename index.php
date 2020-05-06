@@ -42,37 +42,41 @@ if (array_key_exists("teamID", $_SESSION)){
                 <p class="lead">Friday's raffle is raising money for <strong>NHS Charities Together</strong> and <strong>Mind</strong>.</p> 
                 <p><a class="btn btn-nhs" href="https://sociallydistant.pub/store/" role="button">Raffle tickets</a><span class="small">    <a class="link-nhs" href="charity.html" target="_blank">More info</a></span></p>
             </div> -->
+            <?php
+            if (($current_round > 0) and ($quiz_complete == 0)) {
+            ?>
+                <div class="row">
+                    <div class="col-xs-12 col-md-12">
+                        <?php
+                            include("answersheet.php");
+                        ?>
+                    </div>
+                </div>
+                <hr>
+            <?php 
+            } // suppress answer sheet before game starts
 
-            <?php if ($allow_signup == 1 and $current_round > 0) { 
+            if ($allow_signup == 1 and $current_round > 0) { 
             ?>
             <div class="row">
                 <div class="alert alert-info" role="alert">
                     <a href="newteam.php" class="alert-link"><strong>Be quick!</strong> We're about to start the quiz. Click here quick and enter your team.</a> 
                 </div>
                 <?php
-                }
+            }
 
-                if ($current_round == 0) {
+            if ($current_round == 0) {
                 ?>
-                <div class="panel panel-info">
-                  <div class="panel-heading">
-                    <h3 class="panel-title">Our quiz is moving this week!</h3>
-                  </div>
-                  <div class="panel-body">
-                    <p><strong>For one week only</strong>, we're trying something a little... naughty.</p>
-                    <p>We're running a more adult themed quiz for Over 18s only. It'll be a lot of <del>good clean</del> fun.</p>
-                    <a href="https://naughty.sociallydistant.pub" role="button" class="btn btn-info">Sign up...</a>
-                  </div>
-                </div>
                 <div class="jumbotron">
-                    <h1>We're doing something <em>different</em> this week...</h1>
-                    <p>Our next "normal" quiz will be on Friday 8th May... We hope to see you then.</p>
-                    <p><a class="btn disabled btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
-                    <a class="btn btn-warning btn-lg" href="https://xxx.sociallydistant.pub/newteam.php" role="button">Or try our adults-only quiz</a></p>
+                    <h1>Register your team now!</h1>
+                    <p>Our next quiz is on <strong>Friday the 8<sup>th</sup> of May at 8:00PM.</p>
+                    <p>We look forward to seeing you then...</p>
+                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
                 <?php
-                }
-                if ($allow_signup == 1) {
+            }
+               
+            if ($allow_signup == 1) {
                 ?>
                 <div class="row">
                     <p class="lead"><strong><?php echo count($teams_list); ?> teams</strong> registered already! </p>
@@ -94,27 +98,12 @@ if (array_key_exists("teamID", $_SESSION)){
                     </div>
                 </div> 
                 <a href="index.php">Refresh</a>
-            </div> <!-- end row for game start -->
+                </div> <!-- end row for game start -->
             <?php 
             }
-            if (($current_round > 0) and ($quiz_complete == 0)) {
-            ?>
 
-           <!--  <div class="row">
-                <button type="button" class="btn btn-default" id="bigplayer">Video Only</button>
-                <button type="button" class="btn btn-default hidden" id="showanswers">Show Answer Sheet</button>
-            </div> -->
-            <div class="col-xs-12 col-md-12">
-                <?php
-                    include("answersheet.php");
-                ?>
-            </div>
-
-
-            <?php 
-            } // suppress answer sheet before game starts
             if ($quiz_complete == 1) {
-            ?>
+             ?>
             <div class="col-xs-12 col-md-12">
                 <h4>Leaderboard</h4>
     

@@ -23,7 +23,7 @@ function answer_row(int $question_number,
     }
     
         ?>
-        <input type="text" class="form-control" id="<?php echo $question_number; ?>" name="answered_questions[<?php echo $question_number; ?>]" required="required" value="<?php echo $prefill; ?>" onkeyup="this.value = this.value.replace(/[^A-z 0-9]/, '')">
+        <input type="text" class="form-control" id="<?php echo $question_number; ?>" name="answered_questions[<?php echo $question_number; ?>]" required="required" value="<?php echo $prefill; ?>">
         <?php
 
      if (strlen($hint)>=1){
@@ -264,8 +264,12 @@ foreach($rounds as $round){
 else { //when a team is not logged in - show the login form
 
     ?>
-    <div class="alert alert-danger">
-        You'll need to log in <strong>before you can submit any answers</strong>. 
+    <div class="panel panel-danger">
+        <div class="panel-heading">You need to login <strong>before</strong> you can play.</div>
+        <div class="panel-body">
+            <p>We've made some improvements to our quiz this week. We'll explain all before we get going. </p>
+            <p>If you have any issues, please <a href="mailto:hello@sociallydistant.pub">email us</a>, or send us a tweet (<a href="https:///twitter.com/pubquizstreams">@PubQuizStreams</a>)</p>
+        </div>
     </div>
 
     <?php 

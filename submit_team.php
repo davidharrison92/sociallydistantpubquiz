@@ -21,18 +21,28 @@ if ( empty($_POST) ) {
   //POST is set.
 
   //clean_values
-    $team_name = mysqli_real_escape_string($conn,$_POST["team_name"]);
-    $tm_1 = mysqli_real_escape_string($conn,$_POST["member1"]);
-
-    $tm_2 = mysqli_real_escape_string($conn,$_POST["member2"]);
+    $dirty_team_name = mysqli_real_escape_string($conn,$_POST["team_name"]);
+    $team_name=htmlspecialchars($dirty_team_name);
     
-    $tm_3 = mysqli_real_escape_string($conn,$_POST["member3"]);
+    $d_tm_1 = mysqli_real_escape_string($conn,$_POST["member1"]);
+    $tm_1 = htmlspecialchars($d_tm_1);
+
+    $d_tm_2 = mysqli_real_escape_string($conn,$_POST["member2"]);
+    $tm_2 = htmlspecialchars($d_tm_2);
     
-    $tm_4 = mysqli_real_escape_string($conn,$_POST["member4"]);
+    $d_tm_3 = mysqli_real_escape_string($conn,$_POST["member3"]);
+    $tm_3 = htmlspecialchars($d_tm_3);
 
-    $team_secret = mysqli_real_escape_string($conn,$_POST["team_secret"]);
+    $d_tm_4 = mysqli_real_escape_string($conn,$_POST["member4"]);
+    $tm_4 = htmlspecialchars($d_tm_4);
 
-    $team_email = mysqli_real_escape_string($conn,$_POST["team_email"]);
+
+    $d_team_secret = mysqli_real_escape_string($conn,$_POST["team_secret"]);
+    $team_secret = htmlspecialchars($d_team_secret);
+
+    $d_team_email = mysqli_real_escape_string($conn,$_POST["team_email"]);
+    $team_email = htmlspecialchars($d_team_email);
+
 
     if (isset($_POST["livestream"])) {
      $livestream = mysqli_real_escape_string($conn,$_POST["livestream"]);

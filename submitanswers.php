@@ -1,7 +1,11 @@
 <?php
+session_start();
+var_dump($_POST);
+
+var_dump($_SESSION);
 
 include("db/db_config.php");
-session_start();
+
 include("funcs/pictureround.php");
 
 include("db/get_game_state.php");
@@ -20,7 +24,9 @@ if ( empty($_POST) ) {
 	// build answers array and fill it. We know that they have value ans1-ans10
 	$answers = array();
     foreach($_POST["answered_questions"] as $qno => $ans) {
-		$answers[$qno] = mysqli_real_escape_string($conn,$ans);
+        $dirty_input = mysqli_real_escape_string($conn,$ans);
+        $cleaned = htmlspecialchars($dirty_input);
+		$answers[$qno] = $cleaned;
     }
     
 	if ($teamKnownBool){
@@ -96,22 +102,24 @@ if (!$teamKnownBool){
 
                         $question_number = 1;
                         foreach ($answers as $qno => $ans){
-                            echo "<td>". $question_number."</td>";
+                            echo "<tr><td>". $question_number."</td>";
 
                             if ($team_secret_pass == 1) {
-                                echo "<td> Submitted: ";
-                                $check_exists_qry = "SELECT COUNT(*) as 'Count' from submitted_answers where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID'";
+                                $check_exists_qry = "SELECT COUNT(*) as 'Count' from submitted_answers where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID';";
                                 $exists = $conn->query($check_exists_qry);
                                 $exists = $exists->fetch_assoc();
 
+                                echo "<td>";
+
                                 if (($exists["Count"] * 1) >= 1) {
                                     // yes - update it
-                                    $ans_query = "UPDATE submitted_answers set answer = '$ans' , marked = 0, correct = 0, where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID'";
+                                    $ans_query = "UPDATE submitted_answers set answer = '$ans' , marked = 0, correct = 0 where question_number = $question_number and round_number = $round and team_id = '$teamID' and answer != '$ans'; ";
+                                    echo "Updated: ";
                                 } else {
                                     // no - insert it
-                                    $ans_query = "INSERT INTO submitted_answers (team_id, round_number, question_number, answer) VALUES ('$teamID', '$round', '$question_number', '$ans');";
+                                    $ans_query = "INSERT INTO submitted_answers (team_id, round_number, question_number, answer) VALUES ('$teamID', $round, $question_number, '$ans');";
+                                    echo "Submitted: ";
                                 }
-
 
                                 if (mysqli_query($conn,$ans_query)){
                                     echo $ans . "</td>";
