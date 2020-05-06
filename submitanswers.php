@@ -24,7 +24,9 @@ if ( empty($_POST) ) {
 	// build answers array and fill it. We know that they have value ans1-ans10
 	$answers = array();
     foreach($_POST["answered_questions"] as $qno => $ans) {
-		$answers[$qno] = mysqli_real_escape_string($conn,$ans);
+        $dirty_input = mysqli_real_escape_string($conn,$ans);
+        $cleaned = htmlspecialchars($dirty_input);
+		$answers[$qno] = $cleaned;
     }
     
 	if ($teamKnownBool){
