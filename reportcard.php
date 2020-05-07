@@ -146,9 +146,9 @@ if (!isset($question_data)){
                     </p>
 
                     <?php
-                    if (strlen($qdata["extra_info"]) >1){
+                    if (strlen($q_detail["extra_info"]) >1){
                         // extra info
-                        echo '<p>'.$qdata["extra_info"].'</p>';
+                        echo '<p>'.$q_detail["extra_info"].'</p>';
                     }
                     ?>
 
