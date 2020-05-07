@@ -42,7 +42,7 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, d.pct_correct
+    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, q.extra_info, d.pct_correct
         from submitted_answers s 
             LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
@@ -96,6 +96,19 @@ if (!isset($question_data)){
 
             ?>
             <p class="lead">Round Number <?php echo $qloop[$i]["round_number"] . ' - ' . $qloop[$i]["round_title"]; ?> </p>
+
+            <?php
+            if(strlen($qloop[$i]["round_additional"]) > 0){
+                //additional round info.
+                ?>
+                <p class="small text-info">
+                    <?php echo $qloop[$i]["round_additional"]; ?>
+                </p>
+            <?php
+            }
+            ?>
+
+
             <table class="table table-striped">
                 <tr>
                     <td width="5%"><strong>#</strong></td>
@@ -125,12 +138,20 @@ if (!isset($question_data)){
                 <td><p> <?php       
                     if ($q_detail["correct"] == "1"){
                         //tick
-                        echo '<span class="lead glyphicon glyphicon-ok"></span> '. $q_detail["answer"];
+                        echo '<span class="lead glyphicon glyphicon-ok"></span> <strong>'. $q_detail["answer"] . '</strong>';;
                     } else {
                         //wrong - show correct answer.
-                        echo '<span class="lead glyphicon glyphicon-remove"></span> '. $q_detail["answer"];
+                        echo '<span class="lead glyphicon glyphicon-remove"></span> <strong>'. $q_detail["answer"]. '</strong>';
                     } ?>
                     </p>
+
+                    <?php
+                    if (strlen($q_detail["extra_info"]) >1){
+                        // extra info
+                        echo '<p>'.$q_detail["extra_info"].'</p>';
+                    }
+                    ?>
+
                     <p class="text-muted">Guessed by: 
                      <?php if ($q_detail["pct_correct"] > 67){
                             // easy question

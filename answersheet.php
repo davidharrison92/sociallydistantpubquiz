@@ -39,7 +39,7 @@ if (array_key_exists("teamID", $_SESSION)){
 
 
 //GET THE ROUNDS
-    $rounds_qry = "SELECT t.team_name, t.person1, t.person2, t.person3, t.person4, r.round_number, round_locked, round_title, count(s.question_number) as 'qsubmitted', sum(IFNULL(s.marked,0)) as 'qmarked'
+    $rounds_qry = "SELECT t.team_name, t.person1, t.person2, t.person3, t.person4, r.round_number, r.round_additional, round_locked, round_title, count(s.question_number) as 'qsubmitted', sum(IFNULL(s.marked,0)) as 'qmarked'
             FROM teams t, rounds r
             LEFT JOIN submitted_answers s on s.round_number = r.round_number and s.team_id = '$teamID'
             WHERE t.team_id = '$teamID'
@@ -140,8 +140,18 @@ foreach($rounds as $round){
     <div role="tabpanel" class="tab-pane fade <?php if ($current_round == $round_number){ echo 'active in'; } ?>" id="<?php echo $divname; ?>">
 
         <h4><?php echo 'Round #'. $round_number . " - " . $round_title; ?> </h4>
+        
+        <?php
+        if(strlen($round["round_additional"]) > 0){
+            //additional round info.
+            ?>
+            <p class="small text-info">
+                <?php echo $round["round_additional"]; ?>
+            </p>
+        <?php
+        }
 
-        <?php if($round_status[$round_number] == "pending"){
+        if($round_status[$round_number] == "pending"){
             ?>
             <div class="panel panel-info">
               <div class="panel-heading">Submitted</div>
