@@ -13,8 +13,7 @@ if ( !empty($_POST) ) {
 
     if (!isset($_SESSION["admin_user"])){
 
-
-    	$secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
+        $secret = mysqli_real_escape_string($conn,$_POST["adminpass"]);
 
         $pwdqry = "SELECT COUNT(*) as 'Count' from admin_password where password = '$secret'";
         $checkpwd = $conn->query($pwdqry);
@@ -90,6 +89,31 @@ if ( !empty($_POST) ) {
 
 // check if this user is administrator.
 if (array_key_exists("admin_user", $_SESSION)){
+
+    //AUTOMARKING - Marks any answers that either exactly match the answer, or previously accepted answer.
+
+    $automark_query = "UPDATE 
+                            submitted_answers s 
+                        join 
+                            quiz_questions q 
+                            on q.question_number = s.question_number and q.round_number = s.round_number
+                        join 
+                            submitted_answers sc 
+                            on sc.question_number = s.question_number and sc.round_number = s.round_number 
+                        SET 
+                            s.marked = 1, s.correct =1 
+                        WHERE s.marked = 0 and
+                        (
+                            (UPPER(s.answer) = UPPER(q.answer) )
+                            OR ( sc.correct = 1 AND UPPER(sc.answer) = UPPER(s.answer))
+                        )";
+
+    if (mysqli_query($conn,$corr_sql)){
+        //automarking no error
+    } else {
+        $error = 1;
+        $errormsg = $errormsg. " + An error occurred when automarking some answers";
+    }
 
     // fetch answers that need marking.
     $questions_to_mark = array();
