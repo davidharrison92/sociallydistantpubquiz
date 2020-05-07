@@ -108,7 +108,7 @@ if (array_key_exists("admin_user", $_SESSION)){
                             OR ( sc.correct = 1 AND UPPER(sc.answer) = UPPER(s.answer))
                         )";
 
-    if (mysqli_query($conn,$corr_sql)){
+    if (mysqli_query($conn,$automark_query)){
         //automarking no error
     } else {
         $error = 1;
