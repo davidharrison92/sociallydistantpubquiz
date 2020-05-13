@@ -95,7 +95,6 @@
                                     </li>
                                 </ul>
                             </p>
-                            <p><em>On the answer sheet, we only let you send in letters, numbers and spaces. None of our answers will require symbols or emojis!</em></p>
                           </div>
                         </div>
                       </div>
