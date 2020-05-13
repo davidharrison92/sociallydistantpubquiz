@@ -69,7 +69,7 @@ if (array_key_exists("teamID", $_SESSION)){
                 ?>
                 <div class="jumbotron">
                     <h1>Register your team now!</h1>
-                    <p>Our next quiz is on <strong>Friday the 8<sup>th</sup> of May at 8:00PM.</p>
+                    <p>Our next quiz is on <strong>Friday the 15<sup>th</sup> of May at 8:00PM.</p>
                     <p>We look forward to seeing you then...</p>
                     <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
