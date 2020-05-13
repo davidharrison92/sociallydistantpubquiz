@@ -27,21 +27,19 @@ $current_rank = 0;
 $repeats = 1;
 ?>
 
-
+<?php 
+			if (array_key_exists("teamID", $_SESSION)){
+				?>
+				  <form action="leaderboard.php" method="POST">
+				  	<button type="submit" class="btn btn-info btn-xs">Add to<br>League</button>
+				 <?php
+			} ?> 
 
 <table id="mainleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
 	<thead>
 		<tr>			
-			<?php 
-			if (array_key_exists("teamID", $_SESSION)){
-				?>
-				  <form action="leaderboard.php" method="POST">
-				  <td>
-				  	<button type="submit" class="btn btn-info btn-xs">Add to<br>League</button>
-				  </td>
-				 <?php
-			} ?> 
-
+			
+			<td>+</td>
 			<td><strong>Rank</strong></td>
 	        <td style="min-width: 40%;"><strong>Team Name</strong></td>
 			<?php 
