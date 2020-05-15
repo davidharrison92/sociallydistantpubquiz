@@ -2,6 +2,7 @@
     <div class="form-group">
         <label for="teamname">Team Name</label>
         <select class="form-control pickteamname" id="teamname" name="teamID">
+        <option value="" disabled selected>Pick Your Team Name...</option>
         <?php foreach($teams_list as $team){
             echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
         } ?>
