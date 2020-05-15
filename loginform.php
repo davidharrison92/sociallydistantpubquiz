@@ -1,7 +1,7 @@
 <form class="form-inline" method="POST">
     <div class="form-group">
         <label for="teamname">Team Name</label>
-        <select class="form-control" id="teamname" name="teamID">
+        <select class="form-control pickteamname" id="teamname" name="teamID">
         <?php foreach($teams_list as $team){
             echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
         } ?>
@@ -19,3 +19,9 @@
         </div>
     </div>
 </form>
+
+<script>
+$(document).ready(function() {
+    $('.pickteamname').select2();
+});
+</script>
