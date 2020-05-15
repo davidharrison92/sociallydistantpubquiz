@@ -188,6 +188,11 @@ if ($error == 0){
     }
     if ($error == 0){
         $_SESSION["messages"]["info"][] = "Your team has been entered into the next quiz. Good luck!";
+    
+        // ALSO CREATE A SESSION FOR THE TEAM SO THEY DON'T HAVE TO IMMEDIATELY LOG IN.
+        $_SESSION["teamID"] = $team_ID;
+    
+    
     }
 }
 header("Location: newteam.php");
