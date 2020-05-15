@@ -31,7 +31,7 @@ $repeats = 1;
 			if (array_key_exists("teamID", $_SESSION)){
 				?>
 				  <form action="leaderboard.php" method="POST">
-				  	<button type="submit" class="btn btn-info btn-xs">Add to<br>League</button>
+				  	<button type="submit" class="btn btn-info btn-xs">Add Selected Teams to My League</button>
 				 <?php
 			} ?> 
 
