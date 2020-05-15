@@ -287,6 +287,8 @@
                             <ul>
                             <li><strong><a href="https://twitter.com/volgriff">Mark Christian</a></strong> created the magnificent <a href="thepanickedshopper.jpg">Pub Sign image</a>.</li>
                             <li>Website style and layout by <a href="https://getbootstrap.com/docs/3.3/">Bootstrap</a>, used under license <a href="https://creativecommons.org/licenses/by/3.0/">CC BY 3.0</a>.</li>
+                            <li>Team Name select box uses <a href="https://select2.org/">Select2</a>. Used under <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></li>
+                            <li>Leaderboard sort and search uses DataTables (<a href="https://datatables.net/license/mit">MIT</a>)</li>
                             <li><strong>George Walker</strong>, <strong>Gary Christian</strong>, <strong>Luke Ferris</strong>, and <strong>Alex Sim</strong> for their advice and support with website development.</li>
                           </div>
                         </div>
