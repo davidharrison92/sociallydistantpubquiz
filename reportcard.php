@@ -22,16 +22,28 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
 if (array_key_exists("teamID",$_SESSION)){
     // Get team name from teams
 
-    $tdata_query = "SELECT team_name, team_ID from teams where team_id = '". mysqli_real_escape_string($conn,$_SESSION["teamID"]) ."'";
+    // Allow TeamID from URL to overrule the Logged in Session.
+    if (isset($_GET["teamID"])) {
+        $teamID = mysqli_real_escape_string($conn, $_GET["teamID"]);
+        $my_report = false; // viewing another team's answers
+    } else {
+        $teamID = mysqli_real_escape_string($conn, $_SESSION["teamID"]);
+        $my_report = true; //logged in team's answers
+    }
+
+    $tdata_query = "SELECT team_name, team_ID from teams where team_id = '". $teamID ."'";
     $tdata_res = mysqli_query($conn,$tdata_query);
     $tdata_res = mysqli_fetch_row($tdata_res);
 
     if(count($tdata_res) == 0){
         // Somehow session had an invalid team ID in it? theoretically impossible. I bet it happens.
 
-        unset($_SESSION["teamID"]);
-        $teamExists = FALSE;
-
+        if ($my_report) {
+            //Somehow there's a bad session in. Kill that.
+            unset($_SESSION["teamID"]);
+        }
+        
+        $team_exists = FALSE;
 
     }
 
@@ -71,10 +83,14 @@ if (array_key_exists("teamID",$_SESSION)){
 
 } //end of session set.
 
-if (!array_key_exists("teamID", $_SESSION)){
+if (((count($tdata_res) == 0) or (!array_key_exists("teamID", $_SESSION))){
     //Need to login. 
     $teamExists = FALSE;
-    echo "<h3>Log in to view your report card...</h3>";
+    if ($my_report){
+        echo "<h3>Log in to view your report card...</h3>";
+    } else {
+        echo "<h3>Invalid Team ID Specified</h3>";
+    }
 } else {
     ?>
     <h3>Report Card - <?php echo $team_name;?> <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span></h3>
