@@ -103,7 +103,7 @@ if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
         <?php
     } else {
         ?>
-            <span class="small text-muted">You're viewing another team's answers. View <a href="your_answers.php">My Team's Answers</a>
+            <span class="label label-info">You're viewing another team's answers. View <a href="your_answers.php">My Team's Answers</a>
         <?php
     } 
     ?>
