@@ -67,9 +67,20 @@ if (array_key_exists("teamID", $_SESSION)){
 
             if ($current_round == 0) {
                 ?>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">Beat the Quizmaster!</div>
+                    <div class="panel-body">
+                        <p>This Friday, it's your chance to ask the questions. Dave and Alex are going to compete against each other. There'll be a punishment for the loser.</p>
+                        <p>Send us your questions, don't tell anyone (even your teammates) the answers, though!</p>
+                        <p><a class="btn btn-primary" href="https://forms.gle/fZwg8yNDL786iP3W9" role="button">Send in your questions!</a></p>
+
+                    
+                    </div>
+                </div>
+
                 <div class="jumbotron">
                     <h1>Register your team now!</h1>
-                    <p>Our next quiz is on <strong>Friday the 15<sup>th</sup> of May at 8:00PM.</p>
+                    <p>Our next quiz is on <strong>Friday the 22<sup>nd</sup> of May at 8:00PM.</p>
                     <p>We look forward to seeing you then...</p>
                     <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
