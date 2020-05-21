@@ -2,6 +2,8 @@
 include("db/db_config.php");
 include("funcs/pictureround.php");
 
+$team_exists = FALSE;  // TRUE means that the teamID from session/get was found in DB
+$my_report = TRUE; //this is the default, FALSE indicates that it's been forced in GET
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -45,9 +47,11 @@ if (array_key_exists("teamID",$_SESSION)){
         
         $team_exists = FALSE;
 
+    } else {
+        //must be some results
+        $team_exists = TRUE;
     }
 
-    $teamExists = TRUE;
 
     $team_name = $tdata_res[0];
     $team_ID = $tdata_res[1];
@@ -83,9 +87,8 @@ if (array_key_exists("teamID",$_SESSION)){
 
 } //end of session set.
 
-if (((count($tdata_res) == 0) or (!array_key_exists("teamID", $_SESSION))){
+if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
     //Need to login. 
-    $teamExists = FALSE;
     if ($my_report){
         echo "<h3>Log in to view your report card...</h3>";
     } else {
@@ -93,7 +96,18 @@ if (((count($tdata_res) == 0) or (!array_key_exists("teamID", $_SESSION))){
     }
 } else {
     ?>
-    <h3>Report Card - <?php echo $team_name;?> <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span></h3>
+    <h3>Report Card - <?php echo $team_name;?> <br>
+    <?php if($my_report){
+        ?>
+            <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span>
+        <?php
+    } else {
+        ?>
+            <span class="small text-muted">You're viewing another team's answers. View <a href="your_answers.php">My Team's Answers</a>
+        <?php
+    } 
+    ?>
+    </h3>
     <?php
 }
 
@@ -129,7 +143,13 @@ if (!isset($question_data)){
                 <tr>
                     <td width="5%"><strong>#</strong></td>
                     <td width="33%"><strong>Question</strong></td>
-                    <td width="28%"><strong>You said...</strong></td>
+                    <td width="28%"><strong>
+                        <?php if($my_report){
+                            echo "You Said...";
+                        } else {
+                            echo "They Said...";
+                        }?>
+                    </strong></td>
                     <td width="34%"><strong>Correct?</strong></td>
                 </tr>
 
