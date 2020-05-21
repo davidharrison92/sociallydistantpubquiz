@@ -89,6 +89,10 @@ if (!isset($question_data)){
 <?php
     } else {
 
+    ?>
+    <!-- HAVE SOME AJAX (You'll need this later) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
+    <?php
     if (array_key_exists("teamID", $_SESSION)){
         foreach($question_data as $i => $qloop){
 
@@ -111,10 +115,10 @@ if (!isset($question_data)){
 
             <table class="table table-striped">
                 <tr>
-                    <td width="5%"><strong>#</strong></td>
-                    <td width="33%"><strong>Question</strong></td>
-                    <td width="28%"><strong>You said...</strong></td>
-                    <td width="34%"><strong>Correct?</strong></td>
+                    <td width="10%"><strong>#</strong></td>
+                    <td width="30%"><strong>Question</strong></td>
+                    <td width="30%"><strong>You said...</strong></td>
+                    <td width="30%"><strong>Correct?</strong></td>
                 </tr>
 
 
@@ -127,7 +131,15 @@ if (!isset($question_data)){
                 }
             
                 ?>
-                <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
+                <td><p class="lead"><strong><?php echo $q_detail["question_number"]; ?></strong></p>
+                
+                <!-- Thumbs up? -->
+                <form action="ajax_thup.php" method="post" id="ajax-form">
+                    <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
+                    <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
+                    <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="right" title="We liked this question!"></span></button>
+                </form>
+                </td>
                 <td><?php if ($q_detail["picture_question"] == 1){
                                 echo pictureround($q_detail["question"]);
                             } else {
@@ -170,9 +182,34 @@ if (!isset($question_data)){
             ?>
 
             </table>
+           
         <?php
         $i++;
         } //end while
+        ?>
+
+
+        <script>
+            // Bootstrap Tooltips...
+            $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+            })
+
+        //AJAX Form Submit (this is witchcraft of the highest order!)
+        function submitForm(form){
+            var url = form.attr("action");
+            var formData = $(form).serializeArray();
+            $.post(url, formData).done(function (data) {
+                alert(data);
+            });
+        }
+        $("#ajax-form").submit(function() {
+        submitForm($(this));
+        return false;
+        });
+        </script>
+
+    <?php
     } // end check for sessionkey
 } // end check questions exist
 
