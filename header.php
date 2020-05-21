@@ -26,7 +26,7 @@ function site_tabs($current_round, $quiz_complete){
         <div class="col-xs-12 col-md-6 pull-right">
             <?php if ($show_video == 1) {
                 ?>
-            <iframe width="100%" height="300" id="ytembed" class="miniplayer" <?php echo 'src="https://www.youtube-nocookie.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <iframe width="100%" height="300" id="ytembed" class="miniplayer" <?php echo 'src="https://www.youtube.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             <?php
             } // end show vid
             ?>
