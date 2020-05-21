@@ -90,7 +90,7 @@ $repeats = 1;
 		<?php echo remove_team($ml["team_id"]); ?>
 
 		<td><p><?php echo $current_rank; ?></p></td>
-		<td><p><strong><?php echo $ml["team_name"];?></strong><br>
+		<td><p><strong><?php echo $ml["team_name"];?></strong>   <?php echo reportlink($lb["team_id"]);?><br>
 			<span class="small"><?php echo $teammembers; ?></span> </p>
 
 		</td>

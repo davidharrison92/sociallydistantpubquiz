@@ -7,18 +7,6 @@ if (!isset($current_round)){
 	include_once("db/get_game_state.php");
 }
 
-function reportlink($teamID){
-	if(array_key_exists("teamID",$_SESSION)){
-		
-		if($teamID == $_SESSION["teamID"]){
-			$url = "your_answers.php";
-		} else {
-			$url = "your_answers.php?teamID=".$teamID;
-		}
-
-		return '<span class="nowrap"><a href="'.$url.'"><span class="glyphicon glyphicon-list-alt"></span><span class="small"> Peek<span></a></span>';
-	}
-}
 
 
 // this just spits out a table.
