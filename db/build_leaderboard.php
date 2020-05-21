@@ -38,8 +38,12 @@ $repeats = 1;
 <table id="mainleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
 	<thead>
 		<tr>			
-			
-			<td>+</td>
+		<?php 
+			if (array_key_exists("teamID", $_SESSION)){
+				?>
+					<td>+</td>
+				<?php
+			}?>
 			<td><strong>Rank</strong></td>
 	        <td style="min-width: 40%;"><strong>Team Name</strong></td>
 			<?php 
