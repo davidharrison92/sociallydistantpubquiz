@@ -7,6 +7,18 @@ if (!isset($current_round)){
 	include_once("db/get_game_state.php");
 }
 
+function reportlink($teamID){
+	if(array_key_exists("teamID",$_SESSION)){
+		
+		if($teamID == $_SESSION["teamID"]){
+			$url = "your_answers.php";
+		} else {
+			$url = "your_answers.php?teamID=".$teamID;
+		}
+
+		return '<span class="nowrap"><a href="'.$url.'"><span class="glyphicon glyphicon-list-alt"></span><span class="small"> Peek<span></a></span>';
+	}
+}
 
 
 // this just spits out a table.
@@ -86,8 +98,13 @@ foreach($leaderboard as $lb){
 
 	<tr class="<?php if (iscurrent($lb["team_id"])) { echo 'info'; } ?> parent" role="row" >
 		<?php echo add_team($lb["team_id"]); ?>
+		
+		
 		<td><p><?php echo $current_rank; ?></p></td>
-		<td><p><strong><?php echo $lb["team_name"];?></strong><br>
+		
+		
+		<td><p><strong><?php echo $lb["team_name"];?></strong> <?php echo reportlink($lb["team_id"]);?>
+<br>
 			<span class="small"><?php echo $teammembers; ?></span> </p>
 
 		</td>
@@ -99,7 +116,9 @@ foreach($leaderboard as $lb){
 			<?php 
 			} // end for loop (header)
 			?>	
-		<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
+		<td>
+			<strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small>
+		</td>
 	</tr>
 	
 
