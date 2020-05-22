@@ -186,7 +186,14 @@ if (!isset($question_data)){
 
             <table class="table table-striped">
                 <tr>
-                    <td width="5%"><strong>#</strong></td>
+                    <td width="10%">
+                        <p><strong>#</strong><p>
+                        <form action="ajax_thup.php" method="post" id="ajax-form">
+                            <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
+                            <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
+                            <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="right" title="We liked this question!"></span></button>
+                        </form>
+                    </td>
                     <td width="33%"><strong>Question</strong></td>
                     <td width="28%"><strong>
                         <?php if($my_report){
@@ -251,6 +258,31 @@ if (!isset($question_data)){
             ?>
 
             </table>
+
+            <script>
+                // Bootstrap Tooltips...
+                    $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                    })
+
+                //AJAX Form Submit (this is witchcraft of the highest order!)
+                    function submitForm(form){
+                        var url = form.attr("action");
+                        var formData = $(form).serializeArray();
+                        $.post(url, formData).done(function (data) {
+                            //alert(data);
+                        });
+                    }
+                    $("#ajax-form").submit(function() {
+                    submitForm($(this));
+                    return false;
+                    });
+            </script>
+
+
+
+
+
         <?php
         $i++;
         } //end while
