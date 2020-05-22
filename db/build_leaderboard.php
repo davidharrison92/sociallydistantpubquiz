@@ -38,8 +38,12 @@ $repeats = 1;
 <table id="mainleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
 	<thead>
 		<tr>			
-			
-			<td>+</td>
+		<?php 
+			if (array_key_exists("teamID", $_SESSION)){
+				?>
+					<td>+</td>
+				<?php
+			}?>
 			<td><strong>Rank</strong></td>
 	        <td style="min-width: 40%;"><strong>Team Name</strong></td>
 			<?php 
@@ -86,8 +90,13 @@ foreach($leaderboard as $lb){
 
 	<tr class="<?php if (iscurrent($lb["team_id"])) { echo 'info'; } ?> parent" role="row" >
 		<?php echo add_team($lb["team_id"]); ?>
+		
+		
 		<td><p><?php echo $current_rank; ?></p></td>
-		<td><p><strong><?php echo $lb["team_name"];?></strong><br>
+		
+		
+		<td><p><strong><?php echo $lb["team_name"];?></strong> <?php echo reportlink($lb["team_id"]);?>
+<br>
 			<span class="small"><?php echo $teammembers; ?></span> </p>
 
 		</td>
@@ -99,7 +108,9 @@ foreach($leaderboard as $lb){
 			<?php 
 			} // end for loop (header)
 			?>	
-		<td><strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small></td>
+		<td>
+			<strong><?php echo $lb["total_score"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small>
+		</td>
 	</tr>
 	
 

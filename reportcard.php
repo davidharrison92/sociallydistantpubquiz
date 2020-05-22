@@ -2,6 +2,8 @@
 include("db/db_config.php");
 include("funcs/pictureround.php");
 
+$team_exists = FALSE;  // TRUE means that the teamID from session/get was found in DB
+$my_report = TRUE; //this is the default, FALSE indicates that it's been forced in GET
 
 if (session_status() == PHP_SESSION_NONE) {
     session_start();
@@ -22,20 +24,34 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
 if (array_key_exists("teamID",$_SESSION)){
     // Get team name from teams
 
-    $tdata_query = "SELECT team_name, team_ID from teams where team_id = '". mysqli_real_escape_string($conn,$_SESSION["teamID"]) ."'";
+    // Allow TeamID from URL to overrule the Logged in Session.
+    if (isset($_GET["teamID"])) {
+        $teamID = mysqli_real_escape_string($conn, $_GET["teamID"]);
+        $my_report = false; // viewing another team's answers
+    } else {
+        $teamID = mysqli_real_escape_string($conn, $_SESSION["teamID"]);
+        $my_report = true; //logged in team's answers
+    }
+
+    $tdata_query = "SELECT team_name, team_ID from teams where team_id = '". $teamID ."'";
     $tdata_res = mysqli_query($conn,$tdata_query);
     $tdata_res = mysqli_fetch_row($tdata_res);
 
     if(count($tdata_res) == 0){
         // Somehow session had an invalid team ID in it? theoretically impossible. I bet it happens.
 
-        unset($_SESSION["teamID"]);
-        $teamExists = FALSE;
+        if ($my_report) {
+            //Somehow there's a bad session in. Kill that.
+            unset($_SESSION["teamID"]);
+        }
+        
+        $team_exists = FALSE;
 
-
+    } else {
+        //must be some results
+        $team_exists = TRUE;
     }
 
-    $teamExists = TRUE;
 
     $team_name = $tdata_res[0];
     $team_ID = $tdata_res[1];
@@ -71,13 +87,72 @@ if (array_key_exists("teamID",$_SESSION)){
 
 } //end of session set.
 
-if (!array_key_exists("teamID", $_SESSION)){
+if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
+
     //Need to login. 
-    $teamExists = FALSE;
-    echo "<h3>Log in to view your report card...</h3>";
+    if ($my_report){
+        echo "<h3>Log in to view your report card...</h3>";
+    } else {
+        echo "<h3>Invalid Team ID Specified</h3>";
+    }
 } else {
     ?>
-    <h3>Report Card - <?php echo $team_name;?> <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span></h3>
+    <h3>Report Card - <?php echo $team_name;?></h3> <br>
+    <?php if($my_report){
+        include("db/get_teams.php");
+        ?>
+
+            <button type="button" id="showpeek" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span> View Another Team</button>
+
+            <div style="display:none" id="peekform">
+                <button type="button" id="hidepeek" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span> Hide</button>
+            
+            <form class="form-inline" method="GET" action="your_answers.php">
+            
+                <select class="form-control pickteamname" id="teamname" name="teamID">
+                    <option value="" disabled selected>Whose answers do you want to spy on?</option>
+                    <?php foreach($teams_list as $team){
+                        //only include the other teams.
+                        if  ($team["team_id"] !== $_SESSION["teamID"]){
+                            echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
+                        }
+                    } ?>
+                </select>
+                
+                <button type="submit" class="btn btn-info">Peek!</button>
+                
+                <script>
+                    $(document).ready(function() {
+                        $('.pickteamname').select2();
+                    });
+                </script>
+            </form>
+            </div>
+
+
+            <script>
+
+            $(document).ready(function(){
+            $("#hidepeek").click(function(){
+                $("#peekform").hide(400);
+                $("#showpeek").show(400);
+            });
+            $("#showpeek").click(function(){
+                $("#peekform").show(400);
+                $("#showpeek").hide(400);
+            });
+            });
+
+            </script>
+
+        <?php
+    } else {
+        ?>
+             <p class="lead"><span class="label label-info">You're viewing another team's answers.</span> <a href="your_answers.php"><button type="button" class="btn btn-link">Back to my team</button></a> </p>
+        <?php
+    } 
+    ?>
+   
     <?php
 }
 
@@ -85,7 +160,7 @@ if (!array_key_exists("teamID", $_SESSION)){
 
 if (!isset($question_data)){
     ?>
-    <div class="alert alert-warning"><strong>No answers to give out yet!</strong><br>Come back after each round is marked, and see how you did!</div>
+    <div class="alert alert-warning"><strong>No answers to see yet!</strong><br>Come back after each round is marked, and see how you did!</div>
 <?php
     } else {
 
@@ -113,7 +188,13 @@ if (!isset($question_data)){
                 <tr>
                     <td width="5%"><strong>#</strong></td>
                     <td width="33%"><strong>Question</strong></td>
-                    <td width="28%"><strong>You said...</strong></td>
+                    <td width="28%"><strong>
+                        <?php if($my_report){
+                            echo "You Said...";
+                        } else {
+                            echo "They Said...";
+                        }?>
+                    </strong></td>
                     <td width="34%"><strong>Correct?</strong></td>
                 </tr>
 
