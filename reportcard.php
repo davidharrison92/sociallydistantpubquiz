@@ -58,11 +58,12 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, q.extra_info, d.pct_correct
+    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, q.extra_info, d.pct_correct, pop.likes
         from submitted_answers s 
             LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
         JOIN rounds r on r.round_number = s.round_number
+        JOIN question_popularity pop on pop.question_number = q.question_number and pop.round_number = q.round_number
         where s.marked = 1 and s.team_id = '" . $team_ID . "';";
 
 //    echo $qdata_query;
@@ -97,6 +98,7 @@ if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
     }
 } else {
     ?>
+    
     <h3>Report Card - <?php echo $team_name;?></h3> <br>
     <?php if($my_report){
         include("db/get_teams.php");
@@ -186,16 +188,19 @@ if (!isset($question_data)){
 
             <table class="table table-striped">
                 <tr>
-                    <td width="5%"><strong>#</strong></td>
-                    <td width="33%"><strong>Question</strong></td>
-                    <td width="28%"><strong>
+                    <td width="10%">
+                    <strong>#</strong>
+                       
+                    </td>
+                    <td width="30%"><strong>Question</strong></td>
+                    <td width="30%"><strong>
                         <?php if($my_report){
                             echo "You Said...";
                         } else {
                             echo "They Said...";
                         }?>
                     </strong></td>
-                    <td width="34%"><strong>Correct?</strong></td>
+                    <td width="30%"><strong>Correct?</strong></td>
                 </tr>
 
 
@@ -208,7 +213,28 @@ if (!isset($question_data)){
                 }
             
                 ?>
-                <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
+                <td>
+                    <p class="lead"><strong><?php echo $q_detail["question_number"]; ?></strong></p>
+                    
+                    <?php 
+                    if ($my_report){
+                        $formID = "r".$qloop[$i]["round_number"]."q".$q_detail["question_number"];
+                        $allforms[] = "#".$formID;
+                    
+                        ?>
+                            <form action="ajax_thup.php" method="post" id="<?php echo $formID; ?>">
+                                <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
+                                <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
+                                <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="bottom" title="We liked this question!"></span></button>
+                            </form>
+                        <?php
+
+                        if ($q_detail["likes"] > 1){
+                            echo "<p><strong>".$q_detail["likes"]."</strong> likes</p>";
+                        }
+                    } // end my form
+                    ?>
+                </td>
                 <td><?php if ($q_detail["picture_question"] == 1){
                                 echo pictureround($q_detail["question"]);
                             } else {
@@ -251,6 +277,13 @@ if (!isset($question_data)){
             ?>
 
             </table>
+
+           
+
+
+
+
+
         <?php
         $i++;
         } //end while
@@ -272,5 +305,39 @@ if(!array_key_exists("teamID",$_SESSION)){
 <?php 
 	mysqli_close($conn);
 ?>
+
+<script>
+            jQuery(document).ready(function() {
+                
+                // Bootstrap Tooltips...
+                    $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                    });
+
+                //AJAX Form Submit (this is witchcraft of the highest order!)
+                    function submitForm(form){
+                        var url = form.attr("action");
+                        var formData = $(form).serializeArray();
+                        $.post(url, formData).done(function (data) {
+                        
+                        });
+                    };
+                    $("<?php echo implode(', ',$allforms); ?>").submit(function(event) {
+                        event.preventDefault(); //keeps user on this page
+
+                        submitForm($(this)); // Send the data off to be submitted
+                        
+                        var form = $(this);
+                        var id = form.attr('id');                        
+                        var ipstr= "#" +id + " :input" ;
+                        $(ipstr).attr("disabled", true); //disable button.
+                        $(this).append(" Thanks!"); // User feedback!
+                        return false;
+                    });
+            
+                });
+
+            </script>
+</body>
 </html>
 
