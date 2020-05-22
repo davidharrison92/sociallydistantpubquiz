@@ -99,15 +99,44 @@ if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
     <h3>Report Card - <?php echo $team_name;?> <br>
     <?php if($my_report){
         ?>
-            <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span>
+            <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span>  </h3>
+
+            <button type="button" id="peek" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span> View Another Team</button>
+
+            <div id="peekteam">
+
+                HELLO
+
+            </div>
+
+
+            <script>
+                $("#peekteam").click(function () {
+
+                $header = $(this);
+                //getting the next element
+                $content = $header.next();
+                //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
+                $content.slideToggle(500, function () {
+                    //execute this after slideToggle is done
+                    //change text of header based on visibility of content div
+                    $header.text(function () {
+                        //change text based on condition
+                        return $content.is(":visible") ? "<span class="glyphicon glyphicon-chevron-up"></span> Close" : "<span class="glyphicon glyphicon-chevron-down"></span> View Another Team";
+                    });
+                });
+
+                });            
+            </script>
+
         <?php
     } else {
         ?>
-            <span class="label label-info">You're viewing another team's answers. View <a href="your_answers.php">My Team's Answers</a>
+            <span class="label label-info">You're viewing another team's answers. View <a href="your_answers.php">My Team's Answers</a>  </h3>
         <?php
     } 
     ?>
-    </h3>
+   
     <?php
 }
 
@@ -115,7 +144,7 @@ if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
 
 if (!isset($question_data)){
     ?>
-    <div class="alert alert-warning"><strong>No answers to give out yet!</strong><br>Come back after each round is marked, and see how you did!</div>
+    <div class="alert alert-warning"><strong>No answers to see yet!</strong><br>Come back after each round is marked, and see how you did!</div>
 <?php
     } else {
 
