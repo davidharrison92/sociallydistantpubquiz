@@ -88,6 +88,7 @@ if (array_key_exists("teamID",$_SESSION)){
 } //end of session set.
 
 if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
+
     //Need to login. 
     if ($my_report){
         echo "<h3>Log in to view your report card...</h3>";
@@ -96,43 +97,58 @@ if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
     }
 } else {
     ?>
-    <h3>Report Card - <?php echo $team_name;?> <br>
+    <h3>Report Card - <?php echo $team_name;?></h3> <br>
     <?php if($my_report){
+        include("db/get_teams.php");
         ?>
-            <span class="small"><a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>">Not you?</a></span>  </h3>
 
-            <button type="button" id="peek" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span> View Another Team</button>
+            <button type="button" id="showpeek" class="btn btn-link"><span class="glyphicon glyphicon-chevron-down"></span> View Another Team</button>
 
-            <div id="peekteam">
-
-                HELLO
-
+            <div style="display:none" id="peekform">
+                <button type="button" id="hidepeek" class="btn btn-link"><span class="glyphicon glyphicon-chevron-up"></span> Hide</button>
+            
+            <form class="form-inline" method="GET" action="your_answers.php">
+            
+                <select class="form-control pickteamname" id="teamname" name="teamID">
+                    <option value="" disabled selected>Whose answers do you want to spy on?</option>
+                    <?php foreach($teams_list as $team){
+                        //only include the other teams.
+                        if  ($team["team_id"] !== $_SESSION["teamID"]){
+                            echo '<option value="' . $team["team_id"] . '">' . $team["team_name"] . "</option>";
+                        }
+                    } ?>
+                </select>
+                
+                <button type="submit" class="btn btn-info">Peek!</button>
+                
+                <script>
+                    $(document).ready(function() {
+                        $('.pickteamname').select2();
+                    });
+                </script>
+            </form>
             </div>
 
 
             <script>
-                $("#peekteam").click(function () {
 
-                $header = $(this);
-                //getting the next element
-                $content = $header.next();
-                //open up the content needed - toggle the slide- if visible, slide up, if not slidedown.
-                $content.slideToggle(500, function () {
-                    //execute this after slideToggle is done
-                    //change text of header based on visibility of content div
-                    $header.text(function () {
-                        //change text based on condition
-                        return $content.is(":visible") ? "<span class="glyphicon glyphicon-chevron-up"></span> Close" : "<span class="glyphicon glyphicon-chevron-down"></span> View Another Team";
-                    });
-                });
+            $(document).ready(function(){
+            $("#hidepeek").click(function(){
+                $("#peekform").hide(400);
+                $("#showpeek").show(400);
+            });
+            $("#showpeek").click(function(){
+                $("#peekform").show(400);
+                $("#showpeek").hide(400);
+            });
+            });
 
-                });            
             </script>
 
         <?php
     } else {
         ?>
-            <span class="label label-info">You're viewing another team's answers. View <a href="your_answers.php">My Team's Answers</a>  </h3>
+             <p class="lead"><span class="label label-info">You're viewing another team's answers.</span> <a href="your_answers.php"><button type="button" class="btn btn-link">Back to my team</button></a> </p>
         <?php
     } 
     ?>
