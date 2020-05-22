@@ -97,8 +97,6 @@ if ($team_exists == FALSE or (!array_key_exists("teamID", $_SESSION))){
     }
 } else {
     ?>
-    <!-- HAVE SOME AJAX (You'll need this later) -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.js"></script>
     
     <h3>Report Card - <?php echo $team_name;?></h3> <br>
     <?php if($my_report){
@@ -190,22 +188,18 @@ if (!isset($question_data)){
             <table class="table table-striped">
                 <tr>
                     <td width="10%">
-                        <p><strong>#</strong><p>
-                        <form action="ajax_thup.php" method="post" id="ajax-form">
-                            <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
-                            <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
-                            <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="right" title="We liked this question!"></span></button>
-                        </form>
+                    <strong>#</strong>
+                       
                     </td>
-                    <td width="33%"><strong>Question</strong></td>
-                    <td width="28%"><strong>
+                    <td width="30%"><strong>Question</strong></td>
+                    <td width="30%"><strong>
                         <?php if($my_report){
                             echo "You Said...";
                         } else {
                             echo "They Said...";
                         }?>
                     </strong></td>
-                    <td width="34%"><strong>Correct?</strong></td>
+                    <td width="30%"><strong>Correct?</strong></td>
                 </tr>
 
 
@@ -218,7 +212,24 @@ if (!isset($question_data)){
                 }
             
                 ?>
-                <td><strong><?php echo $q_detail["question_number"]; ?></strong></td>
+                <td>
+                    <p class="lead"><strong><?php echo $q_detail["question_number"]; ?></strong></p>
+                    
+                    <?php 
+                    if ($my_report){
+                        $formID = "#r".$qloop[$i]["round_number"]."q".$q_detail["question_number"];
+                        $allforms[] = $formID;
+                    
+                        ?>
+                            <form action="ajax_thup.php" method="post" id="<?php echo $formID; ?>">
+                                <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
+                                <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
+                                <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="right" title="We liked this question!"></span></button>
+                            </form>
+                        <?php
+                    } // end my form
+                    ?>
+                </td>
                 <td><?php if ($q_detail["picture_question"] == 1){
                                 echo pictureround($q_detail["question"]);
                             } else {
@@ -273,13 +284,34 @@ if (!isset($question_data)){
                         var url = form.attr("action");
                         var formData = $(form).serializeArray();
                         $.post(url, formData).done(function (data) {
-                            //alert(data);
+                            alert(data);
                         });
                     }
-                    $("#ajax-form").submit(function() {
-                    submitForm($(this));
-                    return false;
+                    $("<?php echo implode(', ',$allforms); ?>").submit(function(event) {
+                        event.preventDefault();
+                        submitForm($(this));
+                        return false;
                     });
+
+                    $("#r1q1").submit(function(event) {
+                        event.preventDefault();
+                        submitForm($(this));
+                        return false;
+                    });
+
+
+                    $("#r1q2").submit(function(event) {
+                        event.preventDefault();
+                        submitForm($(this));
+                        return false;
+                    });
+
+                    $("#r1q3").submit(function(event) {
+                        event.preventDefault();
+                        submitForm($(this));
+                        return false;
+                    });
+
             </script>
 
 
