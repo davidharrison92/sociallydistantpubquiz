@@ -217,8 +217,8 @@ if (!isset($question_data)){
                     
                     <?php 
                     if ($my_report){
-                        $formID = "#r".$qloop[$i]["round_number"]."q".$q_detail["question_number"];
-                        $allforms[] = $formID;
+                        $formID = "r".$qloop[$i]["round_number"]."q".$q_detail["question_number"];
+                        $allforms[] = "#".$formID;
                     
                         ?>
                             <form action="ajax_thup.php" method="post" id="<?php echo $formID; ?>">
@@ -273,46 +273,7 @@ if (!isset($question_data)){
 
             </table>
 
-            <script>
-                // Bootstrap Tooltips...
-                    $(function () {
-                    $('[data-toggle="tooltip"]').tooltip()
-                    })
-
-                //AJAX Form Submit (this is witchcraft of the highest order!)
-                    function submitForm(form){
-                        var url = form.attr("action");
-                        var formData = $(form).serializeArray();
-                        $.post(url, formData).done(function (data) {
-                            alert(data);
-                        });
-                    }
-                    $("<?php echo implode(', ',$allforms); ?>").submit(function(event) {
-                        event.preventDefault();
-                        submitForm($(this));
-                        return false;
-                    });
-
-                    $("#r1q1").submit(function(event) {
-                        event.preventDefault();
-                        submitForm($(this));
-                        return false;
-                    });
-
-
-                    $("#r1q2").submit(function(event) {
-                        event.preventDefault();
-                        submitForm($(this));
-                        return false;
-                    });
-
-                    $("#r1q3").submit(function(event) {
-                        event.preventDefault();
-                        submitForm($(this));
-                        return false;
-                    });
-
-            </script>
+           
 
 
 
@@ -339,5 +300,32 @@ if(!array_key_exists("teamID",$_SESSION)){
 <?php 
 	mysqli_close($conn);
 ?>
+
+<script>
+            jQuery(document).ready(function() {
+                
+                // Bootstrap Tooltips...
+                    $(function () {
+                    $('[data-toggle="tooltip"]').tooltip()
+                    });
+
+                //AJAX Form Submit (this is witchcraft of the highest order!)
+                    function submitForm(form){
+                        var url = form.attr("action");
+                        var formData = $(form).serializeArray();
+                        $.post(url, formData).done(function (data) {
+                        
+                        });
+                    };
+                    $("<?php echo implode(', ',$allforms); ?>").submit(function(event) {
+                        event.preventDefault();
+                        submitForm($(this));
+                        return false;
+                    });
+            
+                });
+
+            </script>
+</body>
 </html>
 
