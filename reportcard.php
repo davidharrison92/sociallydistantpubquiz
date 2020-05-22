@@ -58,11 +58,12 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, q.extra_info, d.pct_correct
+    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, q.extra_info, d.pct_correct, pop.likes
         from submitted_answers s 
             LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
         JOIN rounds r on r.round_number = s.round_number
+        JOIN question_popularity pop on pop.question_number = q.question_number and pop.round_number = q.round_number
         where s.marked = 1 and s.team_id = '" . $team_ID . "';";
 
 //    echo $qdata_query;
@@ -224,9 +225,13 @@ if (!isset($question_data)){
                             <form action="ajax_thup.php" method="post" id="<?php echo $formID; ?>">
                                 <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
                                 <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
-                                <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="right" title="We liked this question!"></span></button>
+                                <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="bottom" title="We liked this question!"></span></button>
                             </form>
                         <?php
+
+                        if ($q_detail["likes"] > 1){
+                            echo "<p><strong>".$q_detail["likes"]."</strong> likes</p>";
+                        }
                     } // end my form
                     ?>
                 </td>
