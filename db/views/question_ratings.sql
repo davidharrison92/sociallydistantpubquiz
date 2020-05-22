@@ -1,4 +1,4 @@
-ALTER VIEW question_popularity AS
+CREATE VIEW question_popularity AS
 
 	SELECT
 	    q.round_number,

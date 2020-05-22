@@ -323,9 +323,15 @@ if(!array_key_exists("teamID",$_SESSION)){
                         });
                     };
                     $("<?php echo implode(', ',$allforms); ?>").submit(function(event) {
-                        event.preventDefault();
-                        submitForm($(this));
-                        $(this).append(" Thanks!");
+                        event.preventDefault(); //keeps user on this page
+
+                        submitForm($(this)); // Send the data off to be submitted
+                        
+                        var form = $(this);
+                        var id = form.attr('id');                        
+                        var ipstr= "#" +id + " :input" ;
+                        $(ipstr).attr("disabled", true); //disable button.
+                        $(this).append(" Thanks!"); // User feedback!
                         return false;
                     });
             
