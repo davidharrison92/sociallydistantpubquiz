@@ -67,7 +67,7 @@ if (array_key_exists("teamID", $_SESSION)){
 
             if ($current_round == 0) {
                 ?>
-                <div class="panel panel-primary">
+                <!-- <div class="panel panel-primary">
                     <div class="panel-heading">Beat the Quizmaster!</div>
                     <div class="panel-body">
                         <p>This Friday, it's your chance to ask the questions. Dave and Alex are going to compete against each other. There'll be a punishment for the loser.</p>
@@ -76,7 +76,7 @@ if (array_key_exists("teamID", $_SESSION)){
 
                     
                     </div>
-                </div>
+                </div> -->
 
                 <div class="jumbotron">
                     <h1>Register your team now!</h1>
