@@ -320,6 +320,7 @@ if(!array_key_exists("teamID",$_SESSION)){
                     $("<?php echo implode(', ',$allforms); ?>").submit(function(event) {
                         event.preventDefault();
                         submitForm($(this));
+                        $(this).append(" Thanks!");
                         return false;
                     });
             
