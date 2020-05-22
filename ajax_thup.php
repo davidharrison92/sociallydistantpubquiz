@@ -16,14 +16,14 @@ if (isset($_POST["thup_question"]) AND array_key_exists("teamID",$_SESSION)){
     $qno = htmlspecialchars($qno);
 
     $rno = mysqli_real_escape_string($conn,$_POST["thup_round"]);
-    $rno = htmlspecialchars($qno);
+    $rno = htmlspecialchars($rno);
 
     $tid = $_SESSION["teamID"];
 
     $commit = "INSERT IGNORE INTO question_ratings (question_number, round_number, team_id)
                VALUES ($qno, $rno, '$tid')";
     
-    echo $commit;
+    // echo $commit;
 
     if (mysqli_query($conn,$commit)){
          echo "Saved";
