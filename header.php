@@ -18,21 +18,17 @@ function site_tabs($current_round, $quiz_complete){
 
 <div class="container">
      <div class="row">
-        <div class="col-xs-12 col-md-5">
-            <a href="index.php"><img src="thepanickedshopper.jpg" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 200px; max-width: 200px;"></a>
-            <h1>Socially Distant Pub Quiz</h1>
-            <h4>Now with 100% less human contact</h4>
-        </div>
-        <div class="col-xs-12 col-md-6 pull-right">
-            <?php if ($show_video == 1) {
-                ?>
-            <iframe width="100%" height="300" id="ytembed" class="miniplayer" <?php echo 'src="https://www.youtube.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-            <?php
-            } // end show vid
-            ?>
-        </div>
-    </div>
-    <div class="row">
+        <div class="col-xs-12 col-md-6">
+            <div class="row">
+                <div class="col-xs-12 col-md-4"> <!-- Img -->
+                    <a href="index.php"><img src="newicon_web.png" class="img-responsive img-circle" max alt="Responsive image" style="max-height: 175px; max-width: 175px;"></a>
+                </div>
+                <div class="col-xs-12 col-md-8"> <!-- Titles -->
+                    <h1>Pub Quiz Streams</h1>
+                    <h4>The <em>Socially Distant</em> Pub Quiz</h4>
+                </div>
+            </div>
+            <div class="row">
         <div class="navbar-default">
             <ul class="nav navbar-nav">
                 <?php 
@@ -44,14 +40,25 @@ function site_tabs($current_round, $quiz_complete){
                 <li><a href="https://sociallydistant.pub/store/" <?php echo site_tabs($current_round, $quiz_complete); ?>>
                     <strong>Raffle</strong>
                 </a></li>
-                <li><a href="about.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >How To Play</a></li>
+                <li><a href="about.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >Help!</a></li>
                 <li><a href="your_answers.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >Your Score</a></li>
-                <li><a href="leaderboard.php"  <?php echo site_tabs($current_round, $quiz_complete); ?> >Full Leaderboard</a></li>
-                <li><a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a></li>
+                <li><a href="leaderboard.php"  <?php echo site_tabs($current_round, $quiz_complete); ?> >Leaderboard</a></li>
+                <!-- <li><a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a></li>
                 <li><a href="https://twitter.com/ElectricBloo" target="_blank">@Alex</a></li>
-                <li><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li>
+                <li><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li> -->
 
             </ul>
         </div>
     </div> <!-- end row -->
+        </div>
+        <div class="col-xs-12 col-md-6 pull-right">
+            <?php if ($show_video == 1) {
+                ?>
+            <iframe width="100%" height="300" id="ytembed" class="miniplayer" <?php echo 'src="https://www.youtube.com/embed/'.$ytID .'?controls=0&autoplay=1" '; ?>frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+            <?php
+            } // end show vid
+            ?>
+        </div>
+    </div>
+   
 </div> <!-- end container -->
