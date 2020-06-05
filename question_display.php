@@ -44,7 +44,7 @@ if(array_key_exists("admin_user",$_SESSION)){
 
     $qkey = intval($qkey);
 
-    $get_question_qry = "SELECT q.round_number, question_number, question, r.round_title
+    $get_question_qry = "SELECT q.round_number, question_number, question, r.round_title, q.questiontype
                         FROM quiz_questions q
                         JOIN rounds r on r.round_number = q.round_number 
                         where qkey =" . $qkey . ";";
@@ -56,7 +56,7 @@ if(array_key_exists("admin_user",$_SESSION)){
     $question_number = $qdata[1];
     $question = $qdata[2];
     $round_title = $qdata[3];
-
+    $questiontype = $qdata[4];
 
 } // no admin session
 ?>
@@ -72,7 +72,7 @@ if(array_key_exists("admin_user",$_SESSION)){
     <style>
     .jumbotron{
         background-color:#00FF00;
-        color:#FFFFFF
+        color:#CCFFFF;
     }
     </style>
 
@@ -90,7 +90,14 @@ if(array_key_exists("admin_user",$_SESSION)){
                         <dd><?php echo $question_number; ?> </dd>
                     </dl>
                     
-                    <h2><?php echo $question;?></h2>
+                    <h2><?php
+                    if ($questiontype == "picture") {
+                        include_once("funcs/pictureround.php");
+                        echo pictureround($question);
+                    } else {
+                        echo $question;
+                    }
+                    ?></h2>
                     <br><br><br><br><br><br><br><br><br><br>
                 </div>
             
