@@ -87,32 +87,48 @@ if ( !empty($_POST) ) {
 } // end of _POST processing
 
 
+//assume no need to automark
+$automark = 0;
+
+if(
+    (array_key_exists("automark",$_GET))
+    and 
+    (array_key_exists("admin_user", $_SESSION))
+    ){
+    if ($_GET["automark"] == 1) {
+        $automark = 1;
+    }
+} 
+
+
 // check if this user is administrator.
 if (array_key_exists("admin_user", $_SESSION)){
 
     //AUTOMARKING - Marks any answers that either exactly match the answer, or previously accepted answer.
+    if ($automark == 1){
+        $automark_query = "UPDATE 
+                submitted_answers s 
+            join 
+                quiz_questions q 
+                on q.question_number = s.question_number and q.round_number = s.round_number
+            join 
+                submitted_answers sc 
+                on sc.question_number = s.question_number and sc.round_number = s.round_number 
+            SET 
+                s.marked = 1, s.correct =1 
+            WHERE s.marked = 0 and
+            (
+                (UPPER(s.answer) = UPPER(q.answer) )
+                OR ( sc.correct = 1 AND UPPER(sc.answer) = UPPER(s.answer))
+            )";
 
-    $automark_query = "UPDATE 
-                            submitted_answers s 
-                        join 
-                            quiz_questions q 
-                            on q.question_number = s.question_number and q.round_number = s.round_number
-                        join 
-                            submitted_answers sc 
-                            on sc.question_number = s.question_number and sc.round_number = s.round_number 
-                        SET 
-                            s.marked = 1, s.correct =1 
-                        WHERE s.marked = 0 and
-                        (
-                            (UPPER(s.answer) = UPPER(q.answer) )
-                            OR ( sc.correct = 1 AND UPPER(sc.answer) = UPPER(s.answer))
-                        )";
-
-    if (mysqli_query($conn,$automark_query)){
+        if (mysqli_query($conn,$automark_query)){
         //automarking no error
-    } else {
+        } else {
         $error = 1;
         $errormsg = $errormsg. " + An error occurred when automarking some answers";
+        }
+
     }
 
     // fetch answers that need marking.
@@ -166,9 +182,19 @@ if (array_key_exists("admin_user", $_SESSION)){
                 }
 
                 if (count($questions_to_mark) == 0){
-                    echo "Nothing to mark!";
-                }
+                    ?>
+                    <p class="text-info">Nothing to mark!</p>
+                    <a href="mark_answers.php" role="button" class="btn btn-info">Refresh Page (this will not remark anything)</a>
+                    <?php
+                } 
 
+                if (count($questions_to_mark) > 0){
+                ?>
+                    <!-- Automark Button -->
+                    <a href="mark_answers.php?automark=1"role="button" class="btn btn-danger">Automark All Unmarked Answers</a>
+                <?php
+                }
+                
                 // for each of the teamIDs:
 
                 foreach ($questions_to_mark as $qdata){
