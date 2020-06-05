@@ -115,7 +115,7 @@ if (array_key_exists("admin_user", $_SESSION)){
                 submitted_answers sc 
                 on sc.question_number = s.question_number and sc.round_number = s.round_number 
             SET 
-                s.marked = 1, s.correct =1 
+                s.marked = 1, s.correct =  1
             WHERE s.marked = 0 and
             (
                 (UPPER(s.answer) = UPPER(q.answer) )
@@ -128,6 +128,8 @@ if (array_key_exists("admin_user", $_SESSION)){
         $error = 1;
         $errormsg = $errormsg. " + An error occurred when automarking some answers";
         }
+
+        
 
     }
 
