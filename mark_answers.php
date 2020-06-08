@@ -41,7 +41,7 @@ if ( !empty($_POST) ) {
 
         //marked answers
             foreach($_POST["markedanswers"] as $markans){
-                $markedanswers[] = "'" . mysqli_real_escape_string($conn,$markans) ."'";
+                $markedanswers[] = "'" . htmlspecialchars(mysqli_real_escape_string($conn,$markans)) ."'";
             }
             $mark_list = '(' . implode("," , $markedanswers) . ')'; // creates ('a', 'sql', 'friendly', 'list')
 
@@ -57,7 +57,6 @@ if ( !empty($_POST) ) {
 
         $mark_sql = "UPDATE submitted_answers set marked = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
         $mark_sql .= " and answer in " .$mark_list ;
-
         
         if (mysqli_query($conn,$mark_sql)){
             $error= 2;
