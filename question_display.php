@@ -82,7 +82,7 @@ if(array_key_exists("admin_user",$_SESSION)){
         <?php if(array_key_exists("admin_user",$_SESSION)){
             //Logged in
             ?>
-                <div class="jumbotron">
+                <div class="jumbotron" style="min-height:900px;">
                     <dl class="dl-horizontal">
                         <dt>Round <?php echo $round_number; ?> </dt>
                         <dd><?php echo $round_title; ?></dd>
@@ -98,7 +98,8 @@ if(array_key_exists("admin_user",$_SESSION)){
                         echo $question;
                     }
                     ?></h2>
-                    <br><br><br><br><br><br><br><br><br><br>
+                    
+
                 </div>
             
                 <div class="row">
