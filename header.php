@@ -44,8 +44,8 @@ function site_tabs($current_round, $quiz_complete){
                 <li><a href="your_answers.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >Your Score</a></li>
                 <li><a href="leaderboard.php"  <?php echo site_tabs($current_round, $quiz_complete); ?> >Leaderboard</a></li>
                 <!-- <li><a href="https://twitter.com/davidharrison92" target="_blank">@Dave</a></li>
-                <li><a href="https://twitter.com/ElectricBloo" target="_blank">@Alex</a></li>
-                <li><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li> -->
+                <li><a href="https://twitter.com/ElectricBloo" target="_blank">@Alex</a></li> -->
+                <li><a href="https://twitter.com/PubQuizStreams" target="_blank">@Quiz</a></li> 
 
             </ul>
         </div>
