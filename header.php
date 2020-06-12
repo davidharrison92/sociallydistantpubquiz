@@ -28,8 +28,8 @@ function site_tabs($current_round, $quiz_complete){
                     <h4>The <em>Socially Distant</em> Pub Quiz</h4>
                 </div>
             </div>
-            <div class="row">
-        <div class="navbar-default">
+    <div class="row">
+         <div class="navbar-default">
             <ul class="nav navbar-nav">
                 <?php 
                     if ($current_round > 0){
