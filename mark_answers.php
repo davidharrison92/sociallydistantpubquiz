@@ -184,11 +184,13 @@ if (array_key_exists("admin_user", $_SESSION)){
 
                 if (count($questions_to_mark) == 0){
                     ?>
-                    <p class="text-info">Nothing to mark!</p>
-                    <a href="mark_answers.php" role="button" class="btn btn-info">Refresh Page (this will not remark anything)</a>
+                        <p class="text-info">Nothing to mark!</p>
                     <?php
                 } 
-
+                ?>
+                    <a href="mark_answers.php" role="button" class="btn btn-info">Refresh Page (this will not remark anything)</a>
+                <?php
+                
                 if (count($questions_to_mark) > 0){
                 ?>
                     <!-- Automark Button -->
@@ -213,7 +215,7 @@ if (array_key_exists("admin_user", $_SESSION)){
 
                 ?>
               
-                <form class="form-inline" action="mark_answers.php" method="post">
+                <form class="form-inline" action="mark_answers.php?automark=1" method="post">
                 <p class="lead"><?php 
                     echo "<strong>R" . $qdata["round_number"] . " Q". $qdata["question_number"] . ":</strong> ";
 
