@@ -84,6 +84,88 @@ if (array_key_exists("teamID", $_SESSION)){
                     <p>Pub Quiz Streams will return on Friday 6<sup>th</sup> of November at 8:00 GMT</p>
                     <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
+
+                <div class="row">
+
+                <div id="carousel-example-generic" class="carousel slide col-md-6" data-ride="carousel">
+                <style>
+                .item img {
+                    width:100%
+                    }
+
+                </style>
+
+                    <!-- Indicators -->
+                    <ol class="carousel-indicators">
+                        <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="3"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="4"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="5"></li>
+                        <li data-target="#carousel-example-generic" data-slide-to="6"></li>
+
+                    </ol>
+
+                    <!-- Wrapper for slides -->
+                    <div class="carousel-inner" role="listbox">
+                        <div class="item active">
+                            <img src="img/homepage/yt_shavedheads.png" class="img-responsive" alt="Two blokes doing nothing to improve their already disappointing looks">
+                        </div>
+                        <div class="item">
+                            <img src="img/homepage/yt_inplay.png" class="img-responsive" alt="Two blokes doing nothing to improve their already disappointing looks">
+                        </div>
+                        <div class="item">
+                            <img src="img/homepage/ss_answers.jpeg" alt="...">
+                        </div>
+                     
+                        <div class="item">
+                            <img src="img/homepage/albumart.png" class="img-responsive" alt="Two blokes doing nothing to improve their already disappointing looks">
+                        </div>
+                        <div class="item">
+                            <img src="img/homepage/nsfw.jpeg" class="img-responsive" alt="Two blokes doing nothing to improve their already disappointing looks">
+                        </div>
+                        <div class="item">
+                            <img src="img/homepage/leaderboard.jpeg" class="img-responsive" alt="Two blokes doing nothing to improve their already disappointing looks">
+                        </div>
+                    </div>
+
+                    <!-- Controls -->
+                    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+                        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+                        <span class="sr-only">Next</span>
+                    </a>
+                    </div>
+
+
+
+
+
+
+
+
+                    <div class="col-md-6">
+                            <h3>We're not just a YouTube livestream - we're an actual pub quiz.</h3>
+                            <p class="lead">We mark your answers, so you might actually win this one.</p>
+                            <p>We're as authentic to the real pub quiz experience as possible<sup>&dagger;</sup><p>
+                            <ul>
+                                <li><strong>An answer sheet for every team</strong> on your computer! No passing out dodgy pens</li>
+                                <li>Two genuine fat, balding <strong>live quiz masters</strong> read through the questions, and provide <strong>tragic banter</strong> on the night.</li>
+                                <li>We'll <strong>mark every answer</strong>. And if you're wrong, you can <a href="https://twitter.com/JoshwaM/status/1268996439843184641">moan</a><a href="https://www.twitter.com/pubquizstreams"> at us on Twitter</a></li>
+                                <li>We run <a href="https://sociallydistant.pub/store/">an optional raffle</a> to fund the website costs, but otherwise <strong>it's completely free!</strong></li>
+                                <li>You can take on the world, or compete against friends in <strong>mini-leagues</strong>. We'll even let you peek at their answers</li>
+                            </ul>
+
+                            <p><a href="newteam.php">Register your team now</a>, set up your own Zoom call, and join us right here on Friday Nights for The Best Virtual Pub Quiz in the UK!</p>
+
+                            <p class="small"><sup>&dagger;</sup>Beer and snacks are not provided. You're resposible for your own inebriation.</p>
+                    </div>
+                </div> <!--  end row -->
+                <hr>
                 <?php
             }
                
