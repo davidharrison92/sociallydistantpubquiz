@@ -21,6 +21,10 @@ function answer_row(int $question_number,
         echo pictureround($question).'<br>';
 
     }
+
+    if (strtoupper($question_type) == "MUSIC") {
+        echo musicplayer($question,false).'<br>';
+    }
     
         ?>
         <input type="text" class="form-control" id="<?php echo $question_number; ?>" name="answered_questions[<?php echo $question_number; ?>]" required="required" value="<?php echo $prefill; ?>">

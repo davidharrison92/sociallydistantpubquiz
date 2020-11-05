@@ -58,7 +58,7 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, q.picture_question, q.extra_info, d.pct_correct, pop.likes
+    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, upper(q.questiontype) as \"questiontype\", q.extra_info, d.pct_correct, pop.likes
         from submitted_answers s 
             LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
@@ -169,7 +169,7 @@ if (!isset($question_data)){
     if (array_key_exists("teamID", $_SESSION)){
         foreach($question_data as $i => $qloop){
 
-            // $qloop = $question_data[$i] ;
+             $qloop = $question_data[$i] ;
 
             ?>
             <p class="lead">Round Number <?php echo $qloop[$i]["round_number"] . ' - ' . $qloop[$i]["round_title"]; ?> </p>
@@ -235,8 +235,10 @@ if (!isset($question_data)){
                     } // end my form
                     ?>
                 </td>
-                <td><?php if ($q_detail["picture_question"] == 1){
+                <td><?php if ($q_detail["questiontype"] == "PICTURE"){
                                 echo pictureround($q_detail["question"]);
+                            } elseif ($q_detail["questiontype"] == "MUSIC"){
+                                echo musicplayer($q_detail["question"],true);
                             } else {
                                 echo utf8_encode($q_detail["question"]);
                             } ?>

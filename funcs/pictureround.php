@@ -36,3 +36,22 @@ function pictureicon($imagesrc){
 	}
 
 }	
+
+function musicplayer($audiosource, $allow_downloads){
+	$playerstring = '<audio controls preload="none" style=" width:300px;">' . 
+				 '<source src="picture_round/' . $audiosource . '" type="audio/mpeg">' . 
+				 'Your Browser does not support this audio file. Sorry about that.' . 
+				 '</audio>';
+	
+	if ($allow_downloads == TRUE) {
+	$playerstring .=  '<br>';
+	$playerstring .= '<a download href="picture_round/' .$audiosource. '"><span class="glyphicon glyphicon-download"></span> Download.</a>';
+}
+				
+
+	return $playerstring;
+
+
+
+
+}
