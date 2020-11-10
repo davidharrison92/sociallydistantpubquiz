@@ -1,8 +1,18 @@
 <?php 
 
+
+
+
 include ("db/db_config.php");
-session_start();
 include ("db/get_game_state.php");
+include("db/get_teams.php");
+
+if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){ 
+    $teamID = mysqli_real_escape_string($conn, $_POST["teamID"]); // watch out! - $teamID is the form value. $team_id is the Session value.
+    $teamsecret = mysqli_real_escape_string($conn,$_POST["teamsecret"]);
+    include("db/check_login.php");
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +29,7 @@ include ("db/get_game_state.php");
             </div> <!-- / header row -->
             <hr>
 
-            <h4>Register a new team!</h4>
+           
             <?php include("messages.php");?>
 
             <?php if($allow_signup == 0) { 
@@ -33,7 +43,17 @@ include ("db/get_game_state.php");
                 } else {
                 //signups allowed
                 ?>
-
+                <div class="panel panel-info">
+                    <div class="panel-heading"><strong>Back again?</strong></div>
+                    <div class="panel-body">
+                        Just log back in and we'll add you to this week's quiz
+                        <?php 
+                            include("loginform.php");
+                        ?>
+                    </div>
+                    <div class="panel-heading panel-info">Or if you're new, sign up below!</div>
+                </div>
+                <h4>Register a new team!</h4>
                 <p>Fill in your details below:</p>
                 <ul>
                     <li>Teams can have up to 4 members</li>
