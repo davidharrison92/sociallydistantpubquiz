@@ -46,6 +46,7 @@ if (array_key_exists("teamID", $_SESSION)){
     $rounds_qry = "SELECT t.team_name, t.person1, t.person2, t.person3, t.person4, r.round_number, r.round_additional, round_locked, round_title, count(s.question_number) as 'qsubmitted', sum(IFNULL(s.marked,0)) as 'qmarked'
             FROM teams t, rounds r
             LEFT JOIN submitted_answers s on s.round_number = r.round_number and s.team_id = '$teamID'
+            JOIN current_round c on c.quiz_id = r.quiz_id
             WHERE t.team_id = '$teamID'
             GROUP BY r.round_number, round_locked, round_title
             ORDER by r.round_number ASC; ";

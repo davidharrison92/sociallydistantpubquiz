@@ -102,7 +102,7 @@ if (!$teamKnownBool){
                             echo "<tr><td>". $question_number."</td>";
 
                             if ($team_secret_pass == 1) {
-                                $check_exists_qry = "SELECT COUNT(*) as 'Count' from submitted_answers where question_number ='$question_number' and round_number = '$round' and team_id = '$teamID';";
+                                $check_exists_qry = "SELECT COUNT(*) as 'Count' from submitted_answers where question_number ='$question_number' and round_number = '$round' and quiz_id = '$quiz_id' and team_id = '$teamID';";
                                 $exists = $conn->query($check_exists_qry);
                                 $exists = $exists->fetch_assoc();
 
@@ -110,11 +110,11 @@ if (!$teamKnownBool){
 
                                 if (($exists["Count"] * 1) >= 1) {
                                     // yes - update it
-                                    $ans_query = "UPDATE submitted_answers set answer = '$ans' , marked = 0, correct = 0 where question_number = $question_number and round_number = $round and team_id = '$teamID' and answer != '$ans'; ";
+                                    $ans_query = "UPDATE submitted_answers set answer = '$ans' , marked = 0, correct = 0 where quiz_id = '$quiz_id' and question_number = $question_number and round_number = $round and team_id = '$teamID' and answer != '$ans'; ";
                                     echo "Updated: ";
                                 } else {
                                     // no - insert it
-                                    $ans_query = "INSERT INTO submitted_answers (team_id, round_number, question_number, answer) VALUES ('$teamID', $round, $question_number, '$ans');";
+                                    $ans_query = "INSERT INTO submitted_answers (quiz_id, team_id, round_number, question_number, answer) VALUES ('$quiz_id','$teamID', $round, $question_number, '$ans');";
                                     echo "Submitted: ";
                                 }
 
