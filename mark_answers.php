@@ -2,6 +2,7 @@
 
 include ("db/db_config.php");
 include ("funcs/pictureround.php");
+include ("db/get_game_state.php");
 session_start();
 
 
@@ -55,7 +56,7 @@ if ( !empty($_POST) ) {
         // Save changes to database      
 
 
-        $mark_sql = "UPDATE submitted_answers set marked = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
+        $mark_sql = "UPDATE submitted_answers set marked = 1 WHERE quiz_id = '$quiz_id' and round_number=".$mark_round." and question_number=".$mark_question;
         $mark_sql .= " and answer in " .$mark_list ;
         
         if (mysqli_query($conn,$mark_sql)){
@@ -66,7 +67,7 @@ if ( !empty($_POST) ) {
         }
 
 
-        $corr_sql = "UPDATE submitted_answers set correct = 1 WHERE round_number=".$mark_round." and question_number=".$mark_question;
+        $corr_sql = "UPDATE submitted_answers set correct = 1 WHERE quiz_id = '$quiz_id' and round_number=".$mark_round." and question_number=".$mark_question;
         $corr_sql .= " and answer in " .$corr_list ;
 
         
@@ -115,7 +116,7 @@ if (array_key_exists("admin_user", $_SESSION)){
                 on sc.question_number = s.question_number and sc.round_number = s.round_number 
             SET 
                 s.marked = 1, s.correct =  1
-            WHERE s.marked = 0 and
+            WHERE s.marked = 0 and quiz_id = '$quiz_id' and 
             (
                 (UPPER(s.answer) = UPPER(q.answer) )
                 OR ( sc.correct = 1 AND UPPER(sc.answer) = UPPER(s.answer))

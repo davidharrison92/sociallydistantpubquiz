@@ -10,6 +10,7 @@ SELECT
 FROM
 	(
 		submitted_answers s
+		JOIN current_round c on s.quiz_id  = s.quiz_id
 		JOIN quiz_questions qq ON(
 			(
 				(qq.round_number = s.round_number)
