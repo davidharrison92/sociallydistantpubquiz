@@ -49,7 +49,6 @@ if (array_key_exists("teamID", $_SESSION)){
                 and s.quiz_id = '$quiz_id'
             JOIN current_round c on c.quiz_id = r.quiz_id
             WHERE t.team_id = '$teamID'
-            AND s.quiz_id = c.quiz_id
 
             GROUP BY r.round_number, round_locked, round_title
             ORDER by r.round_number ASC; ";
