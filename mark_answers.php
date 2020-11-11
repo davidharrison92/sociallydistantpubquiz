@@ -3,7 +3,6 @@
 include ("db/db_config.php");
 include ("funcs/pictureround.php");
 include ("db/get_game_state.php");
-session_start();
 
 
 
@@ -116,7 +115,7 @@ if (array_key_exists("admin_user", $_SESSION)){
                 on sc.question_number = s.question_number and sc.round_number = s.round_number 
             SET 
                 s.marked = 1, s.correct =  1
-            WHERE s.marked = 0 and quiz_id = '$quiz_id' and 
+            WHERE s.marked = 0 and s.quiz_id = '$quiz_id' and 
             (
                 (UPPER(s.answer) = UPPER(q.answer) )
                 OR ( sc.correct = 1 AND UPPER(sc.answer) = UPPER(s.answer))
@@ -202,7 +201,7 @@ if (array_key_exists("admin_user", $_SESSION)){
                 // for each of the teamIDs:
 
                 foreach ($questions_to_mark as $qdata){
-                    $answers_query = "select given_answer, freq  FROM unmarked_answers WHERE round_number = " . $qdata["round_number"] . " and question_number = ". $qdata["question_number"] ;
+                    $answers_query = "select given_answer, freq  FROM unmarked_answers WHERE  round_number = " . $qdata["round_number"] . " and question_number = ". $qdata["question_number"] ;
 
                     $result = mysqli_query($conn,$answers_query);
 

@@ -17,11 +17,15 @@ FROM
 				AND (
 					qq.question_number = s.question_number
 				)
+				AND (
+					qq.quiz_id = c.quiz_id
+				)
 			)
 		)
 	)
 WHERE
-	(s.marked = 0)
+	s.marked = 0
+	and s.quiz_id = c.quiz_id
 GROUP BY
 	s.round_number,
 	s.question_number,
