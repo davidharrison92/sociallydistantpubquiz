@@ -70,5 +70,5 @@ from
 		on r9.round_number = 9 
 		and r9.team_id = t.team_id
 -- 		and r9.quiz_id = c.quiz_id
-
+WHERE t.team_active = 1
 ORDER by total_score desc, t.team_id
