@@ -3,7 +3,7 @@
 $teams_list = array();
 
 
-$teams_qry = "SELECT team_name, team_id from teams ORDER BY team_name ASC";
+$teams_qry = "SELECT team_name, team_id, team_active from teams ORDER BY team_name ASC";
 
 
     $result = mysqli_query($conn,$teams_qry);

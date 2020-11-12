@@ -79,9 +79,10 @@ if (array_key_exists("teamID", $_SESSION)){
                 </div> -->
 
                 <div class="jumbotron">
-                <h1>Lockdown, you say?</h1>
-                    <p class="lead">You know what that means...</p>
-                    <p>Pub Quiz Streams will return on Friday 6<sup>th</sup> of November at 8:00 GMT</p>
+                <h1>Next Quiz: This Friday</h1>
+                    <p class="lead">Lockdown is still here... and so are we</p>
+                    <p>Pub Quiz Streams will return on Friday 13<sup>th</sup> of November at 8:00 GMT</p>
+                    <p class="small">Oh sh*t... Friday 13th? What could go wrong?</p>
                     <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
 
@@ -172,21 +173,32 @@ if (array_key_exists("teamID", $_SESSION)){
             if ($allow_signup == 1) {
                 ?>
                 <div class="row">
-                    <p class="lead"><strong><?php echo count($teams_list); ?> teams</strong> registered already! </p>
+                <?php
+                foreach($teams_list as $team){
+                    $team_so_far = 0;
+                    if($team["team_active"] == 1){
+                        $teams_so_far = $team_so_far +1;
+                    }
+                }
+                ?>
+
+                    <p class="lead"><strong><?php echo $team_so_far; ?> teams</strong> registered already! </p>
                     <div class="col-md-4">
                         <ul>
                             <?php
                             $teamprinter = 0;
                             foreach($teams_list as $team){
-                                $teamprinter = $teamprinter + 1;
-                                if (count($teams_list) > 14 and $teamprinter % ceil((count($teams_list)+1)/3) == 0 and $teamprinter > 0){
-                                    // every 10th row, start a new column
-                                    echo '</div><div class="col-md-4">';
-                                }
-                                echo "<li>".$team["team_name"]."</li>";
+                                if($team["team_active"] == 1){
+                                        $teamprinter = $teamprinter + 1;
+                                        if (count($teams_list) > 14 and $teamprinter % ceil((count($teams_list)+1)/3) == 0 and $teamprinter > 0){
+                                            // every 10th row, start a new column
+                                            echo '</div><div class="col-md-4">';
+                                        }
+                                        echo "<li>".$team["team_name"]."</li>";
+                                    }
                             }
                                 ?>
-                          <li><a href="newteam.php">Click here to become team #<?php echo count($teams_list)+1; ?>...</a> </li>
+                          <li><a href="newteam.php">Click here to become team #<?php echo $teamprinter + 1; ?>...</a> </li>
                         </ul>
                     </div>
                 </div> 
