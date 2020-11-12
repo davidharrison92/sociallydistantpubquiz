@@ -44,14 +44,23 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
                 //signups allowed
                 ?>
                 <div class="panel panel-info">
-                    <div class="panel-heading"><strong>Back again?</strong></div>
-                    <div class="panel-body">
-                        Just log back in and we'll add you to this week's quiz
-                        <?php 
-                            include("loginform.php");
-                        ?>
-                    </div>
-                    <div class="panel-heading panel-info">Or if you're new, sign up below!</div>
+                    <?php if (array_key_exists("teamID", $_SESSION)){ ?>
+                        <div class="panel-heading"><strong>Thanks!</strong></div>
+                        <div class="panel-body">
+                            You're already registered for this week's quiz. See you soon!
+                        </div>
+                        
+                    <?php } else { ?>
+                        <div class="panel-heading"><strong>Back again?</strong></div>
+                        <div class="panel-body">
+                            Just log back in and we'll add you to this week's quiz
+                            <?php 
+                                include("loginform.php");
+                            ?>
+                        </div>
+                        <div class="panel-heading panel-info">Or if you're new, sign up below!</div>
+                    <?php } // end if
+                    ?>
                 </div>
                 <h4>Register a new team!</h4>
                 <p>Fill in your details below:</p>
