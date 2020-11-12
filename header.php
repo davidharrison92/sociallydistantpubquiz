@@ -36,7 +36,10 @@ function site_tabs($current_round, $quiz_complete){
                         ?>
                         <li><a href="index.php" <?php echo site_tabs($current_round, $quiz_complete); ?> ><strong>Answer Sheet</strong></a></li>
                     <?php 
-                    } ?>
+                    } else {?>
+                        <li><a href="manage_team.php" <?php echo site_tabs($current_round, $quiz_complete); ?> ><strong>My Team</strong></a></li>
+
+                    <?php } ?>
                 <li><a href="https://sociallydistant.pub/store/" <?php echo site_tabs($current_round, $quiz_complete); ?>>
                     <strong>Raffle</strong>
                 </a></li>
