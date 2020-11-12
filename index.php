@@ -182,7 +182,7 @@ if (array_key_exists("teamID", $_SESSION)){
                 }
                 ?>
 
-                    <p class="lead"><strong><?php echo $team_so_far; ?> teams</strong> registered already! </p>
+                    <p class="lead"><strong><?php echo $teams_so_far; ?> teams</strong> registered already! </p>
                     <div class="col-md-4">
                         <ul>
                             <?php
