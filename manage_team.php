@@ -13,29 +13,69 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
 }
 
 
+$team_id = $_SESSION["teamID"];
+$success = "";
+$error = "";
 // Changes to data
-    
+
     IF (isset($_GET["change"])){
 
         IF ($_GET["change"] == "secret"){
             // Sanitise inputs
 
+            $old_secret = mysqli_real_escape_string($conn, $_POST["current_secret"]);
+            $new_secret = mysqli_real_escape_string($conn, $_POST["new_secret"]);
+            
             // check match of new and old secret
 
-            // set new secret
-
-
-        }
-
-
-
-
-        IF ($_GET["change"] == "team"){
-            // Sanitise Inputs
+            $name_query = "SELECT COUNT(*) as 'Count' from teams where team_id = '$team_id' and secret = '$old_secret'";
+            $check = $conn->query($name_query);
+            $check = $check->fetch_assoc();
+                    
+        
+            if (($check["Count"] * 1) >= 1) {
+                // passes test - set new secret
             
+            $update_secret = "UPDATE teams set secret = '$new_secret' where team_id = '$team_id'";
+            mysqli_query($conn,$update_secret);
+
+                $success = "Your Team Secret has been changed.";
+
+
+            } else {
+                $error = "Your original team secret was incorrect. Your secret has not been changed.";
+            } // end login check
+
+
+
+        } elseif ($_GET["change"] == "team"){
+            // Sanitise Inputs
+            $new_name = mysqli_real_escape_string($conn, $_POST["teamName"]);
+
+            $new_pers1 = mysqli_real_escape_string($conn, $_POST["teamMember1"]);
+            $new_pers2= mysqli_real_escape_string($conn, $_POST["teamMember2"]);
+            $new_pers3 = mysqli_real_escape_string($conn, $_POST["teamMember3"]);
+            $new_pers4 = mysqli_real_escape_string($conn, $_POST["teamMember4"]);
+
+            $new_email = mysqli_real_escape_string($conn, $_POST["teamEmail"]);
+            $new_optin = mysqli_real_escape_string($conn, $_POST["email_opt_in"]) * 1;
+
+
             //Build Query
 
-            // Run Query
+            $update_team = "UPDATE teams SET
+                                team_name = '$new_name',
+                                person1 = '$new_pers1',
+                                person2 = '$new_pers2',
+                                person3 = '$new_pers3',
+                                person4 = '$new_pers4',
+                                team_email = '$new_email',
+                                email_opt_in = $new_optin
+                            WHERE team_id = '$team_id';" ;
+
+
+           // Run Query
+           mysqli_query($conn,$update_team);
         }
 
 
@@ -45,7 +85,6 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
 
 // Get team data
 
-$team_id = $_SESSION["teamID"];
 
 $team_qry = "SELECT team_name, person1, person2, person3, person4, team_email, email_opt_in from teams where team_id = '$team_id' limit 1";
 $team_qry = mysqli_query($conn, $team_qry);
@@ -89,6 +128,19 @@ $email_opt_in = $team_data[6];
                         <h1>Edit Team: <small><?php echo $team_name; ?></small></h1>
                     </div>
 
+                <?php 
+                    if (strlen($error)>1) {
+                        ?> 
+                            <div class="alert alert-danger"?> <?php echo $error; ?> </div>
+                        <?php
+                    }
+
+                    if (strlen($success)>1) {
+                        ?> 
+                            <div class="alert alert-success"?> <?php echo $success; ?> </div>
+                        <?php
+                    } ?>
+
                 <div class="col-md-6" id="teaminfo">
                     <h3>Team Details</h3> <button href="#" class="btn btn-info swapscript"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 
@@ -102,6 +154,14 @@ $email_opt_in = $team_data[6];
                             <dd><?php echo $person4;?></dd>
                         <dt>Team Email</dt>
                             <dd><?php echo $team_email;?></dd>
+                        <dt>Hear from us?</dt>
+                            <dd><?php if($email_opt_in == 1){
+                                $glyph = "thumbs-up";
+                            } else {
+                                $glyph = "thumbs-down";
+                            } ?>
+                            <span class="glyphicon glyphicon-<?php echo $glyph; ?>"></span>
+                            
                     </dl>
                     
 
@@ -116,16 +176,16 @@ $email_opt_in = $team_data[6];
                         <div class="form-group">
                             <label for="teamName" class="col-sm-2 control-label">Team Name</label>
                             <div class="col-sm-10">
-                            <input type="text" class="form-control" id="teamName" placeholder="<?php echo $team_name; ?>" value="<?php echo $team_name;?> ">
+                            <input type="text" class="form-control" name="teamName" placeholder="<?php echo $team_name; ?>" value="<?php echo $team_name;?> " required="required">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="teamMembers" class="col-sm-2 control-label">Team Members</label>
                             <div class="col-sm-4">
-                                <input type="text" class="form-control" id="teamMember1" placeholder="<?php echo $person1;?>" value="<?php echo $person1; ?>">
-                                <input type="text" class="form-control" id="teamMember2" placeholder="<?php echo $person2;?>" value="<?php echo $person2; ?>">
-                                <input type="text" class="form-control" id="teamMember3" placeholder="<?php echo $person3;?>" value="<?php echo $person3; ?>">
-                                <input type="text" class="form-control" id="teamMember4" placeholder="<?php echo $person4;?>" value="<?php echo $person4; ?>">
+                                <input type="text" class="form-control" name="teamMember1" placeholder="<?php echo $person1;?>" value="<?php echo $person1; ?>" required="required">
+                                <input type="text" class="form-control" name="teamMember2" placeholder="<?php echo $person2;?>" value="<?php echo $person2; ?>">
+                                <input type="text" class="form-control" name="teamMember3" placeholder="<?php echo $person3;?>" value="<?php echo $person3; ?>">
+                                <input type="text" class="form-control" name="teamMember4" placeholder="<?php echo $person4;?>" value="<?php echo $person4; ?>">
 
                             </div>
                             
@@ -135,15 +195,16 @@ $email_opt_in = $team_data[6];
                         <div class="form-group">
                             <label for="teamEmail" class="col-sm-2 control-label">Email</label>
                             <div class="col-sm-10">
-                            <input type="email" class="form-control" id="teamEmail" placeholder="<?php echo $team_email; ?>" value="<?php echo $team_email;?> ">
+                            <input type="email" class="form-control" name="teamEmail" placeholder="<?php echo $team_email; ?>" value="<?php echo $team_email;?> "required="required">
                             </div>
                         </div>
 
+                        
                         <div class="form-group">
                             <div class="col-sm-offset-2 col-sm-10">
                             <div class="checkbox">
                                 <label>
-                                <input type="checkbox" value="<?php echo $email_opt_in; ?>"> I want to hear about future quizzes and other shenanigans.
+                                <input type="checkbox" name="email_opt_in" value="1" <?php if( $email_opt_in == "1") { echo "checked" ; } ?> > I want to hear about future quizzes and other shenanigans.
                                 </label>
                             </div>
                             </div>
@@ -161,11 +222,11 @@ $email_opt_in = $team_data[6];
                         <form class="form-inline" method="POST" action="manage_team.php?change=secret">
                             <div class="form-group">
                                 <label for="current_secret">Current Secret:</label>
-                                <input type="text" class="form-control" id="current_secret" placeholder="Hello There...">
+                                <input type="text" class="form-control" name="current_secret" placeholder="Hello There...">
                             </div>
                             <div class="form-group">
                                 <label for="new_secret">New Secret</label>
-                                <input type="text" class="form-control" id="new_secret" placeholder="General Kenobi...">
+                                <input type="text" class="form-control" name="new_secret" placeholder="General Kenobi...">
                             </div>
                             <button type="submit" class="btn btn-default">Change Secret</button>
                             </form>
