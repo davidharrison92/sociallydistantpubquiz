@@ -198,7 +198,7 @@ if (array_key_exists("teamID", $_SESSION)){
                                     }
                             }
                                 ?>
-                          <li><a href="newteam.php">Click here to become team #<?php echo count($teams_list)+1; ?>...</a> </li>
+                          <li><a href="newteam.php">Click here to become team #<?php echo $teamprinter + 1; ?>...</a> </li>
                         </ul>
                     </div>
                 </div> 
