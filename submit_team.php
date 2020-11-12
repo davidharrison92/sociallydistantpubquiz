@@ -141,8 +141,8 @@ if ($error == 0){
 
  // echo $team_ID;
 
-  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant, email_opt_in) "; 
-  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream, $email_opt_in);" ;
+  $initial_insert = "INSERT INTO teams (team_name, team_id, secret, person1, team_email, willing_livestream_participant, email_opt_in, team_registered_at, team_active) "; 
+  $initial_insert = $initial_insert . "VALUES ('$team_name', '$team_ID', '$team_secret', '$tm_1', '$team_email', $livestream, $email_opt_in, now(), 1 );" ;
 
 
 

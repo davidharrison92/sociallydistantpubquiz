@@ -45,8 +45,11 @@ if (array_key_exists("teamID", $_SESSION)){
 //GET THE ROUNDS
     $rounds_qry = "SELECT t.team_name, t.person1, t.person2, t.person3, t.person4, r.round_number, r.round_additional, round_locked, round_title, count(s.question_number) as 'qsubmitted', sum(IFNULL(s.marked,0)) as 'qmarked'
             FROM teams t, rounds r
-            LEFT JOIN submitted_answers s on s.round_number = r.round_number and s.team_id = '$teamID'
+            LEFT JOIN submitted_answers s on s.round_number = r.round_number and s.team_id = '$teamID' 
+                and s.quiz_id = '$quiz_id'
+            JOIN current_round c on c.quiz_id = r.quiz_id
             WHERE t.team_id = '$teamID'
+
             GROUP BY r.round_number, round_locked, round_title
             ORDER by r.round_number ASC; ";
 
@@ -185,8 +188,11 @@ foreach($rounds as $round){
 
         $get_questions = "select q.round_number, q.question_number, q.question, q.questiontype, ifnull(s.answer,'') as 'submittedanswer', q.hint
                         FROM quiz_questions q
-                        left join submitted_answers s on s.question_number = q.question_number and s.round_number = q.round_number and s.team_id = '$teamID'  
-                        where q.round_number = " . $round_number . ";" ;
+                        left join submitted_answers s on s.question_number = q.question_number 
+                            and s.round_number = q.round_number and s.team_id = '$teamID'
+                            and s.quiz_id = q.quiz_id  
+                        where q.round_number = $round_number 
+                            and q.quiz_id = '$quiz_id' ;" ;
 
             
 

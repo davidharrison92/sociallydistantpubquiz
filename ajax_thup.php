@@ -15,13 +15,16 @@ if (isset($_POST["thup_question"]) AND array_key_exists("teamID",$_SESSION)){
     $qno = mysqli_real_escape_string($conn,$_POST["thup_question"]);
     $qno = htmlspecialchars($qno);
 
+    $quizid = mysqli_real_escape_string($conn,$_POST["thup_question"]);
+    $quizid = htmlspecialchars($qno);
+
     $rno = mysqli_real_escape_string($conn,$_POST["thup_round"]);
     $rno = htmlspecialchars($rno);
 
     $tid = $_SESSION["teamID"];
 
-    $commit = "INSERT IGNORE INTO question_ratings (question_number, round_number, team_id)
-               VALUES ($qno, $rno, '$tid')";
+    $commit = "INSERT IGNORE INTO question_ratings (question_number, round_number, team_id, quiz_id)
+               VALUES ($qno, $rno, '$tid', '$quizid')";
     
     // echo $commit;
 

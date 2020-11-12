@@ -58,11 +58,14 @@ if (array_key_exists("teamID",$_SESSION)){
 
 
     // Get Answers
-    $qdata_query = "SELECT s.round_number, r.round_title, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , q.answer, q.question, upper(q.questiontype) as \"questiontype\", q.extra_info, d.pct_correct, pop.likes
+    $qdata_query = "SELECT s.round_number, r.round_title, q.quiz_id, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , 
+                    q.answer, q.question, upper(q.questiontype) as \"questiontype\", q.extra_info, d.pct_correct, pop.likes
         from submitted_answers s 
             LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
+                                and q.quiz_id = s.quiz_id
         JOIN rounds r on r.round_number = s.round_number
+        JOIN current_round c on c.quiz_id = q.quiz_id
         JOIN question_popularity pop on pop.question_number = q.question_number and pop.round_number = q.round_number
         where s.marked = 1 and s.team_id = '" . $team_ID . "';";
 
@@ -225,6 +228,7 @@ if (!isset($question_data)){
                             <form action="ajax_thup.php" method="post" id="<?php echo $formID; ?>">
                                 <input type="hidden" name="thup_round" value="<?php echo $qloop[$i]["round_number"]; ?>">
                                 <input type="hidden" name="thup_question" value="<?php echo $q_detail["question_number"]; ?>">
+                                <input type="hidden" name="thup_quizid" value="<?php echo $q_detail["quiz_id"]; ?>">
                                 <button type="submit"> <span class="glyphicon glyphicon-thumbs-up" data-toggle="tooltip" data-placement="bottom" title="We liked this question!"></span></button>
                             </form>
                         <?php
