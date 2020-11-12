@@ -126,6 +126,7 @@ $email_opt_in = $team_data[6];
                 <?php if (array_key_exists("teamID", $_SESSION)){ ?>
                     <div class="page-header">
                         <h1>Edit Team: <small><?php echo $team_name; ?></small></h1>
+                        <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>" class="text-small">Log out</a>
                     </div>
 
                 <?php 
