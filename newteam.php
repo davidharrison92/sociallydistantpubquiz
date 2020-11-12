@@ -47,7 +47,8 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
                     <?php if (array_key_exists("teamID", $_SESSION)){ ?>
                         <div class="panel-heading"><strong>Thanks!</strong></div>
                         <div class="panel-body">
-                            You're already registered for this week's quiz. See you soon!
+                            <p>You're already registered for this week's quiz. See you soon!</p>
+                            <p>If you need to make changes to your team members, <a href="manage_team.php">click here...</a>.</p>
                         </div>
                         
                     <?php } else { ?>

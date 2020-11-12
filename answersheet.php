@@ -78,7 +78,7 @@ if (array_key_exists("teamID", $_SESSION)){
 ?>
 
     <h3><?php echo $team_name; ?>  <small>(<?php echo $team_members;?>)</small></h3>
-    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>" class="text-small">Not You?</a>
+    <a href="<?php echo 'http://'.$_SERVER['HTTP_HOST'].'/release_session.php' ?>" class="text-small">Not You?</a> / <a href="manage_team.php">Edit</a>
 
     <hr>
 
