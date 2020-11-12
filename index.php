@@ -174,11 +174,11 @@ if (array_key_exists("teamID", $_SESSION)){
                 ?>
                 <div class="row">
                 <?php
-                $team_so_far = 0;
+                $teams_so_far = 0;
                 foreach($teams_list as $team){
                     
                     if($team["team_active"] == 1){
-                        $teams_so_far = $team_so_far +1;
+                        $teams_so_far = $teams_so_far +1;
                     }
                 }
                 ?>
