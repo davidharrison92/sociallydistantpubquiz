@@ -178,12 +178,14 @@ if (array_key_exists("teamID", $_SESSION)){
                             <?php
                             $teamprinter = 0;
                             foreach($teams_list as $team){
-                                $teamprinter = $teamprinter + 1;
-                                if (count($teams_list) > 14 and $teamprinter % ceil((count($teams_list)+1)/3) == 0 and $teamprinter > 0){
-                                    // every 10th row, start a new column
-                                    echo '</div><div class="col-md-4">';
-                                }
-                                echo "<li>".$team["team_name"]."</li>";
+                                if(team["team_active"] == 1){
+                                        $teamprinter = $teamprinter + 1;
+                                        if (count($teams_list) > 14 and $teamprinter % ceil((count($teams_list)+1)/3) == 0 and $teamprinter > 0){
+                                            // every 10th row, start a new column
+                                            echo '</div><div class="col-md-4">';
+                                        }
+                                        echo "<li>".$team["team_name"]."</li>";
+                                    }
                             }
                                 ?>
                           <li><a href="newteam.php">Click here to become team #<?php echo count($teams_list)+1; ?>...</a> </li>
