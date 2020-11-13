@@ -1,5 +1,5 @@
 <?php
-var_dump($_POST);
+// var_dump($_POST);
 include ("db/db_config.php");
 include ("db/get_game_state.php");
 include("db/get_teams.php");
@@ -13,7 +13,10 @@ if (isset($_POST["teamsecret"]) and isset($_POST["teamID"])){
 }
 
 
-$team_id = $_SESSION["teamID"];
+if(isset($_SESSION["teamID"])){
+    $team_id = $_SESSION["teamID"];
+}
+
 $success = "";
 $error = "";
 // Changes to data
@@ -85,24 +88,48 @@ $error = "";
 
 // Get team data
 
-
-$team_qry = "SELECT team_name, person1, person2, person3, person4, team_email, email_opt_in from teams where team_id = '$team_id' limit 1";
-$team_qry = mysqli_query($conn, $team_qry);
+if(isset($_SESSION["teamID"])){
 
 
 
-$team_data = mysqli_fetch_row($team_qry);
+    $team_qry = "SELECT team_name, person1, person2, person3, person4, team_email, email_opt_in from teams where team_id = '$team_id' limit 1";
+    $team_qry = mysqli_query($conn, $team_qry);
 
-$team_name = $team_data[0]; //team name
 
-//team members
-    $person1 = $team_data[1];
-    $person2 = $team_data[2];
-    $person3 = $team_data[3];
-    $person4 = $team_data[4];
 
-$team_email = $team_data[5];
-$email_opt_in = $team_data[6];
+    $team_data = mysqli_fetch_row($team_qry);
+
+    $team_name = $team_data[0]; //team name
+
+    //team members
+        $person1 = $team_data[1];
+        $person2 = $team_data[2];
+        $person3 = $team_data[3];
+        $person4 = $team_data[4];
+
+    $team_email = $team_data[5];
+    $email_opt_in = $team_data[6];
+
+}
+
+
+// $team_qry = "SELECT team_name, person1, person2, person3, person4, team_email, email_opt_in from teams where team_id = '$team_id' limit 1";
+// $team_qry = mysqli_query($conn, $team_qry);
+
+
+
+// $team_data = mysqli_fetch_row($team_qry);
+
+// $team_name = $team_data[0]; //team name
+
+// //team members
+//     $person1 = $team_data[1];
+//     $person2 = $team_data[2];
+//     $person3 = $team_data[3];
+//     $person4 = $team_data[4];
+
+// $team_email = $team_data[5];
+// $email_opt_in = $team_data[6];
 
 
 
