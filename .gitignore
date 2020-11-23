@@ -3,3 +3,4 @@ db/db_wordpress.php
 store/
 picture_round/
 .DS_Store
+db/.DS_Store
