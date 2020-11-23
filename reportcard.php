@@ -64,7 +64,7 @@ if (array_key_exists("teamID",$_SESSION)){
             LEFT JOIN question_difficulty d on d.round_number = s.round_number and d.question_number = s.question_number
         JOIN quiz_questions q on q.question_number = s.question_number and q.round_number = s.round_number
                                 and q.quiz_id = s.quiz_id
-        JOIN rounds r on r.round_number = s.round_number
+        JOIN rounds r on r.round_number = s.round_number and r.quiz_id = s.quiz_id
         JOIN current_round c on c.quiz_id = q.quiz_id
         JOIN question_popularity pop on pop.question_number = q.question_number and pop.round_number = q.round_number
         where s.marked = 1 and s.team_id = '" . $team_ID . "';";
