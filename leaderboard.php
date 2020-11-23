@@ -97,6 +97,7 @@ if (array_key_exists("teamID", $_SESSION)){
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation" class="active"><a href="#main" aria-controls="main" role="tab" data-toggle="tab">Full Leaderboard</a></li>
     <li role="presentation"><a href="#mini" aria-controls="mini" role="tab" data-toggle="tab">My League</a></li>
+    <li role="presentation"><a href="#alltime" aria-controls="alltime" role="tab" data-toggle="tab">Lockdown Leaderboard</a></li>
   </ul>
 
   <!-- Tab panes -->
@@ -176,6 +177,10 @@ if (array_key_exists("teamID", $_SESSION)){
         ?>
 
     </div> <!-- End of tab: my league div -->
+
+    <div role="tabpanel" class="tab-pane" id="alltime">
+        <?php include("db/build_alltimeboard.php"); ?>
+    </div> <!-- End of tab panel - all time -->
 
   </div>
 

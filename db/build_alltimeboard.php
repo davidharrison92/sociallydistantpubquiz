@@ -15,26 +15,95 @@ if (!isset($current_round)){
 
 $alltimeqry = "select t.team_id, t.team_name, t.person1, t.person2, t.person3, t.person4,
 				a.quiz_id, a.quiz_date, a.quiz_correct, a.quiz_marked,
-				a.total_marked, a.total_correct
+				a.total_marked, a.total_correct, a.quizzes_played
 				from alltime_leaderboard a
-				join teams t on t.team_id = a.team_id";
+				join teams t on t.team_id = a.team_id
+				order by a.total_correct desc, a.quiz_date asc";
 
 
 $result = mysqli_query($conn, $alltimeqry);
 $rows = array();
 while($row = $result->fetch_assoc()){
-	$leaderboard[] = $row;
+	$alltimeboard[] = $row;
 };
 
 // Initial data for ranking scores
 $prev_total = 0;
 $current_rank = 0;
 $repeats = 1;
-
-
-var_dump($leaderboard);
+$prev_team_id = "";
 
 ?>
+
+<table id="alltimeleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
+
+<thead>
+	<tr>
+		<td>#</td>
+		<td>Team</td>
+		<td>Quizzes Played</td>
+		<td>Total Score</td>
+	</tr>
+</thead>
+
+<?php foreach ($alltimeboard as $lb){
+	//var_dump($lb);
+	if ($lb["total_correct"] < $prev_total){
+		$prev_total = $lb["total_correct"];
+		$current_rank = $current_rank + 1; 
+	}
+
+
+	if ($prev_team_id != $lb["team_id"]){
+		// New Team - create a new row
+		$prev_team_id = $lb["team_id"];
+
+		// rewrite team members string
+
+			$teammembers = $lb["person1"];
+			if (strlen($lb["person2"])>1){
+				$teammembers = $teammembers . ", ". $lb["person2"];
+			}
+
+			if (strlen($lb["person3"])>1){
+				$teammembers = $teammembers . ", ". $lb["person3"];
+			}
+
+			if (strlen($lb["person4"])>1){
+				$teammembers = $teammembers . ", ". $lb["person4"];
+			}
+
+		// Create the Row
+
+		?>
+		<tr>
+			<td>
+				<?php echo $current_rank; ?>
+			</td>
+
+			<td><strong><?php echo $lb["team_name"]; ?></strong><br>
+				<span class="small"><?php echo $teammembers; ?> </span>
+			</td>
+			
+			<td>
+				<?php echo $lb["quizzes_played"]; ?>
+			</td>
+
+			<td>
+				<strong><?php echo $lb["total_correct"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small>
+			</td>
+
+		</tr>
+	<?php
+	} // end new team ID
+
+
+}
+
+?>
+
+
+</table>
 
 
 
@@ -42,7 +111,7 @@ var_dump($leaderboard);
   <script type="text/javascript" src="https://cdn.datatables.net/1.10.20/js/jquery.dataTables.min.js"></script>
   <script type="text/javascript">
       $(document).ready(function() {
-          $('#mainleaderboard').DataTable( {
+          $('#alltimeleaderboard').DataTable( {
               "lengthChange": false,
               "paging": false
           });
