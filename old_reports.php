@@ -57,6 +57,7 @@ if (array_key_exists("teamID",$_SESSION)){
     $team_ID = $tdata_res[1];
 
 
+
     // Get Answers
     $qdata_query = "SELECT s.round_number, r.round_title, q.quiz_id, r.round_additional, s.question_number, s.team_id, s.answer as 'asub', correct , 
                     q.answer, q.question, upper(q.questiontype) as \"questiontype\", q.extra_info, d.pct_correct, pop.likes
