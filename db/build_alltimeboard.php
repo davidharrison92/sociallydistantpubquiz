@@ -39,10 +39,11 @@ $prev_team_id = "";
 
 <thead>
 	<tr>
-		<td>#</td>
-		<td>Team</td>
-		<td>Quizzes Played</td>
-		<td>Total Score</td>
+		<td><strong>#</strong></td>
+		<td style="min-width: 40%;"><strong>Team Name</strong></td>
+		<td><strong>Quizzes Played</strong></td>
+		<td><strong>% Questions Answered Correctly</strong></td>
+		<td><strong>Total Score</strong></td>
 	</tr>
 </thead>
 
@@ -90,10 +91,21 @@ $prev_team_id = "";
 			</td>
 
 			<td>
-				<strong><?php echo $lb["total_correct"]; ?></strong> /<small><?php echo $lb["total_marked"]; ?></small>
+				<?php if ($lb["total_marked"] > 0) {
+					echo round(($lb["total_correct"] / $lb["total_marked"]) * 100, 0);
+				} else {
+					echo "-";
+				} ?>
+				%
+			</td>
+
+			<td>
+				<?php echo $lb["total_correct"]; ?>
 			</td>
 
 		</tr>
+
+		
 	<?php
 	} // end new team ID
 
