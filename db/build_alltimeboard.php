@@ -35,12 +35,12 @@ $prev_team_id = "";
 
 ?>
 
-<table id="alltimeleaderboard" class="table table-condensed dtr-inline collapsed table-hover display">
+<table id="alltimeleaderboard" class="table table-condensed dtr-inline collapsed table-hover display" >
 
 <thead>
 	<tr>
 		<td><strong>#</strong></td>
-		<td style="min-width: 40%;"><strong>Team Name</strong></td>
+		<td style="min-width: 99%;"><strong>Team Name</strong></td>
 		<td><strong>Quizzes Played</strong></td>
 		<td><strong>% Questions Answered Correctly</strong></td>
 		<td><strong>Total Score</strong></td>
@@ -49,7 +49,7 @@ $prev_team_id = "";
 
 <?php foreach ($alltimeboard as $lb){
 	//var_dump($lb);
-	if ($lb["total_correct"] < $prev_total){
+	if ($lb["total_correct"] != $prev_total){
 		$prev_total = $lb["total_correct"];
 		$current_rank = $current_rank + 1; 
 	}

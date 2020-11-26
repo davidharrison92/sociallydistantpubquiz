@@ -179,7 +179,9 @@ if (array_key_exists("teamID", $_SESSION)){
     </div> <!-- End of tab: my league div -->
 
     <div role="tabpanel" class="tab-pane" id="alltime">
-        <?php include("db/build_alltimeboard.php"); ?>
+        <div class="col-xs-12"> <!-- force full width -->
+            <?php include("db/build_alltimeboard.php"); ?>
+        </div>
     </div> <!-- End of tab panel - all time -->
 
   </div>
