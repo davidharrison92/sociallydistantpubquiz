@@ -77,11 +77,9 @@ if (array_key_exists("teamID",$_SESSION)){
         and s.team_id = '$teamID'
         AND s.quiz_id = '$report_quiz_id';";
 
-     echo $qdata_query;
 
     $qdata_res = mysqli_query($conn, $qdata_query);
 
-    var_dump($qdata_res);
 
     $qdata = array();
     while ($row = $qdata_res->fetch_assoc()){
