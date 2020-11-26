@@ -14,7 +14,7 @@ if (!isset($current_round)){
 
 
 $alltimeqry = "select t.team_id, t.team_name, t.person1, t.person2, t.person3, t.person4,
-				a.quiz_id, a.quiz_date, a.quiz_correct, a.quiz_marked,
+				a.quiz_id, a.quiz_date, a.quiz_correct, a.quiz_marked, a.quiz_title,
 				a.total_marked, a.total_correct, a.quizzes_played
 				from alltime_leaderboard a
 				join teams t on t.team_id = a.team_id
@@ -31,7 +31,7 @@ while($row = $result->fetch_assoc()){
 $prev_total = 0;
 $current_rank = 0;
 $repeats = 1;
-$prev_team_id = "";
+$prev_team_id = "!!START!!";
 
 ?>
 
@@ -40,7 +40,7 @@ $prev_team_id = "";
 <thead>
 	<tr>
 		<td><strong>#</strong></td>
-		<td style="min-width: 99%;"><strong>Team Name</strong></td>
+		<td style="min-width: 65%;"><strong>Team Name</strong></td>
 		<td><strong>Quizzes Played</strong></td>
 		<td><strong>% Questions Answered Correctly</strong></td>
 		<td><strong>Total Score</strong></td>
@@ -56,9 +56,19 @@ $prev_team_id = "";
 
 
 	if ($prev_team_id != $lb["team_id"]){
+		
+		//If not the start - then close off the detail row:
+		if ($prev_team_id != "!!START!!"){
+			?>
+				</table> <!-- detail table end -->
+				</tr> <!-- detail row end -->
+		<?php
+		}
+
 		// New Team - create a new row
 		$prev_team_id = $lb["team_id"];
 
+		
 		// rewrite team members string
 
 			$teammembers = $lb["person1"];
@@ -77,17 +87,20 @@ $prev_team_id = "";
 		// Create the Row
 
 		?>
+		
+		
 		<tr>
 			<td>
 				<?php echo $current_rank; ?>
 			</td>
 
-			<td><strong><?php echo $lb["team_name"]; ?></strong><br>
+			<td><strong><?php echo $lb["team_name"]; ?></strong><br> 
 				<span class="small"><?php echo $teammembers; ?> </span>
 			</td>
 			
 			<td>
 				<?php echo $lb["quizzes_played"]; ?>
+				<a class="toggledetail">Details</a>
 			</td>
 
 			<td>
@@ -104,19 +117,52 @@ $prev_team_id = "";
 			</td>
 
 		</tr>
+		<tr id="<?php echo $lb["team_id"]; ?>" class="detailrow hidden" >
+				<td><!-- empty col, for indent --></td>
+				<td colspan="4">
+					<strong>Quizzes Played:</strong>
+					<table class="table table-condensed">
+
+					<thead>
+						<tr>
+							<td><strong>Date</td>
+							<td><strong>Quiz</td>
+							<td><strong>Score</td>
+						</tr>
+					</thead>
+					
+
+								
 
 		
 	<?php
 	} // end new team ID
-
-
+		// Loop iterates every time:
+		?>
+		<tr>
+			<td><?php echo  $lb["quiz_date"]; ?> </td>
+			<td><strong> <?php echo $lb["quiz_title"] ; ?> </strong></td>
+			<td><strong><?php echo $lb["quiz_correct"];?></strong> <span class="small">/<?php echo $lb["quiz_marked"]; ?></span>
+						<a href="your_answers.php?quizID=<?php echo $lb["quiz_id"];?>&teamID=<?php echo $lb["team_id"];?>">See Answers</a>
+			</td>
+		</tr>
+<?php
 }
 
 ?>
 
 
 </table>
-
+<script>
+$(function () {
+    // $(".detailrow").addClass("hidden");
+    $('a.toggledetail').click(function () {
+        var target = $(this).nextAll('tr.detailrow:first');
+        $(".detailrow").not(target).addClass("hidden");
+        target.toggleClass("hidden");
+    });
+});
+</script>
 
 
   <!-- DataTables -->
