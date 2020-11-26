@@ -113,25 +113,17 @@ if(isset($_SESSION["teamID"])){
 }
 
 
-// $team_qry = "SELECT team_name, person1, person2, person3, person4, team_email, email_opt_in from teams where team_id = '$team_id' limit 1";
-// $team_qry = mysqli_query($conn, $team_qry);
 
 
-
-// $team_data = mysqli_fetch_row($team_qry);
-
-// $team_name = $team_data[0]; //team name
-
-// //team members
-//     $person1 = $team_data[1];
-//     $person2 = $team_data[2];
-//     $person3 = $team_data[3];
-//     $person4 = $team_data[4];
-
-// $team_email = $team_data[5];
-// $email_opt_in = $team_data[6];
+// Get Team Performance Data
+    $scoreqry = "SELECT * FROM alltime_leaderboard where team_id = '$team_id'" ;
 
 
+    $result = mysqli_query($conn, $scoreqry);
+    $rows = array();
+    while($row = $result->fetch_assoc()){
+        $team_scores[] = $row;
+    };
 
 ?>
 
@@ -169,6 +161,53 @@ if(isset($_SESSION["teamID"])){
                         <?php
                     } ?>
 
+
+                <div class="col-md-5" id="teamscores">
+                <h3>Scores so far...</h3>
+
+                <?php if (empty($team_scores)){
+                    ?>
+                    <div class="alert alert-info">
+                        You don't have any scores yet. Once we mark some of your answers, they'll appear here...
+                    </div>
+                <?php
+                } else {
+                    //display some scores
+                    ?>
+                    <table class="table table-condensed">
+
+					<thead>
+						<tr>
+							<td><strong>Date</td>
+							<td><strong>Quiz</td>
+							<td><strong>Score</td>
+						</tr>
+					</thead>
+                <?php
+                    foreach($team_scores as $tsq){
+                        ?>
+                        <tr>
+                            <td><?php echo $tsq["quiz_date"]; ?> </td>
+                            <td><?php echo $tsq["quiz_title"]; ?> </td>
+                            <td><strong><?php echo $tsq["quiz_correct"];?></strong> <span class="small">/<?php echo $tsq["quiz_marked"]; ?></span>
+                                        <span class="small epull-right">	
+                                            <a href="your_answers.php?quizID=<?php echo $tsq["quiz_id"];?>&teamID=<?php echo $tsq["team_id"];?>"><span class="glyphicon glyphicon-book"></span>  See Answers</a> 
+                                        </span>
+                            </td>
+                        </tr>
+
+                <?php
+                    }
+                    ?>
+                    </table>
+            <?php
+                } ?>
+
+
+                </div> <!-- end of scores -->
+
+
+
                 <div class="col-md-6" id="teaminfo">
                     <h3>Team Details</h3> <button href="#" class="btn btn-info swapscript"><span class="glyphicon glyphicon-pencil"></span> Edit</button>
 
@@ -196,7 +235,7 @@ if(isset($_SESSION["teamID"])){
                     
                 </div>
 
-                <div class="col-md-12 hidden" id="teamedit">
+                <div class="col-md-6 hidden" id="teamedit">
 
                     <h3>Change Team Detail</h3> 
                     
