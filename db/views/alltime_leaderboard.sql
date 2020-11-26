@@ -1,6 +1,6 @@
 ALTER VIEW alltime_leaderboard AS
 
-select s.team_id, q.quiz_id, q.quiz_date, q.quiz_title,
+select s.team_id, q.quiz_id, date_format(q.quiz_date,'%W %D %M') as 'quiz_date', q.quiz_title,
 	sum(s.correct) as 'quiz_correct', sum(s.marked) as 'quiz_marked', 
 	st.total_marked, st.total_correct, st.quizzes_played
 from quizzes q
