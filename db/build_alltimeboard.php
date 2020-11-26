@@ -142,7 +142,9 @@ $prev_team_id = "!!START!!";
 			<td><?php echo  $lb["quiz_date"]; ?> </td>
 			<td><strong> <?php echo $lb["quiz_title"] ; ?> </strong></td>
 			<td><strong><?php echo $lb["quiz_correct"];?></strong> <span class="small">/<?php echo $lb["quiz_marked"]; ?></span>
-						<a href="your_answers.php?quizID=<?php echo $lb["quiz_id"];?>&teamID=<?php echo $lb["team_id"];?>">See Answers</a>
+					<span class="small pull-right">	
+						<a href="your_answers.php?quizID=<?php echo $lb["quiz_id"];?>&teamID=<?php echo $lb["team_id"];?>"><span class="glyphicon glyphicon-book"></span>  See Answers</a> 
+					</span>
 			</td>
 		</tr>
 <?php
