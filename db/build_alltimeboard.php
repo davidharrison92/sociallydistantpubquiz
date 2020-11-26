@@ -17,7 +17,7 @@ $alltimeqry = "select t.team_id, t.team_name, t.person1, t.person2, t.person3, t
 				a.total_marked, a.total_correct, a.quizzes_played
 				from alltime_leaderboard a
 				join teams t on t.team_id = a.team_id
-				order by a.total_correct desc, a.quiz_date asc";
+				order by a.total_correct desc, t.team_id, a.quiz_date asc  ";
 
 
 $result = mysqli_query($conn, $alltimeqry);
