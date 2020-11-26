@@ -81,8 +81,8 @@ if (array_key_exists("teamID", $_SESSION)){
                 <div class="jumbotron">
                 <h1>Next Quiz: This Friday</h1>
                     <p class="lead">Lockdown is still here... and so are we</p>
-                    <p>Pub Quiz Streams will return on Friday 13<sup>th</sup> of November at 8:00 GMT</p>
-                    <p class="small">Oh sh*t... Friday 13th? What could go wrong?</p>
+                    <p>Pub Quiz Streams will return on Friday 27<sup>th</sup> of November at 8:00 GMT</p>
+                    <p class="small">We've got some truly wonderful things planned this time round, you won't want to miss it.</p>
                     <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
 
