@@ -8,7 +8,6 @@ if (!isset($current_round)){
 }
 
 
-
 // this just spits out a table.
 
 
@@ -94,13 +93,13 @@ $prev_team_id = "!!START!!";
 				<?php echo $current_rank; ?>
 			</td>
 
-			<td><strong><?php echo $lb["team_name"]; ?></strong><br> 
+			<td><p class="lead"><?php echo $lb["team_name"]; ?></p>
 				<span class="small"><?php echo $teammembers; ?> </span>
 			</td>
 			
 			<td>
-				<?php echo $lb["quizzes_played"]; ?>
-				<a class="toggledetail">Details</a>
+				<?php echo $lb["quizzes_played"]; ?> <br>
+				<a class="small toggledetail"> <span class="glyphicon glyphicon-chevron-down"></span> Details</a>
 			</td>
 
 			<td>
@@ -120,7 +119,7 @@ $prev_team_id = "!!START!!";
 		<tr id="<?php echo $lb["team_id"]; ?>" class="detailrow hidden" >
 				<td><!-- empty col, for indent --></td>
 				<td colspan="4">
-					<strong>Quizzes Played:</strong>
+					<h4>Quizzes Played:</h4>
 					<table class="table table-condensed">
 
 					<thead>
@@ -151,17 +150,16 @@ $prev_team_id = "!!START!!";
 
 ?>
 
-
-</table>
+</table> </tr><!-- end last detail table  and row -->
+</table> <!-- the main table -->
 <script>
-$(function () {
-    // $(".detailrow").addClass("hidden");
-    $('a.toggledetail').click(function () {
-        var target = $(this).nextAll('tr.detailrow:first');
-        $(".detailrow").not(target).addClass("hidden");
-        target.toggleClass("hidden");
-    });
-});
+
+   $(".toggledetail").click(function(){
+	$(this).closest('tr').next('tr').toggleClass("hidden");
+	// $(this).next('tr.detailrow').toggleClass("hidden");
+
+
+   });
 </script>
 
 
