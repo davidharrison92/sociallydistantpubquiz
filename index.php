@@ -79,10 +79,10 @@ if (array_key_exists("teamID", $_SESSION)){
                 </div> -->
 
                 <div class="jumbotron">
-                <h1>Next Quiz: This Friday</h1>
-                    <p class="lead">Lockdown is still here... and so are we</p>
-                    <p>Pub Quiz Streams will return on Friday 27<sup>th</sup> of November at 8:00 GMT</p>
-                    <p class="small">We've got some truly wonderful things planned this time round, you won't want to miss it.</p>
+                <h1>Pub Quizmas Charity Extravaganza!</h1>
+                    <p class="lead">We're saying "fuck off" to 2020 in style.</p>
+                    <p>This week we're raising money for Great Barr Foodbank. As well as the quiz, you'll also be able to buy one-of-a-kind shit from <a href="https://sociallydistant.pub/store/">our store</a>. Every penny you donate goes to charity.</p>
+                    <p class="small"><a href="newteam.php">Register now</a> and join us on Friday at 8PM sharp.</p>
                     <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
                 </div>
 
