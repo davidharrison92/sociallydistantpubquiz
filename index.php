@@ -79,11 +79,11 @@ if (array_key_exists("teamID", $_SESSION)){
                 </div> -->
 
                 <div class="jumbotron">
-                <h1>Pub Quizmas Charity Extravaganza!</h1>
+                <h1>Quizmas Charity Extravaganza!</h1>
                     <p class="lead">We're saying "fuck off" to 2020 in style.</p>
-                    <p>This week we're raising money for Great Barr Foodbank. As well as the quiz, you'll also be able to buy one-of-a-kind shit from <a href="https://sociallydistant.pub/store/">our store</a>. Every penny you donate goes to charity.</p>
+                    <p>This week we're raising money for The Trussell Trust and Mind. As well as the quiz, you'll also be able to buy one-of-a-kind shit from <a href="https://sociallydistant.pub/store/">our store</a>. Every penny you donate goes to these charities.</p>
                     <p class="small"><a href="newteam.php">Register now</a> and join us on Friday at 8PM sharp.</p>
-                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a>
+                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a> <a class="btn btn-link btn-lg" href="charity.html" target="_blank" role="button">Learn More</a></p>
                 </div>
 
                 <div class="row">
