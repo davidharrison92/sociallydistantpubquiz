@@ -56,7 +56,6 @@ if ($charity_total > 350 and $charity_total <= 1000) {
 <body>
 
 	<h1>Current Total: <strong>£<?php echo number_format($charity_total,2,'.',','); ?> </strong><br>
-	<span class="lead"> <?php echo $note; ?></span> </h1>
 
 
 			<h3>Last Donation: <?php echo ucwords($last_donor_name, ' ') . ', £' . number_format($last_donor_amount,2,'.',','); ?>!, Thank You!</h3>
