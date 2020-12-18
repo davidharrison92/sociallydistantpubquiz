@@ -81,9 +81,14 @@ if (array_key_exists("teamID", $_SESSION)){
                 <div class="jumbotron">
                 <h1>Quizmas Charity Extravaganza!</h1>
                     <p class="lead">We're saying "fuck off" to 2020 in style.</p>
-                    <p>This week we're raising money for The Trussell Trust and Mind. As well as the quiz, you'll also be able to buy one-of-a-kind shit from <a href="https://sociallydistant.pub/store/">our store</a>. Every penny you donate goes to these charities.</p>
+                    <p>This week we're raising money for <strong>The Trussell Trust</strong> and <strong>Mind</strong>.</p>
+                    <p>As well as the quiz, you'll also be able to buy one-of-a-kind shit from <a href="https://sociallydistant.pub/store/">our store</a>. Every penny you donate goes to these charities.</p>
                     <p class="small"><a href="newteam.php">Register now</a> and join us on Friday at 8PM sharp.</p>
-                    <p><a class="btn btn-success btn-lg" href="newteam.php" role="button">Register your team!</a> <a class="btn btn-link btn-lg" href="charity.html" target="_blank" role="button">Learn More</a></p>
+                    <p>
+                        <a class="btn btn-warning btn-lg" href="newteam.php" role="button">Register your team!</a> 
+                        <a class="btn btn-success btn-lg" href="https://sociallydistant.pub/store/?product_cat=charity" role="button"><span class="glyphicon glyphicon-heart"></span> Donate</a>
+                        <a class="btn btn-link btn-lg" href="charity.html" target="_blank" role="button">Learn More</a>
+                    </p>
                 </div>
 
                 <div class="row">

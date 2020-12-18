@@ -40,8 +40,8 @@ function site_tabs($current_round, $quiz_complete){
                         <li><a href="manage_team.php" <?php echo site_tabs($current_round, $quiz_complete); ?> ><strong>My Team</strong></a></li>
 
                     <?php } ?>
-                <li><a href="https://sociallydistant.pub/store/" <?php echo site_tabs($current_round, $quiz_complete); ?>>
-                    <strong>Raffle</strong>
+                <li class="text-primary"><a href="https://sociallydistant.pub/store/"  <?php echo site_tabs($current_round, $quiz_complete); ?>>
+                    <strong><span class="glyphicon glyphicon-heart"></span> Donate!</strong>
                 </a></li>
                 <li><a href="about.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >Help!</a></li>
                 <li><a href="your_answers.php" <?php echo site_tabs($current_round, $quiz_complete); ?> >Your Score</a></li>
